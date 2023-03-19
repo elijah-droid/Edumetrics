@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from Students.models import Student
 from .forms import StudentForm
