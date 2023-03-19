@@ -1,0 +1,38 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">Parent Subscriptions</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead"></small>
+        <a href="{% url 'subscribe-parent' %}" class="btn btn-sm btn-dark">Add Payment</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Parent</th>
+                    <th class="text-nowrap" scope="col">Date</th>
+                    <th class="text-nowrap" scope="col">Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subscription in subscriptions %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{subscription.Parent}}</td>
+                    <td class="text-nowrap text-dark">{{subscription.Date}}</td>
+                    <td class="text-nowrap"></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No parents have subscribed.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

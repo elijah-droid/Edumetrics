@@ -1,0 +1,51 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <img style="border-radius: 50%;" class="img mb-2" src="{% static 'img/user.jpg' %}"></img>
+        <div class="text-center mb-4">
+            <h6 class="mb-0">Prototype Report</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">Subject</th>
+                        <th class="text-nowrap" scope="col">Score</th>
+                        <th class="text-nowrap" scope="col">Grade</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-nowrap">Mathematics</td>
+                        <td class="text-nowrap">55%</td>
+                        <td>C5</td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">English</td>
+                        <td class="text-nowrap">75%</td>
+                        <td>C5</td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">Science</td>
+                        <td class="text-nowrap">86%</td>
+                        <td>D2</td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap">Social Studies</td>
+                        <td class="text-nowrap">67%</td>
+                        <td>C4</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    <div class="justify-content-between d-flex mt-3">
+        <button class="btn btn-sm btn-primary">Annalysis</button>
+    </div>
+    </div>
+</div>
+{% endblock %}

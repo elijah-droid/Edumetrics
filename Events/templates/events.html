@@ -1,0 +1,38 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Upcoming Events</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead text-dark">15</small>
+        <a href="{% url 'schedule-event' %}" class="btn btn-sm btn-dark">Schedule</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Name</th>
+                    <th class="text-nowrap" scope="col">Time to start</th>
+                    <th class="text-nowrap" scope="col">Time to end</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in user.schooladministrator.current_school.Events.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{event}}</td>
+                    <td class="text-nowrap text-dark">{{event.start_time}}</td>
+                    <td class="text-nowrap">{{event.end_time}}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Events have been scheduled</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

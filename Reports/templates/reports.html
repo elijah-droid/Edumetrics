@@ -1,0 +1,105 @@
+{% extends request.session.base %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    
+</div>
+<div class="container text-center">
+    <h1 class="lead">Student Reports</h1>
+</div>
+<hr>
+<div class=" d-flex justify-content-between container">
+    <a href="{% url 'create-batch' %}" class="btn btn-sm btn-dark">Create Batch</a>
+    <a href="{% url 'create-batch' %}" class="btn btn-sm btn-dark">Publish Batch</a>
+</div>
+
+ {% for report in reports %}
+ {% if report.Examination.School == user.schooladministrator.current_school %}
+ <div class="container-fluid pt-4 px-4">
+    <div id="report" class="bg-light rounded p-4">
+        <div class="text-center">
+            <small class="lead text-dark">{{report.Examination.School}}</small>
+        </div>
+        <hr>
+        <div class="container text-dark">
+            <div class="d-flex justify-content-between mb-2">
+                <small class="text-nowrap">Name: <span style="border-bottom: 1px dotted black;">{{report.Student}}</span></small>
+                <br>
+                <small class="text-nowrap">Term: <span style="border-bottom: 1px dotted black;">One</span></small>
+                <br>
+                <small class="text-nowrap">Position: <span style="border-bottom: 1px dotted black;">11th</span></small>
+                <br>
+                <small class="text-nowrap">Class: <span style="border-bottom: 1px dotted black;">{{report.Student.Class}}</span></small>
+                <br>
+                <small class="text-nowrap">Year: <span style="border-bottom: 1px dotted black;">{{report.Examination.Date.year}}</span></small>
+                <br>
+                <small class="text-nowrap">Out Of: <span style="border-bottom: 1px dotted black;">306</span></small>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered border-dark table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">Subject</th>
+                        <th class="text-nowrap" scope="col">Score</th>
+                        <th class="text-nowrap" scope="col">Grade</th>
+                        <th class="text-nowrap" scope="col">Comment</th>
+                    </tr>
+                </thead>
+                <tbody class="text-dark">
+                    {% for score in report.Scores.all %}
+                    <tr>
+                        <td class="text-nowrap text-primary">{{score.Subject}}</td>
+                        <td class="text-nowrap">{{score.Score}}%</td>
+                        <td class="text-nowrap">{{score.Grade.Name}}</td>
+                        <td class="text-nowrap">Very Good</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td class="text-nowrap text-dark">Aggregate</td>
+                        <td class="text-nowrap"></td>
+                        <td class="text-nowrap">{{report.Aggregate}}</td>
+                        <td class="text-nowrap"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap text-dark">Division</td>
+                        <td class="text-nowrap"></td>
+                        <td class="text-nowrap"></td>
+                        <td class="text-nowrap">I</td>
+                    </tr>
+                    <tr>
+                        <td class="text-nowrap text-dark">Total Score</td>
+                        <td class="text-nowrap">{{report.Total_Score}}</td>
+                        <td class="text-nowrap"></td>
+                        <td class="text-nowrap"></td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+        <div class="d-flex justify-content-between text-dark mt-3">
+            <div class="text-start">
+                <small>Class Teacher's Report:</small>
+                <br>
+                <small>Head Teacher's Report:</small>
+            </div>
+        </div>
+    </div>
+    <div class="justify-content-between d-flex mt-3">
+        <div class="btn-group">
+            <a href="{% url 'edit-report' report.id %}">
+                <button class="btn btn-sm btn-primary">Edit</button>
+            </a>
+        </div>
+        <button id="generate-pdf" class="btn btn-sm btn-dark">PDF</button>
+    </div>
+    <hr>
+</div>
+{% endif %}
+ {% empty %}
+ <div class="text-center mt-3">
+    <small class="lead">No Reports Available at the moment</small>
+ </div>
+ {% endfor %}
+{% endblock %}

@@ -1,0 +1,24 @@
+from django.db import models
+from django.utils.timezone import now
+
+days = (
+    ('Monday', 'Monday'),
+    ('Tuesday', 'Tuesday'),
+    ('Wednesday', 'Wednesday'),
+    ('Thursday', 'Thursday'),
+    ('Friday', 'Friday'),
+    ('Saturday', 'Saturday'),
+    ('Sunday', 'Sunday')
+)
+
+class Lesson(models.Model):
+    School = models.ForeignKey('Schools.School', models.CASCADE)
+    Class = models.ForeignKey('Classes.Class', models.CASCADE)
+    Day = models.CharField(max_length=100, choices=days)
+    From = models.TimeField(default=now)
+    To = models.TimeField(default=now)
+    Subject = models.ForeignKey('Subjects.Subject', models.CASCADE)
+    Teacher = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)
+
+    class Meta:
+        unique_together = ('School', 'Class', 'Teacher', 'Subject', 'Day')

@@ -1,0 +1,36 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Parents</small>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Names</th>
+                    <th class="text-nowrap" scope="col">Students</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for parent in parents %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{parent}}</td>
+                    <td class="text-nowrap text-dark">{% for child in parent.children.all %}{% if child.school == user.schooladministrator.current_school %}<small>{{child}}</small><br>{% endif %}{% endfor %}</td>
+                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Bio</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No students have been added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

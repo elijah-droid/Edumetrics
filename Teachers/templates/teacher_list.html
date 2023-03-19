@@ -1,0 +1,43 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Teaching Staff</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead text-dark">15</small>
+        <a href="{% url 'recruit-teacher' %}" class="btn btn-sm btn-dark">Recruit</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Names</th>
+                    <th class="text-nowrap" scope="col">Classes</th>
+                    <th class="text-nowrap" scope="col">Subjects</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{teacher}}</td>
+                    <td class="text-nowrap text-dark">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Add Responsibilities</a>
+                        <a href="" class="btn btn-sm btn-primary">View Responsibilities</a>
+                        <a href="" class="btn btn-sm btn-dark">Activity</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No students have been added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

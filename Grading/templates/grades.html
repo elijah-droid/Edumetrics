@@ -1,0 +1,45 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Grading Interface</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="" class="btn btn-sm btn-dark">Grade Reports</a>
+        <a href="{% url 'add-grade' %}" class="btn btn-sm btn-dark">Add New</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">From</th>
+                    <th class="text-nowrap" scope="col">To</th>
+                    <th class="text-nowrap" scope="col">Grade</th>
+                    <th class="text-nowrap" scope="col">Classes</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-dark">
+                {% for grade in user.schooladministrator.current_school.Grades.all|dictsort:"From" %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{grade.From}}</td>
+                    <td class="text-nowrap text-dark">{{grade.To}}</td>
+                    <td class="text-nowrap">{{grade.Name}}</td>
+                    <td class="text-nowrap text-dark">{% for class in grade.Classes.all %}<small>{{class}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Delete</a>
+                        <a href="" class="btn btn-sm btn-primary">Statistics</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No grades have been added</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

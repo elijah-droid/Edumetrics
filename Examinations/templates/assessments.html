@@ -1,0 +1,28 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{exam}} Assessments</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-primary">Download PDF</a>
+        <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-dark">Download Excel</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Student</th>
+                    {% for subject in user.schooladministrator.current_school.Subjects.all %}
+                    <th class="text-nowrap" scope="col">{{subject}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="text-center mb-4">
+            <h6 class="mb-0">Edit {{report.Examination}} Report</h6>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-dark">
+                            <th scope="col">Subject</th>
+                            <th class="text-nowrap" scope="col">Score</th>
+                            <th class="text-nowrap" scope="col">Grade</th>
+    
+                        </tr>
+                    </thead>
+                    <tbody class="text-dark">
+                        {% for score in report.Scores.all %}
+                        <tr>
+                            <td class="text-nowrap">{{score.Subject}}</td>
+                            <td class="text-nowrap"><input required type="number" name="{{score.pk}}" value="{{score.Score}}" class="" placeholder="Enter score"></td>
+                            <td>
+                                <select required name="{{score.pk}}grade" class="form-control" id="">
+                                    <option value="">_____</option>
+                                    {% for grade in user.schooladministrator.current_school.Grades.all %}
+                                    <option {% if grade == score.Grade %}selected{% endif %} value="{{grade.pk}}">{{grade.Name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="justify-content-between d-flex mt-3">
+                <button class="btn btn-sm btn-dark">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Administrators</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <span></span>
+        <a href="" class="btn btn-sm btn-dark">Add New</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Names</th>
+                    <th class="text-nowrap" scope="col">Role</th>
+                    <th class="text-nowrap" scope="col">Permissions</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{admin}}</td>
+                    <td class="text-nowrap text-dark">{{student.Class}}</td>
+                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Change Permissions</a>
+                        <a href="" class="btn btn-sm btn-primary">View Actions</a>
+                        <a href="" class="btn btn-sm btn-dark">Deny Access</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No administrators have been added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
