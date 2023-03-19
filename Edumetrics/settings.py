@@ -72,7 +72,6 @@ INSTALLED_APPS = [
     'Grading',
     'Subscriptions',
     'Circulars',
-    'django_celery_beat',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
