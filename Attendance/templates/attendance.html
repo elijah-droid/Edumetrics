@@ -1,60 +1,44 @@
 {% extends request.session.base %}
-{% load static %}
 
 {% block content %}
-<div class="">
-  <div class="d-flex justify-content-between mb-3 container">
-    <h1 class="lead">{{user.schooladministrator.current_school}} attendance records</h1>
-    <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Add</a>
-  </div>
-  <div class="container-fluid mb-3">
-    <div class="bg-light text-center rounded">
-        <div class="d-flex align-items-center mb-4">
-            <h6 class="mb-0">{{ class.Name }}</h6>
-        </div>
-        <div class="table-responsive">
-            <table class="table text-start align-middle table-bordered table-hover mb-0">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Students</th>
-                    <th>Teachers</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for teacher in teachers %}
-                    <tr>
-                        <td>
-                            <img style="border-radius: 50%;" class="img mb-2" src="{% static 'img/user.jpg' %}"></img>
-                        </td>
-                        <td>{{ teacher.user.first_name }}</td>
-                        <td>{{ student.user.last_name }}</td>
-                        <td>
-                            
-                        </td>
-                        <td>
-                            <div class="mb-3 btn btn-sm btn-primary">
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle text-white text-center" data-bs-toggle="dropdown">Options</a>
-                                    <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                                        <a href="" class="dropdown-item">View Reports</a>
-                                        <a href="{% url 'login-parent' %}" class="dropdown-item">Delete</a>
-                                        <a href="{% url 'login-teacher' %}" class="dropdown-item">Re-Schedule</a>
-                                    </div>
-                                </div> 
-
-                            </div>
-                        </td>
-                    </tr>
-                  {% empty %}
-                    <tr>
-                      <td colspan="3">No attendance records</td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-            </table>
-        </div>
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Daily attendance records</small>
     </div>
-</div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead text-dark">{{user.schooladministrator.current_school.Examinations.count}}</small>
+        <a href="{% url 'add-attendance' %}" class="btn btn-sm btn-dark">Add</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Date</th>
+                    <th class="text-nowrap" scope="col">Students</th>
+                    <th class="text-nowrap" scope="col">Date to end</th>
+                    <th class="text-nowrap" scope="col">More</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exam in user.schooladministrator.current_school.Examinations.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{exam}}</td>
+                    <td class="text-nowrap text-dark">{{exam.Date}}</td>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap">
+                        <a href="{% url 'assessments' exam.pk %}" class="btn btn-sm btn-dark">Assesments</a>
+                        <a href="" class="btn btn-sm btn-primary">Reschedule</a>
+                        <a href="" class="btn btn-sm btn-dark">Reports</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Examinations have been scheduled</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

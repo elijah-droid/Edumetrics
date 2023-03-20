@@ -21,6 +21,18 @@
                 </tr>
             </thead>
             <tbody>
+                {% for student in user.schooladministrator.current_school.students.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{student}}</td>
+                    {% for subject in user.schooladministrator.current_school.Subjects.all %}
+                    <td class="text-nowrap text-dark">--|--</td>
+                    {% endfor %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Assessments available.</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

@@ -10,3 +10,10 @@ def index(request):
 
 def user_dashboard(request):
     return render(request, 'user_dashboard.html')
+
+def contact_us(request):
+    return render(request, 'contact_us.html')
+
+def about_us(request):
+    return render(request, 'about.html')
+

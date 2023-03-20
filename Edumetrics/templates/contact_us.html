@@ -1,0 +1,39 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+{% block content %}
+        <!-- Appointment Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="rounded">
+                    <div class="row g-0">
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="h-100 d-flex flex-column justify-content-center p-3">
+                                <div class="row g-5 ">
+                                    <div class="col-lg-3 col-md-6 text-nowrap text-dark">
+                                        <h3 class="text-dark mb-4">Get In Touch</h3>
+                                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Kampala, Uganda</p>
+                                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+256 789592019</p>
+                                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@edumetrics.inc</p>
+                                        <div class="d-flex pt-2">
+                                            <a class="btn btn-outline-dark btn-social p-2" href=""><i class="fab fa-twitter"></i></a>
+                                            <a class="btn btn-outline-dark btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                                            <a class="btn btn-outline-dark btn-social" href=""><i class="fab fa-youtube"></i></a>
+                                            <a class="btn btn-outline-dark btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/support.jpg' %}" style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Appointment End -->
+{% endblock %}
