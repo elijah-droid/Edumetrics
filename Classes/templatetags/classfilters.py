@@ -6,5 +6,10 @@ register = template.Library()
 
 @register.filter
 def attendance(clas, request):
-    att = Attendance.objects.get(Class=clas, School=request.user.schooladministrator.current_school, Date=now().date)
-    return att.Students
+    try:
+        att = Attendance.objects.get(Class=clas, School=request.user.schooladministrator.current_school, Date=now())
+        return att.Students
+    except Attendance.DoesNotExist:
+        return 0
+
+
