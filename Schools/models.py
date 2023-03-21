@@ -24,6 +24,7 @@ class School(models.Model):
     Grades = models.ManyToManyField('Grading.Grade', blank=True)
     Divisions = models.ManyToManyField('Grading.Division', blank=True)
     Subjects = models.ManyToManyField('Subjects.Subject', blank=True)
+    attendance = models.ManyToManyField('Attendance.Attendance', blank=True)
 
     def __str__(self):
         return self.name

@@ -4,7 +4,10 @@ from django.utils.timezone import now
 
 
 class Attendance(models.Model):
-    School = models.ForeignKey('Schools.School', models.SET_NULL, null=True)
+    School = models.ForeignKey('Schools.School', models.SET_NULL, null=True, related_name='daily_attendance')
     Date = models.DateField(default=now)
+    Class = models.ForeignKey('Classes.Class', models.SET_NULL, null=True)
     Students = models.PositiveIntegerField(default=0)
-    Teacher = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('Date', 'School', 'Class')

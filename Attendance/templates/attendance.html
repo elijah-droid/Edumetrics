@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <small class="lead text-dark">{{user.schooladministrator.current_school.Examinations.count}}</small>
+        <small class="lead text-dark"></small>
         <a href="{% url 'add-attendance' %}" class="btn btn-sm btn-dark">Add</a>
     </div>
     <div class="table-responsive">
@@ -15,26 +15,24 @@
             <thead>
                 <tr class="text-dark">
                     <th scope="col">Date</th>
-                    <th class="text-nowrap" scope="col">Students</th>
-                    <th class="text-nowrap" scope="col">Date to end</th>
-                    <th class="text-nowrap" scope="col">More</th>
+                    <th class="text-nowrap" scope="col">Class</th>
+                    <th class="text-nowrap" scope="col">Students Attended</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for exam in user.schooladministrator.current_school.Examinations.all %}
+                {% for attendance in user.schooladministrator.current_school.attendance.all %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{exam}}</td>
-                    <td class="text-nowrap text-dark">{{exam.Date}}</td>
-                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap text-dark">{{attendance.Date}}</td>
+                    <td class="text-nowrap text-dark">{{attendance.Class}}</td>
+                    <td class="text-nowrap text-dark">{{attendance.Students}}</td>
                     <td class="text-nowrap">
-                        <a href="{% url 'assessments' exam.pk %}" class="btn btn-sm btn-dark">Assesments</a>
-                        <a href="" class="btn btn-sm btn-primary">Reschedule</a>
-                        <a href="" class="btn btn-sm btn-dark">Reports</a>
+                        <a href="" class="btn btn-sm btn-dark">Details</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td>No Examinations have been scheduled</td>
+                    <td>No Attendance data has been registered.</td>
                 </tr>
                 {% endfor %}
             </tbody>
