@@ -45,6 +45,22 @@ def parents_login(request):
         return render(request, 'parent_login.html')
 
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            request.session['base'] = 'user_dashboard.html'
+            return redirect('user-dashboard')
+        else:
+            error_message = 'Invalid login credentials'
+            return render(request, 'user_login.html', {'error': error_message})
+    else:
+        return render(request, 'user_login.html')
+
+
 def student_login(request):
     if request.method == 'POST':
         # Get the email and password from the login form
