@@ -60,4 +60,8 @@ def view_exam_reports(request, exam):
 
 
 def assessments(request, exam):
-    return render(request, 'assessments.html')
+    exam = request.user.schooladministrator.current_school.Examinations.get(pk=exam)
+    context = {
+        'exam': exam
+    }
+    return render(request, 'assessments.html', context)

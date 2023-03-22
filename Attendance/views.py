@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
 from .forms import AttendanceForm
 from django.utils.timezone import now
+from django.utils import timezone
+from .models import Attendance
 
 def attendance(request):
     return render(request, 'attendance.html')
 
 def add_attenance(request):
-    form = AttendanceForm()
-    attendance = Attendance.objects.filter(Date=now().date())
-    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
+    form = AttendanceForm(initial={'Date': now()})
+    print(timezone.get_current_timezone())
+    attendance = Attendance.objects.filter(Date=now())
+    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.exclude(pk__in=attendance.values('Class__id'))
     context = {
         'form': form
     }

@@ -1,4 +1,5 @@
 {% extends request.session.base %}
+{% load assessments %}
 
 {% block content %}
 <div class="container text-dark">
@@ -18,6 +19,7 @@
                     {% for subject in user.schooladministrator.current_school.Subjects.all %}
                     <th class="text-nowrap" scope="col">{{subject}}</th>
                     {% endfor %}
+                    <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,8 +27,11 @@
                 <tr>
                     <td class="text-nowrap text-dark">{{student}}</td>
                     {% for subject in user.schooladministrator.current_school.Subjects.all %}
-                    <td class="text-nowrap text-dark">--|--</td>
+                    <td class="text-nowrap text-dark">{% get_score exam student subject %}</td>
                     {% endfor %}
+                    <td class="text-nowrap text-dark">
+                        <a href="{% edit_report exam student %}" class="btn btn-sm btn-dark">Edit Marks</a>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>

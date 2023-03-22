@@ -65,8 +65,9 @@ def edit_report(request, report):
         report.Total_Score = sum([sc.Score for sc in report.Scores.all()])
         report.Aggregate = sum([sc.Grade.Value for sc in report.Scores.all()])
         report.save()
-        return redirect('reports')
+        return redirect(request.session['next'])
     else:
+        request.session['next'] = request.META.get('HTTP_REFERER')
         return render(request, 'edit_report.html', context)
 
 
