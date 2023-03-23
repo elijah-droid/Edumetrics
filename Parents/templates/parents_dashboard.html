@@ -13,6 +13,7 @@
         <a href="{% url 'circulars' %}" class="dropdown-item">Reports</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Circulars</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Assessments</a>
+        <a href="{% url 'circulars' %}" class="dropdown-item text-nowrap">Fees Payments</a>
     </div>
 </div>
 {% endblock %}
@@ -85,8 +86,8 @@
                     {% for child in user.parent.children.all %}
                     <tr>
                         <td class="text-nowrap">{{child}}</td>
-                        <td>{{child.School}}</td>
-                        <td></td>
+                        <td class="text-nowrap">{{child.school}}</td>
+                        <td class="text-nowrap">430,000 UGX</td>
                         <td class="text-nowrap">
                             <a href="" class="btn btn-sm btn-dark">Reports</a>
                             <a href="" class="btn btn-sm btn-primary">More Info</a>
