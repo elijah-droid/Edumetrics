@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block nav %}
 <a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">Dashboard</a>
 <div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Modules</a>
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Data</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-        <a href="{% url 'attendance' %}" class="dropdown-item">Attendance</a>
-        <a href="{% url 'examinations' %}" class="dropdown-item">Examinations</a> 
+        <a href="{% url 'attendance' %}" class="dropdown-item">Students</a>
+        <a href="{% url 'examinations' %}" class="dropdown-item">Tallies</a> 
         <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Lessons</a>
     </div>
 </div>
@@ -15,226 +16,177 @@
 <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">current school</a>
     <div class="dropdown-menu bg-transparent border-0">
-        {% for school in user.teacher.Schools.all %}
-        <a href="{% url 'login-parent' %}" class="dropdown-item {% if school == user.teacher.current_school %}active{% endif %}">{{school}}</a>
+        {% for work in user.teacher.work_profile.all %}
+        <a href="{% url 'login-parent' %}" class="dropdown-item {% if school == user.teacher.current_school %}active{% endif %}">{{work.School}}</a>
         {% endfor %}
     </div>
 </div>
 {% endblock %}
 
 {% block content %}
+<div class="mt-3 text-center"> 
+    <small class="lead text-dark"><u>Teachers Dashboard</u></small>
+</div>
+<!-- Sale & Revenue Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-dark text-white rounded d-flex align-items-center justify-content-between p-4">
+                <i class="bi bi-people-fill fa-3x"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-nowrap">Students</p>
+                    <h6 class="mb-0 text-white">{{user.schooladministrator.current_school.students.count}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-dark text-white rounded d-flex align-items-center justify-content-between p-4">
+                <i class="bi bi-clipboard-data fa-3x"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-nowrap">Reports</p>
+                    <h6 class="mb-0 text-white">{{user.schooladministrator.current_school.students.count}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-dark text-white rounded d-flex align-items-center justify-content-between p-4">
+                <i class="bi bi-calendar-day fa-3x"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-nowrap">Lessons</p>
+                    <h6 class="mb-0 text-white">{{user.schooladministrator.current_school.students.count}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-dark text-white rounded d-flex align-items-center justify-content-between p-4">
+                <i class="bi bi-cash-stack fa-3x"></i>
+                <div class="ms-3">
+                    <p class="mb-2 text-nowrap">Total Fees Balance</p>
+                    <h6 class="mb-0 text-white">0 UGX</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">ANNUAL UNEB PERFORMANCE MATHS</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <canvas id="worldwide-sales"></canvas>
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Today's Lessons</h6>
+            <a href="">Show All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start text-dark align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">Subject</th>
+                        <th class="text-nowrap" scope="col">Time</th>
+                        <th class="text-nowrap" scope="col">End Time</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lesson in lessons %}
+                    <tr>
+                        <td class="text-nowrap">{{lesson.Subject}}</td>
+                        <td class="text-nowrap">{{lesson.From}}</td>
+                        <td class="text-nowrap">{{lesson.To}}</td>
+                        <td class="text-nowrap">
+                            <a href="" class="btn btn-sm btn-dark">Roll Call</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td class="text-nowrap">No lessons found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Recent Sales End -->
+
+
+<!-- Widgets Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-md-6 col-xl-4">
+            <div class="h-100 bg-dark rounded p-4">
+                <div class="d-flex align-items-center text-white justify-content-between mb-2">
+                    <small class="mb-0 lead">Messages</small>
+                    <a href="">Show All</a>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                    <img class="rounded-circle flex-shrink-0" src="{% static 'img/user.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3 text-white">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small style="font-size: small;" class="mb-0 lead text-white">Principal</small>
+                            <small>15 minutes ago</small>
                         </div>
+                        <span>Short message goes here...</span>
                     </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Salse & Revenue</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <canvas id="salse-revenue"></canvas>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                    <img class="rounded-circle flex-shrink-0" src="{% static 'img/default_user.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3 text-white">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small style="font-size: small;" class="mb-0 lead text-white">D.O.S</small>
+                            <small>30 minutes ago</small>
                         </div>
+                        <span>Short message goes here...</span>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center border-bottom py-3">
+                    <img class="rounded-circle flex-shrink-0" src="{% static 'img/ceo.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                    <div class="w-100 ms-3 text-white">
+                        <div class="d-flex w-100 justify-content-between">
+                            <small style="font-size: small;" class="mb-0 lead text-white">Elijah</small>
+                            <small>45 minutes ago</small>
+                        </div>
+                        <span>Short message goes here...</span>
                     </div>
                 </div>
             </div>
-            <!-- Sales Chart End -->
-
-
-
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Upcoming Lessons</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Class</th>
-                                    <th scope="col">Stream</th>
-                                    <th scope="col">Subject</th>
-                                    <th class="text-nowrap" scope="col">Time Left</th>
-                                    <th class="text-nowrap" scope="col">Students Present</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td class="text-nowrap">1 PM</td>
-                                    <td class="text-nowrap">Primary 7</td>
-                                    <td>J</td>
-                                    <td>Mathematics</td>
-                                    <td class="text-nowrap">2 hrs 50 seconds</td>
-                                    <td>170 out of 270</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-xl-4">
+            <div class="h-100 bg-dark rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <small class="mb-0 text-white lead">Published Circulars</small>
+                    <a href="">Show All</a>
                 </div>
-            </div>
-
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Recent Performance</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                                    <th scope="col">Examination</th>
-                                    <th class="text-nowrap" scope="col">Distinction Ones</th>
-                                    <th class="text-nowrap" scope="col">Distinction Twos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input class="form-check-input" type="checkbox"></td>
-                                    <td class="text-nowrap">Beginning Of Term</td>
-                                    <td class="text-nowrap">10</td>
-                                    <td>30</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Widgets Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <h6 class="mb-0">Messages</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-3">
-                                <img class="rounded-circle flex-shrink-0" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-0">Jhon Doe</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                    <span>Short message goes here...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Calender</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div id="calender"></div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-light rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Upcoming Events</h6>
-                                <a href="">Show All</a>
-                            </div>
-                            <div class="d-flex mb-2">
-                                <input class="form-control bg-transparent" type="text" placeholder="Enter task">
-                                <button type="button" class="btn btn-primary ms-2">Add</button>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox" checked>
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span><del>Short task goes here...</del></span>
-                                        <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center pt-2">
-                                <input class="form-check-input m-0" type="checkbox">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span>Short task goes here...</span>
-                                        <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </div>
+                {% for exam in user.schooladministrator.current_school.Examinations.all %}
+                <div class="d-flex align-items-center border-bottom py-2">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <span class="text-white">{{exam}}</span>
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                <small style="font-size: medium;" class="lead text-white">No upcoming examinations</small>
+                {% endfor %}
             </div>
-            <!-- Widgets End -->
+        </div>
+        <div class="col-sm-12 col-md-6 col-xl-4">
+            <div class="h-100 bg-dark rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <small class="mb-0 text-white lead">Upcoming Events</small>
+                    <a href="">Show All</a>
+                </div>
+                {% for event in user.schooladministrator.current_school.Events.all %}
+                <div class="d-flex align-items-center border-bottom py-2">
+                    <div class="w-100 ms-3">
+                        <div class="d-flex w-100 align-items-center justify-content-between">
+                            <span class="text-white">{{event}}</span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <small style="font-size: medium;" class="lead text-white">No upcoming events</small>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

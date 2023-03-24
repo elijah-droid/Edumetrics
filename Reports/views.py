@@ -4,6 +4,7 @@ from django.contrib import messages
 from .models import Report
 from .forms import BatchReportsForm
 import random
+from Students.models import Student
 
 
 def batch_reports(request):
@@ -40,12 +41,18 @@ def batch_reports(request):
 
 def reports(request):
     reports = Report.objects.all()
-
     context = {
         'reports': reports
     }
-
     return render(request, 'reports.html', context)
+
+
+def student_reports(request, student):
+    student = Student.objects.get(id=student)
+    context = {
+        'student': student
+    }
+    return render(request, 'student_reports.html', context)
 
 
 def edit_report(request, report):

@@ -2,10 +2,15 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Teacher
 from .forms import TeachersForm
+from Lessons.models import Lesson
 
 @login_required
 def teachers_dashboard(request):
-    return render(request, 'teachers_dashboard.html')
+    lessons = Lesson.objects.filter(Teacher__user=request.user)
+    context = {
+        'lessons': lessons
+    }
+    return render(request, 'teachers_dashboard.html', context)
 
 
 @login_required

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block nav %}
-<a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">Dashboard</a>
+<a href="{% url 'parent_dashboard' %}" class="nav-item nav-link">Dashboard</a>
 <a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">My Kids</a>
 <a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">Notifications</a>
 <a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">Messages</a>
@@ -89,7 +89,7 @@
                         <td class="text-nowrap">{{child.school}}</td>
                         <td class="text-nowrap">430,000 UGX</td>
                         <td class="text-nowrap">
-                            <a href="" class="btn btn-sm btn-dark">Reports</a>
+                            <a href="{% url 'student-reports' child.id %}" class="btn btn-sm btn-dark">Reports</a>
                             <a href="" class="btn btn-sm btn-primary">More Info</a>
                         </td>
                     </tr>
