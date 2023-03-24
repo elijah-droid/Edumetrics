@@ -1,0 +1,48 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Today's Lessons</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead text-dark"></small>
+        <a href="{% url 'new-lesson' %}" class="btn btn-sm btn-dark">Add New</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Subject</th>
+                    <th class="text-nowrap" scope="col">Teacher</th>
+                    <th class="text-nowrap" scope="col">Class</th>
+                    <th class="text-nowrap" scope="col">From</th>
+                    <th class="text-nowrap" scope="col">To</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for lesson in user.schooladministrator.current_school.Lessons.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{lesson.Subject}}</td>
+                    <td class="text-nowrap text-dark">{{lesson.Teacher}}</td>
+                    <td class="text-nowrap text-dark">{{lesson.Class}}</td>
+                    <td class="text-nowrap">{{lesson.From}}</td>
+                    <td class="text-nowrap">{{lesson.To}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Assesments</a>
+                        <a href="" class="btn btn-sm btn-primary">Reschedule</a>
+                        <a href="" class="btn btn-sm btn-dark">Reports</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No lessons have been added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

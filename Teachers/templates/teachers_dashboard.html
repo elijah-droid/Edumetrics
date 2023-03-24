@@ -82,6 +82,7 @@
                 <thead>
                     <tr class="text-dark">
                         <th scope="col">Subject</th>
+                        <th scope="col">Class</th>
                         <th class="text-nowrap" scope="col">Time</th>
                         <th class="text-nowrap" scope="col">End Time</th>
                         <th scope="col">Actions</th>
@@ -91,6 +92,7 @@
                     {% for lesson in lessons %}
                     <tr>
                         <td class="text-nowrap">{{lesson.Subject}}</td>
+                        <td class="text-nowrap">{{lesson.Class}}</td>
                         <td class="text-nowrap">{{lesson.From}}</td>
                         <td class="text-nowrap">{{lesson.To}}</td>
                         <td class="text-nowrap">

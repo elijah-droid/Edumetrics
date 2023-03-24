@@ -23,6 +23,7 @@ urlpatterns = [
     path('subscriptions/', include('Subscriptions.urls')),
     path('subjects/', include('Subjects.urls')),
     path('circulars/', include('Circulars.urls')),
+    path('lessons/', include('Lessons.urls')),
     path('accounts/', include('allauth.urls')),
     path('contact/us/', contact_us, name='contact-us'),
     path('about/us/', about_us, name="about"),
