@@ -23,3 +23,5 @@ def add_new(request):
             return redirect('lessons')
     else:
         return render(request, 'new_lesson.html', context)
+
+

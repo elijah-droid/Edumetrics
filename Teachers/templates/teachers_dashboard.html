@@ -96,7 +96,7 @@
                         <td class="text-nowrap">{{lesson.From}}</td>
                         <td class="text-nowrap">{{lesson.To}}</td>
                         <td class="text-nowrap">
-                            <a href="" class="btn btn-sm btn-dark">Roll Call</a>
+                            <a href="{% url 'roll-call' lesson.pk %}" class="btn btn-sm btn-dark">Roll Call</a>
                         </td>
                     </tr>
                     {% empty %}

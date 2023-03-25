@@ -11,3 +11,9 @@ class Attendance(models.Model):
 
     class Meta:
         unique_together = ('Date', 'School', 'Class')
+
+
+class RollCall(models.Model):
+    Date = models.DateTimeField(default=now)
+    Lesson = models.ForeignKey('Lessons.Lesson', models.CASCADE)
+    Attendees = models.ManyToManyField('Students.Student', blank=True)
