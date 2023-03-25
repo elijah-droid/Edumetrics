@@ -25,6 +25,7 @@ urlpatterns = [
     path('circulars/', include('Circulars.urls')),
     path('lessons/', include('Lessons.urls')),
     path('accounts/', include('allauth.urls')),
+    path('tallies/', include('Tallies.urls')),
     path('contact/us/', contact_us, name='contact-us'),
     path('about/us/', about_us, name="about"),
     path('admin/', admin.site.urls),

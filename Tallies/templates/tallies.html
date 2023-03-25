@@ -1,0 +1,46 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">Score Tallies</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead text-dark"></small>
+        <a href="{% url 'tally' %}" class="btn btn-sm btn-dark">Tally</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Subject</th>
+                    <th class="text-nowrap" scope="col">Student</th>
+                    <th class="text-nowrap" scope="col">Exam</th>
+                    <th class="text-nowrap" scope="col">From</th>
+                    <th class="text-nowrap" scope="col">To</th>
+                    <th class="text-nowrap" scope="col">More</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tally in tallies %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{tally.Score.Subject}}</td>
+                    <td class="text-nowrap text-dark">{{tally.Score.Report.Student}}</td>
+                    <td class="text-nowrap">{{tally.Score.Report.Examination}}</td>
+                    <td class="text-nowrap">{{tally.From}}</td>
+                    <td class="text-nowrap">{{tally.To}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Reverse</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Examinations have been scheduled</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
