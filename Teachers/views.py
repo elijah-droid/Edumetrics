@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Teacher
 from .forms import TeachersForm
 from Lessons.models import Lesson
+from django.utils.timezone import now
 
 @login_required
 def teachers_dashboard(request):
-    lessons = Lesson.objects.filter(Teacher__user=request.user)
+    day = now().strftime("%A")
+    lessons = Lesson.objects.filter(Teacher__user=request.user, Day=day)
     context = {
         'lessons': lessons
     }

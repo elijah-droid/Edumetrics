@@ -14,7 +14,8 @@
         <table class="table table-bordered text-dark">
             <thead>
                 <tr class="text-dark">
-                    <th scope="col">Subject</th>
+                    <th scope="col" class="text-nowrap " scope="col">Day</th>
+                    <th scope="">Subject</th>
                     <th class="text-nowrap" scope="col">Teacher</th>
                     <th class="text-nowrap" scope="col">Class</th>
                     <th class="text-nowrap" scope="col">From</th>
@@ -25,15 +26,15 @@
             <tbody>
                 {% for lesson in user.schooladministrator.current_school.Lessons.all %}
                 <tr>
+                    <th class="text-nowrap" scope="col">{{lesson.Day}}</th>
                     <td class="text-nowrap text-dark">{{lesson.Subject}}</td>
                     <td class="text-nowrap text-dark">{{lesson.Teacher}}</td>
                     <td class="text-nowrap text-dark">{{lesson.Class}}</td>
                     <td class="text-nowrap">{{lesson.From}}</td>
                     <td class="text-nowrap">{{lesson.To}}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Assesments</a>
-                        <a href="" class="btn btn-sm btn-primary">Reschedule</a>
-                        <a href="" class="btn btn-sm btn-dark">Reports</a>
+                        <a href="" class="btn btn-sm btn-dark">Delete</a>
+                        <a href="" class="btn btn-sm btn-primary">Attendance</a>
                     </td>
                 </tr>
                 {% empty %}

@@ -89,7 +89,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for lesson in lessons %}
+                    {% for lesson in lessons|dictsort:"From" %}
                     <tr>
                         <td class="text-nowrap">{{lesson.Subject}}</td>
                         <td class="text-nowrap">{{lesson.Class}}</td>

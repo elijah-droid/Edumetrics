@@ -8,6 +8,7 @@ class Teacher(models.Model):
     current_school = models.ForeignKey('Schools.School', models.SET_NULL, null=True)
     current_class = models.ForeignKey('Classes.Class', models.SET_NULL, null=True)
     current_stream = models.ForeignKey('Streams.Stream', models.SET_NULL, null=True)
+    Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
