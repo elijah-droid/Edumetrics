@@ -1,0 +1,11 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+{% block content %}
+<div class="text-center container">
+    <small class="lead text-dark">Page not found</small>
+    <br>
+    <img class="img img-fluid" src="{% static 'img/error.png' %}" alt="">
+</div>
+{% endblock %}

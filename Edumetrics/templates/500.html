@@ -1,0 +1,11 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+{% block content %}
+<div class="text-center container">
+    <small class="lead text-dark"><b>Sorry, Something Went Wrong. <br>Elijah is doing his best to put everything together.</b></small>
+    <hr>
+    <img class="img img-fluid" src="{% static 'img/error.png' %}" alt="">
+</div>
+{% endblock %}

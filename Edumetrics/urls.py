@@ -30,3 +30,6 @@ urlpatterns = [
     path('about/us/', about_us, name="about"),
     path('admin/', admin.site.urls),
 ]
+
+handler404 = 'Edumetrics.views.handler404'
+handler500 = 'Edumetrics.views.handler500'
