@@ -10,4 +10,9 @@ def tallies(request):
 
 
 def tally(request):
-    return render(request, 'tally.html')
+    profile = request.user.teacher.current_profile
+    examinations = profile.School.Examinations.filter(Classes__in=profile.Classes.all()).distinct()
+    context = {
+        'exams': examinations
+    }
+    return render(request, 'tally.html', context)

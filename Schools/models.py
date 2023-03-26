@@ -26,6 +26,7 @@ class School(models.Model):
     Subjects = models.ManyToManyField('Subjects.Subject', blank=True)
     Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)
     attendance = models.ManyToManyField('Attendance.Attendance', blank=True)
+    Circulars = models.ManyToManyField('Circulars.Circular', blank=True)
 
     def __str__(self):
         return self.name

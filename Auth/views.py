@@ -118,10 +118,9 @@ def teacher_login(request):
             user = None
         if user is not None:
             login(request, user)
-            if teacher.current_school is None:
-                teacher.current_school = random.choice(teacher.Schools.all())
+            if teacher.current_profile is None:
+                teacher.current_profile = random.choice(teacher.work_profile.all())
                 teacher.save()
-            classes = teacher.work_profile.filter(School=teacher.current_school)
             if teacher.current_class is None:
                 teacher.current_class = random.choice(classes)
                 teacher.save()
