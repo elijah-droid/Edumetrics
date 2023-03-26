@@ -11,7 +11,7 @@ urlpatterns = [
     path('user/dashboard/', user_dashboard, name="user-dashboard"),
     path('auth/', include('Auth.urls')),
     path('school-admin/', include('SchoolAdministrators.urls')),
-    path('', include('Students.urls')),
+    path('students/', include('Students.urls')),
     path('teachers/', include('Teachers.urls')),
     path('parents/', include('Parents.urls')),
     path('reports/', include('Reports.urls')),

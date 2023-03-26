@@ -1,0 +1,152 @@
+{% extends request.session.base %}
+{% load static %}
+
+{% block content %}
+<body>
+
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4 vh-100 ">
+                <div class="d-flex flex-column h-100 text-center overflow-auto shadow p-3">
+                    <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% static 'img/ceo.jpg' %}" alt="Image">
+                    <small class="lead mt-2 text-dark">{{student}}</small>
+                    <div class="mb-4" style="height: 22px;">
+                        <h4 class="typed-text-output d-inline-block text-light"></h4>
+                        <div class="typed-text d-none">Web Designer, Web Developer, Front End Developer, Apps Designer, Apps Developer</div>
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between border-top">
+                        <a href="" class="btn btn-dark w-50 border-end">Reports</a>
+                        <a href="#contact" class="btn btn-primary w-50 btn-scroll">Edit Info</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <!-- About Start -->
+                <section class="py-5 border-bottom wow fadeInUp text-dark" data-wow-delay="0.1s">
+                    <small class="lead pb-3 mb-5">Student Profile</small>
+                    <hr>
+                    <p>
+                        {{student}} is a dedicated and hardworking student in {{student.Class}} who does {{student.Subjects.all|join:", "}}. 
+                    </p>
+                    <div class="row mb-4">
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Name:</span> {{student}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Birthday:</span> {{student.Date_of_birth}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Class:</span> {{student.Class}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Phone:</span> +012 345 6789
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Email:</span> {{student.user.email}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Address:</span> {{student.Address}}
+                        </div>
+                    </div>
+
+                <!-- Skills Start -->
+                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="row">
+                        <div class="col-sm-6 text-dark">
+                        <h1 class="">Performance</h1>
+                            {% for subject in student.Subjects.all %}
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <p class="mb-2">{{subject}}</p>
+                                    <p class="mb-2">95%</p>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-6 text-dark">
+                        <h1 class="">Parents</h1>
+                        <div class="d-flex align-items-center border-bottom py-3">
+                            <img class="rounded-circle flex-shrink-0" src="{% static 'img/user.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                            <div class="w-100 ms-3 text-dark">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small style="font-size: small;" class="mb-0 lead text-dark">Principal</small>
+                                    <small>15 minutes ago</small>
+                                </div>
+                                <span>Short message goes here...</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center border-bottom py-3">
+                            <img class="rounded-circle flex-shrink-0" src="{% static 'img/default_user.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                            <div class="w-100 ms-3 text-dark">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small style="font-size: small;" class="mb-0 lead text-dark">D.O.S</small>
+                                    <small>30 minutes ago</small>
+                                </div>
+                                <span>Short message goes here...</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center border-bottom py-3">
+                            <img class="rounded-circle flex-shrink-0" src="{% static 'img/ceo.jpg' %}" alt="" style="width: 40px; height: 40px;">
+                            <div class="w-100 ms-3 text-dark">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small style="font-size: small;" class="mb-0 lead text-dark">Elijah</small>
+                                    <small>45 minutes ago</small>
+                                </div>
+                                <span>Short message goes here...</span>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Skills End -->
+
+                <!-- Expericence Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="title pb-3 mb-5">Education History</h1>
+                    <div class="border-start border-2 border-light pt-2 ps-5">
+                        <div class="position-relative mb-4">
+                            <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
+                            <h5 class="mb-1">Kampala Parents</h5>
+                            <p class="mb-2">Nursery | <small>2007 - 2010</small></p>
+                            <p>Learned How To Read and Write</p>
+                        </div>
+                    </div>
+                </section>
+                <!-- Expericence End -->
+
+               
+
+                <!-- Contact Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
+                    <h1 class="">Contact Parents</h1>
+                    <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a></p>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <label for="subject">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-dark w-100 py-3" type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <!-- Contact End -->
+            </div>
+        </div>
+    </div>
+
+</body>
+{% endblock %}

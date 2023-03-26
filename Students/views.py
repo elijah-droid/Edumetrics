@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 import random
 from Classes.models import Class
 import string
-
 def generate_student_id():
     # Generate a 4-letter random string
     letters = string.ascii_uppercase
@@ -129,3 +128,10 @@ def student_list(request):
     classes = Class.objects.filter(Students__school__id=request.user.schooladministrator.current_school.id)
     return render(request, 'student_list.html', {'classes': classes})
 
+
+def student_profile(request, student):
+    student = request.user.schooladministrator.current_school.students.get(pk=student)
+    context = {
+        'student': student
+    }
+    return render(request, 'student_profile.html', context)
