@@ -3,6 +3,8 @@ from django.urls import path, include
 from .views import index, user_dashboard, contact_us, about_us
 from django.contrib import admin
 from allauth.account.views import LoginView
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.site.site_header = "Edumetrics Inc"
 
@@ -29,7 +31,7 @@ urlpatterns = [
     path('contact/us/', contact_us, name='contact-us'),
     path('about/us/', about_us, name="about"),
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'Edumetrics.views.handler404'
 handler500 = 'Edumetrics.views.handler500'
