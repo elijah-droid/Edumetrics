@@ -18,6 +18,7 @@ class School(models.Model):
     mtn_account = models.PositiveIntegerField(null=True, blank=True)
     airtel_account =  models.PositiveIntegerField(null=True, blank=True)
     students = models.ManyToManyField('Students.Student', related_name='school_children', blank=True)
+    Teachers = models.ManyToManyField('Teachers.Teacher', blank=True)
     classes = models.ManyToManyField('Classes.Class', blank=True)
     Events = models.ManyToManyField('Events.Event', blank=True, related_name='school_events')
     Examinations = models.ManyToManyField('Examinations.Examination', blank=True)

@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for teacher in teachers %}
+                {% for teacher in request.user.schooladministrator.current_school.Teachers.all %}
                 <tr>
                     <td class="text-nowrap text-dark">{{teacher}}</td>
                     <td class="text-nowrap text-dark">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
@@ -28,7 +28,7 @@
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-dark">Add Responsibilities</a>
                         <a href="" class="btn btn-sm btn-primary">View Responsibilities</a>
-                        <a href="" class="btn btn-sm btn-dark">Activity</a>
+                        <a href="{% url 'teacher-profile' teacher.id %}" class="btn btn-sm btn-dark">Profile</a>
                     </td>
                 </tr>
                 {% empty %}

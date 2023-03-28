@@ -1,6 +1,7 @@
 {% extends request.session.base %}
 {% load static %}
-{% load performance_tags %}
+{% load teachers_tags %}
+
 
 {% block content %}
 
@@ -9,37 +10,39 @@
             <div class="col-lg-4 ">
                 <div class="d-flex flex-column h-100 text-center overflow-auto shadow p-3">
                     <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% static 'img/user_.png' %}" alt="Image">
-                    <small class="lead mt-2 text-dark">{{student}}</small>
+                    <small class="lead mt-2 text-dark">{{teacher}}</small>
+                    <br>
+                    <small class="mt-0">Teacher</small>
                     <div class="mb-4" style="height: 22px;">
                         <h4 class="typed-text-output d-inline-block text-light"></h4>
                     </div>
                     <div class="d-flex align-items-end justify-content-between border-top">
                         <a href="" class="btn btn-dark w-50 border-end">Terminate</a>
-                        <a href="#contact" class="btn btn-primary w-50 btn-scroll">Edit Info</a>
+                        <a href="#contact" class="btn btn-primary w-50 btn-scroll">Edit Profile</a>
                     </div>
                     
                 </div>
             </div>
             <div class="col-lg-8 mt-0">
                 <!-- About Start -->
-                <section class="py-5 border-bottom wow fadeInUp text-dark" data-wow-delay="0.1s">
-                    <small class="lead pb-3 mb-5">Student Profile</small>
+                <section class="mt-5 wow fadeInUp text-dark" data-wow-delay="0.1s">
+                    <small class="lead pb-3 mb-5">Teacher's Profile</small>
                     <hr>
                     <p>
-                        {{student}} is a dedicated and hardworking student in {{student.Class}} who does {{student.Subjects.all|join:", "}}. 
+                        {{student}} is a dedicated and hardworking teacher who teaches students in {{student.Class}} {{student.Subjects.all|join:", "}}. 
                     </p>
                     <div class="row mb-4">
                         <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Name:</span> {{student}}
+                            <span class="fw-medium text-primary">Names:</span> {{teacher}}
                         </div>
                         <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Birthday:</span> {{student.Date_of_birth}}
+                            <span class="fw-medium text-primary">Students Capacity:</span> {{teacher|profile:request.user.schooladministrator.current_school}}
                         </div>
                         <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Class:</span> {{student.Class}}
+                            <span class="fw-medium text-primary">Classes:</span> {{student.Class}}
                         </div>
                         <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Id:</span> {{student.student_id}}
+                            <span class="fw-medium text-primary">Subjects:</span> {{student.student_id}}
                         </div>
                         <div class="col-sm-6 py-1">
                             <span class="fw-medium text-primary">Email:</span> {{student.user.email}}
@@ -52,41 +55,52 @@
                 <!-- Skills Start -->
                 <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
                     <div class="row">
+                        <div class="col-sm-6 text-dark mb-3">
+                        <h1 class="">Subjects Taught</h1>
+                        {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
+                        {% for subject in profile.Subjects.all %}
+                        <small class="lead">{{subject}}</small>
+                        <br>
+                        {% endfor %}
+                        {% endwith %}
+                        </div>
                         <div class="col-sm-6 text-dark">
-                        <h1 class="">Performance</h1>
-                            {% for subject in student.Subjects.all %}
+                        <h1 class="">Classes Taught</h1>
+                        {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
+                        {% for class in profile.Classes.all %}
+                        <small class="lead">{{class}}</small>
+                        <br>
+                        {% endfor %}
+                        {% endwith %}
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="row">
+                        <div class="col-sm-6 text-dark">
+                        <h1 class="">Progress</h1>
+                        {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
+                        {% for subject in profile.Subjects.all %}
                             <div class="skill mb-4">
                                 <div class="d-flex justify-content-between">
                                     <p class="mb-2">{{subject}}</p>
-                                    <p class="mb-2">{% average_score student subject %}%</p>
+                                    <p class="mb-2">{% teacher_score teacher subject request.user.schooladministrator.current_school %}%</p>
                                 </div>
                                 <div class="progress">
-                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {% average_score student subject %}%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 50%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             {% endfor %}
+                        {% endwith %}
                         </div>
                         <div class="col-sm-6 text-dark">
-                        <h1 class="">Parents</h1>
-                        <div class="d-flex align-items-center border-bottom py-3">
-                            <img class="rounded-circle flex-shrink-0" src="{% static 'img/user_.png' %}" alt="" style="width: 40px; height: 40px;">
-                            <div class="w-100 ms-3 text-dark">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <small style="font-size: small;" class="mb-0 lead text-dark">Kakooza Ambrose</small>
-                                </div>
-                                <span>Dad</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center border-bottom py-3">
-                            <img class="rounded-circle flex-shrink-0" src="{% static 'img/mom.png' %}" alt="" style="width: 40px; height: 40px;">
-                            <div class="w-100 ms-3 text-dark">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <small style="font-size: small;" class="mb-0 lead text-dark">Kakooza Mary</small>
-
-                                </div>
-                                <span>Mom</span>
-                            </div>
-                        </div>
+                        <h1 class="">Lessons Today</h1>
+                            {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
+                            {% for lesson in profile.Lessons.all %}
+                            <small>{{lesson.Subject}} @ {{lesson.From}}</small><br>
+                            {% endfor %}
+                            {% endwith %}
                         </div>
                     </div>
                 </section>
@@ -94,7 +108,7 @@
 
                 <!-- Expericence Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="title pb-3 mb-5">Education History</h1>
+                    <h1 class="title pb-3 mb-5">Teaching History</h1>
                     <div class="border-start border-2 border-light pt-2 ps-5">
                         <div class="position-relative mb-4">
                             <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
@@ -110,7 +124,7 @@
 
                 <!-- Contact Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
-                    <h1 class="">Contact Parents</h1>
+                    <h1 class="">Send Message</h1>
                     <form>
                         <div class="row g-3">
                             <div class="col-12">

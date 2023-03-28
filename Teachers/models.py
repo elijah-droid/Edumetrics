@@ -20,3 +20,4 @@ class WorkProfile(models.Model):
     Classes = models.ManyToManyField('Classes.Class', blank=True)
     Stream = models.ForeignKey('Streams.Stream', models.SET_NULL, null=True)
     Subjects = models.ManyToManyField('Subjects.Subject')
+    Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)

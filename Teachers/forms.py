@@ -4,11 +4,7 @@ from Classes.models import Class
 from django.contrib.auth.models import User
 from Subjects.models import Subject
 
-class TeachersForm(forms.ModelForm):
-    class Meta:
-        model = Teacher
-        fields = ['user',]
-
+class TeachersForm(forms.Form):
 
     user = forms.IntegerField(
         label='User Id',
@@ -19,3 +15,20 @@ class TeachersForm(forms.ModelForm):
             }
         )
     )
+    
+    Classes = forms.ModelMultipleChoiceField(
+        queryset=Class.objects.all(),
+            widget=forms.SelectMultiple(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
+        )
+    Subjects = forms.ModelMultipleChoiceField(
+        queryset=Subject.objects.all(),
+            widget=forms.SelectMultiple(
+                attrs={
+                    'class': 'form-control',
+                }
+            )
+        )

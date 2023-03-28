@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Teacher
 from .forms import TeachersForm
 from Lessons.models import Lesson
 from django.utils.timezone import now
+from django.contrib.auth.models import User
+
 
 @login_required
 def teachers_dashboard(request):
@@ -99,7 +101,40 @@ def teacher_delete(request, pk):
 
 def recruit_teacher(request):
     form = TeachersForm()
+    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.classes.all()
+    form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
     content = {
         'form': form
+    } 
+    if request.method == 'POST':
+        form = TeachersForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            try:
+                user = User.objects.get(id=data['user'])
+                try:
+                    teacher = Teacher.objects.get(user=user)
+                except Teacher.DoesNotExist:
+                    teacher = Teacher.objects.create(user=user)
+                request.user.schooladministrator.current_school.Teachers.add(teacher)
+                profile = teacher.work_profile.create(
+                    School=request.user.schooladministrator.current_school,
+                    Teacher=teacher
+                )
+                profile.Classes.set(data['Classes'])
+                profile.Subjects.set(data['Subjects'])
+                return redirect('teacher-profile', teacher=teacher.pk)
+            except User.DoesNotExist:
+                form.add_error('user', 'Invalid User Id')
+                return render(request, 'recruit_teacher.html', {'form': form})
+
+    else:
+        return render(request, 'recruit_teacher.html', content)
+
+
+def teacher_profile(request, teacher):
+    teacher = Teacher.objects.get(pk=teacher)
+    context = {
+        'teacher': teacher
     }
-    return render(request, 'recruit_teacher.html', content)
+    return render(request, 'teacher_profile.html', context)
