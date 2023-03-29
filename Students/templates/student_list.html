@@ -27,8 +27,7 @@
                     <td class="text-nowrap text-dark">{{student.Class}}</td>
                     <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Add Parent</a>
-                        <a href="" class="btn btn-sm btn-primary">Parent Details</a>
+                        <a href="{% url 'link-parent' student.id %}" class="btn btn-sm btn-dark">Link Parent</a>
                         <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">Profile</a>
                     </td>
                 </tr>

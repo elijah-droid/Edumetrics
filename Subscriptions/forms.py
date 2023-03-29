@@ -8,7 +8,7 @@ class SubscriptionForm(forms.ModelForm):
     widget=forms.TextInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'Enter Parent Id',
+            'placeholder': 'Enter Parent User Id',
             }
         )
     )
