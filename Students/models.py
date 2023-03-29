@@ -17,6 +17,7 @@ class Student(models.Model):
         null=True,
         blank=True
     )
+    parents = models.ManyToManyField('Parents.Parent', blank=True)
     date_of_birth = models.DateField()
     address = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15)

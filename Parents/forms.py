@@ -16,7 +16,7 @@ class ParentForm(forms.Form):
         )
     )
 
-    Relationship = forms.MultipleChoiceField(
+    Relationship = forms.ChoiceField(
         choices=relationships,
             widget=forms.Select(
                 attrs={
