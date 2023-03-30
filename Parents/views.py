@@ -58,3 +58,8 @@ def link_parent(request, student):
             print(form)
     else:
         return render(request, 'link_parent.html', context)
+
+
+def parent_profile(request, parent):
+    parent = Parent.objects.get(pk=parent)
+    
