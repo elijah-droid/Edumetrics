@@ -21,3 +21,7 @@ def add_circular(request):
 
     else:
         return render(request, 'add_circular.html', context)
+
+def generate_pdf(request, circular):
+    pass
+    

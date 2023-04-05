@@ -1,0 +1,105 @@
+{% extends request.session.base %}
+{% load static %}
+{% load teachers_tags %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4 ">
+                <div class="d-flex flex-column h-100 text-center overflow-auto shadow p-3">
+                    <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% static 'img/user_.png' %}" alt="Image">
+                    <small class="lead mt-2 text-dark">{{parent}}</small>
+                    <br>
+                    <small class="mt-0">Parent</small>
+                    <div class="mb-4" style="height: 22px;">
+                        <h4 class="typed-text-output d-inline-block text-light"></h4>
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between border-top">
+                        <a href="" class="btn btn-dark w-50 border-end">Unlink</a>
+                        <a href="#contact" class="btn btn-primary w-50 btn-scroll">Call</a>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-8 mt-0">
+                <!-- About Start -->
+                <section class="mt-5 wow fadeInUp text-dark" data-wow-delay="0.1s">
+                    <small class="lead pb-3 mb-5">Parent's Profile</small>
+                    <hr>
+                    <p>
+                        {{parent}} is a proud parent of . 
+                    </p>
+                    <div class="row mb-4">
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Names:</span> {{teacher}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Email:</span> {{student.user.email}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Address:</span> {{student.Address}}
+                        </div>
+                    </div>
+
+                <!-- Skills Start -->
+                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="row">
+                        <div class="col-sm-6 text-dark mb-3">
+                        <h1 class="">Children</h1>
+                        <small class="lead">{{subject}}</small>
+                        <br>
+                        </div>
+                        <div class="col-sm-6 text-dark">
+                        <h1 class="">Contact Details</h1>
+                        <small class="lead">{{class}}</small>
+                        <br>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- Expericence Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="title pb-3 mb-5">Fees Payments</h1>
+                    <div class="border-start border-2 border-light pt-2 ps-5">
+                        <div class="position-relative mb-4">
+                            <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
+                            <h5 class="mb-1">750,000 UGX</h5>
+                            <p class="mb-2">John Paul | <small>1st Mar 2023 at 1pm</small></p>
+                        </div>
+                    </div>
+                </section>
+                <!-- Expericence End -->
+
+               
+
+                <!-- Contact Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
+                    <h1 class="">Send Message</h1>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <label for="subject">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-dark w-100 py-3" type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <!-- Contact End -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -28,8 +28,10 @@ urlpatterns = [
     path('lessons/', include('Lessons.urls')),
     path('accounts/', include('allauth.urls')),
     path('tallies/', include('Tallies.urls')),
+    path('Dues/', include('FeesManagement.urls')),
     path('contact/us/', contact_us, name='contact-us'),
     path('about/us/', about_us, name="about"),
+    path('terms/', include('Terms.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

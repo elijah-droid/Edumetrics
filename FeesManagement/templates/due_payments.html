@@ -1,0 +1,45 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Dues</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead text-dark"></small>
+        <a href="{% url 'add-due' %}" class="btn btn-sm btn-dark">New</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Due</th>
+                    <th class="text-nowrap" scope="col">Amount Required</th>
+                    <th class="text-nowrap" scope="col">Total Amount Paid</th>
+                    <th class="text-nowrap" scope="col">Classes</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for due in dues %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{due.Reason}}</td>
+                    <td class="text-nowrap text-dark">{{due.Amount_Required}} UGX</td>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">View Payments</a>
+                        <a href="{% url 'add-due-payment' due.pk %}" class="btn btn-sm btn-primary">Add Payment</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Dues available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

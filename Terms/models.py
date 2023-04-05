@@ -8,7 +8,6 @@ terms = (
 
 class Term(models.Model):
     Name = models.CharField(max_length=10, choices=terms)
-    School = models.ForeignKey()
-    From
-    To
-    Subscribers 
+    School = models.ForeignKey('Schools.School', models.CASCADE)
+    From = models.DateField()
+    To = models.DateField()

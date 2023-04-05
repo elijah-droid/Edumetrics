@@ -9,18 +9,16 @@
     <div class="d-flex justify-content-between mb-3 container">
         <a href="{% url 'add-circular' %}" class="btn btn-sm btn-dark">Write & Publish</a>
     </div>
+    {% for circular in request.user.schooladministrator.current_school.Circulars.all %}
     <div class="container">
-		<p>Dear Parents,</p>
-		<p>We would like to inform you that the school will be closed for a mid-term break from Monday, April 5th to Friday, April 9th. Classes will resume as usual on Monday, April 12th.</p>
-		<p>Please make sure that your child completes any homework assigned before the break and brings any necessary materials back to school on the first day back. We hope you and your family enjoy the break and return refreshed for the rest of the academic year.</p>
-		<p>Thank you for your cooperation.</p>
-		<p>Sincerely,</p>
-		<p>The School Administration</p>
+		<p><b><u>{{circular.title}}</u></b></p>
+		<p>{{circular.body|linebreaks}}</p>
 	</div>
     <div class="d-flex justify-content-between mb-3 container">
         <small class="lead text-dark"></small>
         <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-dark">Generate Pdf</a>
     </div>
     <hr>
+    {% endfor %}
 </div>
 {% endblock %}

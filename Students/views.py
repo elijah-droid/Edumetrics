@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import random
 from Classes.models import Class
 import string
+
 def generate_student_id():
     # Generate a 4-letter random string
     letters = string.ascii_uppercase
@@ -100,6 +101,12 @@ def enroll_student(request):
     return render(request, 'enroll_student.html', {'form': form})
 
 
+def child_info(request, child):
+    child = Student.objects.get(pk=child)
+    context = {
+        'child': child
+    }
+    return render(request, 'child_info.html', context)
 
 
 def edit_student(request, student_id):
@@ -121,6 +128,7 @@ def delete_student(request, student_id):
     if request.method == 'POST':
         student.delete()
         messages.success(request, 'Student deleted successfully')
+        
         return redirect('student_list')
     return render(request, 'delete_student.html', {'student': student})
 

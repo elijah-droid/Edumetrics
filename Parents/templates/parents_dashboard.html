@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load fees_tags %}
 
 {% block nav %}
 <a href="{% url 'parent_dashboard' %}" class="nav-item nav-link">Dashboard</a>
@@ -77,20 +78,24 @@
                 <thead>
                     <tr class="text-dark">
                         <th scope="col">Child</th>
+                        <th scope="col">Relationship</th>
                         <th class="text-nowrap" scope="col">School</th>
                         <th class="text-nowrap" scope="col">Fees Balance</th>
+                        <th class="text-nowrap" scope="col">End of Term</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for child in user.parent.children.all %}
+                    {% for relationship in user.parent.relationships.all %}
                     <tr>
-                        <td class="text-nowrap">{{child}}</td>
-                        <td class="text-nowrap">{{child.school}}</td>
-                        <td class="text-nowrap">430,000 UGX</td>
+                        <td class="text-nowrap">{{relationship.Child}}</td>
+                        <td class="text-nowrap">{{relationship.Relationship}}</td>
+                        <td class="text-nowrap">{{relationship.Child.school}}</td>
+                        <td class="text-nowrap">{{relationship.Child|fees_balance}} UGX</td>
+                        <td class="text-nowrap">{{relationship.Child.school.current_term.To}}</td>
                         <td class="text-nowrap">
-                            <a href="{% url 'student-reports' child.id %}" class="btn btn-sm btn-dark">Reports</a>
-                            <a href="" class="btn btn-sm btn-primary">More Info</a>
+                            <a href="{% url 'student-reports' relationship.Child.id %}" class="btn btn-sm btn-dark">Reports</a>
+                            <a href="{% url 'child-info' relationship.Child.id %}" class="btn btn-sm btn-primary">More Info</a>
                         </td>
                     </tr>
                     {% empty %}

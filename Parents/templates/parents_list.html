@@ -25,7 +25,7 @@
                     <td class="text-nowrap text-dark">{{parent}}</td>
                     <td class="text-nowrap text-dark">{% for child in parent.children.all %}{% if child.school == user.schooladministrator.current_school %}<small>{{child}}</small><br>{% endif %}{% endfor %}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Bio</a>
+                        <a href="{% url 'parent-profile' parent.id %}" class="btn btn-sm btn-dark">Bio</a>
                         <a href="" class="btn btn-sm btn-primary">Children</a>
                     </td>
                 </tr>

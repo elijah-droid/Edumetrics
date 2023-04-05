@@ -1,0 +1,43 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Annual Term Structure</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <span></span>
+        <a href="{% url 'add-division' %}" class="btn btn-sm btn-dark">Configure New</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Term</th>
+                    <th class="text-nowrap" scope="col">From</th>
+                    <th class="text-nowrap" scope="col">To</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for term in user.schooladministrator.current_school.Terms.all %}
+                <tr class="text-dark">
+                    <td class="text-nowrap text-dark">{{term.Name}}</td>
+                    <td class="text-nowrap text-dark">{{term.From}}</td>
+                    <td class="text-nowrap text-dark">{{term.To}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Change Dates</a>
+                        <a href="" class="btn btn-sm btn-primary">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No terms have been configured.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 @login_required
 def parent_dashboard(request):
     parent = request.user.parent
-    reports = Report.objects.filter(Student__in=parent.children.all())
+    reports = Report.objects.filter(Student__id__in=parent.relationships.values('Child__id'))
     content = {
         'reports': reports
     }
@@ -62,4 +62,8 @@ def link_parent(request, student):
 
 def parent_profile(request, parent):
     parent = Parent.objects.get(pk=parent)
+    context = {
+        'parent': parent
+    }
+    return render(request, 'parents_profile.html', context)
     
