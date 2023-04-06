@@ -22,12 +22,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for due in dues %}
+                {% for due in user.schooladministrator.current_school.Dues.all %}
                 <tr>
                     <td class="text-nowrap text-dark">{{due.Reason}}</td>
                     <td class="text-nowrap text-dark">{{due.Amount_Required}} UGX</td>
                     <td class="text-nowrap"></td>
-                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap">{% for class in due.Classes.all %}<small>{{class}}</small><br>{% endfor %}</td>
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-dark">View Payments</a>
                         <a href="{% url 'add-due-payment' due.pk %}" class="btn btn-sm btn-primary">Add Payment</a>

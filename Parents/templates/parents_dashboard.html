@@ -80,6 +80,7 @@
                         <th scope="col">Child</th>
                         <th scope="col">Relationship</th>
                         <th class="text-nowrap" scope="col">School</th>
+                        <th class="text-nowrap" scope="col">Class</th>
                         <th class="text-nowrap" scope="col">Fees Balance</th>
                         <th class="text-nowrap" scope="col">End of Term</th>
                         <th scope="col">Actions</th>
@@ -91,6 +92,7 @@
                         <td class="text-nowrap">{{relationship.Child}}</td>
                         <td class="text-nowrap">{{relationship.Relationship}}</td>
                         <td class="text-nowrap">{{relationship.Child.school}}</td>
+                        <td class="text-nowrap">{{relationship.Child.Class}}</td>
                         <td class="text-nowrap">{{relationship.Child|fees_balance}} UGX</td>
                         <td class="text-nowrap">{{relationship.Child.school.current_term.To}}</td>
                         <td class="text-nowrap">

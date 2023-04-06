@@ -11,6 +11,7 @@ def due_payments(request):
 
 def add_due(request):
     form = PaymentDueForm()
+    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.classes.all()
     context = {
        'form': form,
     }
@@ -28,6 +29,7 @@ def add_due(request):
 
 def add_due_payment(request, due):
     form = PaymentForm()
+    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.Classes.all()
     context = {
         'form': form
     }
