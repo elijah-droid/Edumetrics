@@ -19,6 +19,10 @@
         <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-dark">Generate Pdf</a>
     </div>
     <hr>
+    {% empty %}
+    <div class="text-center">
+        <small class="lead text-dark">No Circulars have been written</small>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}
