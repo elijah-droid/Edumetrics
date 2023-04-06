@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import random
 from Classes.models import Class
 import string
+from Enrollments.models import Enrollment
 
 def generate_student_id():
     # Generate a 4-letter random string
@@ -81,8 +82,10 @@ def enroll_student(request):
     if request.method == 'POST':
         form = StudentForm(request.POST, request.FILES)
         if form.is_valid():
-            student = form.save()
+            student = form.save(commit=False)
             student.school = request.user.schooladministrator.current_school
+            student.user = User.objects.create(username=form.cleaned_data['student_id'])
+            student.save()
             request.user.schooladministrator.current_school.students.add(student)
             cls = form.cleaned_data['Class']
             cls.Students.add(student)
@@ -92,6 +95,10 @@ def enroll_student(request):
             student.save()
             for subject in student.Subjects.all():
                 subject.Students.add(student)
+            enrollment = Enrollment.objects.create(School=request.user.schooladministrator.current_school, Student=student, Programme=student.Programme)
+            student.active_enrollment = enrollment
+            student.save()
+            student.school.Enrollments.add(enrollment)
             messages.success(request, f'Student {student.first_name} {student.last_name} has been enrolled successfully.')
             return redirect('students')
     else:
@@ -128,13 +135,15 @@ def delete_student(request, student_id):
     if request.method == 'POST':
         student.delete()
         messages.success(request, 'Student deleted successfully')
-        
         return redirect('student_list')
     return render(request, 'delete_student.html', {'student': student})
 
 def student_list(request):
-    classes = Class.objects.filter(Students__school__id=request.user.schooladministrator.current_school.id)
-    return render(request, 'student_list.html', {'classes': classes})
+    students = request.user.schooladministrator.current_school.students.all().order_by('active_enrollment__Date').reverse()
+    context = {
+        'students': students
+    }
+    return render(request, 'student_list.html', context)
 
 
 def student_profile(request, student):

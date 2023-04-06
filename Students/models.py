@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill, Crop
+from Enrollments.models import programmes
 
 
 class Student(models.Model):
@@ -17,6 +18,8 @@ class Student(models.Model):
         null=True,
         blank=True
     )
+    active_enrollment = models.ForeignKey('Enrollments.Enrollment', models.SET_NULL, null=True)
+    Programme = models.CharField(max_length=100, choices=programmes, null=True)
     parents = models.ManyToManyField('Parents.Parent', blank=True)
     date_of_birth = models.DateField()
     address = models.CharField(max_length=100)

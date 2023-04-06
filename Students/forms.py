@@ -5,21 +5,15 @@ from django.contrib.auth.models import User
 from Subjects.models import Subject
 
 class StudentForm(forms.ModelForm):
+
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'photo', 'email', 'student_id', 'date_of_birth', 'Class', 'Subjects']
+        fields = ['first_name', 'last_name', 'photo', 'email', 'student_id', 'Programme', 'date_of_birth', 'Class', 'Subjects']
+        widgets = {
+            'Programme': forms.Select(attrs={'class': 'form-control'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'})
+        }
 
-    def save(self, commit=True):
-        user = User.objects.create(username=self.cleaned_data['email'], email=self.cleaned_data['email'])
-        student = Student.objects.create(
-            user=user,
-            student_id=self.cleaned_data['student_id'],
-            first_name=self.cleaned_data['first_name'],
-            last_name=self.cleaned_data['last_name'],
-            date_of_birth=self.cleaned_data['date_of_birth'],
-            photo=self.cleaned_data['photo']
-        )
-        return student
 
     first_name = forms.CharField(
         label='First Name',
@@ -37,15 +31,6 @@ class StudentForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter last name',
-            }
-        )
-    )
-
-    photo = forms.ImageField(
-        label='Photo',
-        widget=forms.FileInput(
-            attrs={
-                'class': 'form-control',
             }
         )
     )

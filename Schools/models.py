@@ -18,6 +18,7 @@ class School(models.Model):
     state = models.CharField(max_length=2)
     zip_code = models.CharField(max_length=10)
     mtn_account = models.PositiveIntegerField(null=True, blank=True)
+    Enrollments = models.ManyToManyField('Enrollments.Enrollment', blank=True)
     airtel_account =  models.PositiveIntegerField(null=True, blank=True)
     students = models.ManyToManyField('Students.Student', related_name='school_children', blank=True)
     Teachers = models.ManyToManyField('Teachers.Teacher', blank=True)

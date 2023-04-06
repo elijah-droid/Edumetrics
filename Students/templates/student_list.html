@@ -1,4 +1,5 @@
 {% extends request.session.base %}
+{% load fees_tags %}
 
 {% block content %}
 <div class="container text-dark">
@@ -15,17 +16,23 @@
             <thead>
                 <tr class="text-dark">
                     <th scope="col">Names</th>
+                    <th scope="col">Date Enrolled</th>
+                    <th scope="col">Programme</th>
                     <th class="text-nowrap" scope="col">Class</th>
                     <th class="text-nowrap" scope="col">Subjects</th>
+                    <th class="text-nowrap" scope="col">Fees Balance</th>
                     <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for student in user.schooladministrator.current_school.students.all %}
+                {% for student in students %}
                 <tr>
                     <td class="text-nowrap text-dark">{{student}}</td>
+                    <td class="text-nowrap text-dark">{{student.active_enrollment.Date}}</td>
+                    <td class="text-nowrap text-dark">{{student.active_enrollment.Programme}}</td>
                     <td class="text-nowrap text-dark">{{student.Class}}</td>
                     <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap text-dark">{{student|fees_balance}} UGX</td>
                     <td class="text-nowrap">
                         <a href="{% url 'link-parent' student.id %}" class="btn btn-sm btn-dark">Link Parent</a>
                         <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">Profile</a>
