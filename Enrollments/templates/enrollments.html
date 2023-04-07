@@ -1,0 +1,43 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Enrollment Logs</small>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Student</th>
+                    <th scope="col">Enrolled By</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Programme</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in user.schooladministrator.current_school.Enrollments.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{enrollment.Student}}</td>
+                    <td class="text-nowrap text-dark">{{enrollment.By}}</td>
+                    <td class="text-nowrap text-dark">{{enrollment.Date}}</td>
+                    <td class="text-nowrap text-dark">{{enrollment.Programme}}</td>
+                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap text-dark"></td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Link Parent</a>
+                        <a href="" class="btn btn-sm btn-dark">ViewProfile</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No students have been added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def enrollments(request):
+    return render(request, 'enrollments.html')
+

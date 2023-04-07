@@ -95,7 +95,7 @@ def enroll_student(request):
             student.save()
             for subject in student.Subjects.all():
                 subject.Students.add(student)
-            enrollment = Enrollment.objects.create(School=request.user.schooladministrator.current_school, Student=student, Programme=student.Programme)
+            enrollment = Enrollment.objects.create(School=request.user.schooladministrator.current_school, Student=student, Programme=student.Programme, By=request.user.schooladministrator)
             student.active_enrollment = enrollment
             student.save()
             student.school.Enrollments.add(enrollment)
