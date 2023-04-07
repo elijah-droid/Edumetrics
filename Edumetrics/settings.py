@@ -39,8 +39,7 @@ SECRET_KEY = 'django-insecure-#4xjdr0@zw4nzy(697deby!li%wop2zkl%vf4hlt$9e$r^*z5(
 DEBUG = False
 ALLOWED_HOSTS = ['192.168.137.1', '127.0.0.1']
 
-
-LOGIN_REDIRECT_URL = reverse('login')
+LOGIN_URL = '/'
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -76,10 +75,6 @@ INSTALLED_APPS = [
     'Grading',
     'Subscriptions',
     'Circulars',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'Tallies',
     'FeesManagement',
     'Terms',
@@ -117,6 +112,12 @@ TEMPLATES = [
         },
     },
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
 WSGI_APPLICATION = 'Edumetrics.wsgi.application'
 
