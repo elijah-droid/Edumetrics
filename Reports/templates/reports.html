@@ -11,7 +11,7 @@
     <a href="{% url 'create-batch' %}" class="btn btn-sm btn-dark">Publish Batch</a>
 </div>
 
- {% for report in reports %}
+ {% for report in user.schooladministrator.current_school.Reports.all %}
  {% include 'report.html' %}
  {% empty %}
  <div class="text-center mt-3">

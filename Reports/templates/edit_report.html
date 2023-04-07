@@ -4,9 +4,9 @@
 
 {% block content %}
 <div class="container-fluid pt-4 px-4">
-    <div class="bg-light text-center rounded p-4">
+    <div class="bg-light rounded p-4">
         <div class="text-center mb-4">
-            <h6 class="mb-0">Edit {{report.Examination}} Report</h6>
+            <h6 class="mb-0">Edit {{report.Student}} {{report.Examination}} Report</h6>
         </div>
         <form action="" method="post">
             {% csrf_token %}
@@ -38,8 +38,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="justify-content-between d-flex mt-3">
-                <button class="btn btn-sm btn-dark">Save</button>
+            <div class="btn-group mt-3 float-left">
+                <button type="submit" class="btn btn-sm btn-dark">Save</button>
+                <a href="{% url 'add-grade' %}" class="btn btn-sm btn-primary">Add Grade</a>
             </div>
         </form>
     </div>

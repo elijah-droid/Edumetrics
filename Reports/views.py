@@ -4,7 +4,9 @@ from django.contrib import messages
 from .models import Report
 from .forms import BatchReportsForm
 import random
+from django.urls import reverse
 from Students.models import Student
+from Examinations.models import Examination
 
 
 def batch_reports(request):
@@ -78,19 +80,6 @@ def edit_report(request, report):
         return render(request, 'edit_report.html', context)
 
 
-@login_required
-def create_report(request):
-    form = ReportForm(request.POST or None)
-    if form.is_valid():
-        report = form.save(commit=False)
-        report.created_by = request.user
-        report.save()
-        messages.success(request, 'Report created successfully.')
-        return redirect('report_detail', pk=report.pk)
-    context = {'form': form}
-    return render(request, 'create_report.html', context)
-
-
 def view_report(request):
     return render(request, 'report.html')
 
@@ -104,3 +93,13 @@ def delete_report(request, pk):
         return redirect('report_list')
     context = {'report': report}
     return render(request, 'delete_report.html', context)
+
+
+def create_report(request, student, examination):
+    student = Student.objects.get(pk=student)
+    exam = Examination.objects.get(pk=examination)
+    report = student.Reports.create(Student=student, Examination=exam)
+    for subject in student.Subjects.all():
+        report.Scores.create(Score=0, Report=report, Subject=subject)
+    student.school.Reports.add(report)
+    return redirect('edit-report', report=report.id)

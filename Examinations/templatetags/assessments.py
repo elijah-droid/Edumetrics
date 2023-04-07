@@ -1,6 +1,7 @@
 from django import template
 from Reports.models import Report
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
 
 register = template.Library()
 
@@ -10,7 +11,7 @@ def get_score(exam, student, subject):
         report = Report.objects.get(Student=student, Examination=exam)
         score = report.Scores.get(Subject=subject)
         return score.Score
-    except Report.DoesNotExist:
+    except ObjectDoesNotExist:
         return "XXX"
 
 
@@ -21,4 +22,4 @@ def edit_report(exam, student):
         url = reverse('edit-report', args=[report.id])
         return url
     except Report.DoesNotExist:
-        return "XXX"
+        return reverse('create-report', args=[student.id, exam.id])

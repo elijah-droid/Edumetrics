@@ -21,7 +21,8 @@ def add_grade(request):
             grade.save()
             grade.Classes.set(form.cleaned_data['Classes'])
             request.user.schooladministrator.current_school.Grades.add(grade)
-            return redirect('grades')
+            return redirect(request.session['next'])
+    request.session['next'] = request.META.get('HTTP_REFERER')
     return render(request, 'add_grade.html', context)
 
 def add_division(request):

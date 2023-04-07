@@ -25,6 +25,7 @@ class School(models.Model):
     Terms = models.ManyToManyField('Terms.Term', blank=True, related_name="school_terms")
     classes = models.ManyToManyField('Classes.Class', blank=True)
     Events = models.ManyToManyField('Events.Event', blank=True, related_name='school_events')
+    Reports = models.ManyToManyField('Reports.Report', blank=True, related_name='school_reports')
     Examinations = models.ManyToManyField('Examinations.Examination', blank=True)
     Grades = models.ManyToManyField('Grading.Grade', blank=True)
     Divisions = models.ManyToManyField('Grading.Division', blank=True)
