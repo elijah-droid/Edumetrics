@@ -33,6 +33,7 @@
         <a href="{% url 'divisions' %}" class="dropdown-item">Divisions</a>
         <a href="{% url 'events' %}" class="dropdown-item">Events</a>
         <a href="{% url 'students' %}" class="dropdown-item">Students</a>
+        <a href="{% url 'students' %}" class="dropdown-item">Enrollments</a>
         <a href="{% url 'classes' %}" class="dropdown-item">Classes</a>
         <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
         <a href="{% url 'lessons' %}" class="dropdown-item">Lessons</a>
@@ -91,6 +92,7 @@
                     </div>
                 </div>
             </div>
+            {{ plot_div|safe }}
 
 
             <!-- Recent Sales Start -->

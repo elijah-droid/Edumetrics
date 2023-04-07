@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <title>Messages</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #ECE5DD;
+            padding: 30px;
+        }
+
+        .message {
+            background-color: #F7F7F7;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .message .from {
+            color: #0084ff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .message .time {
+            color: #aaa;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .message .text {
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .message .icon {
+            color: #aaa;
+            font-size: 20px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <h2>Messages</h2>
+                <div class="message">
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="from">John Doe</div>
+                            <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget ante
+                                vitae purus tempus varius. Praesent a ex euismod, varius est nec, pulvinar odio.</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="time">10:15 AM</div>
+                            <i class="fas fa-ellipsis-v icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="message">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="https://via.placeholder.com/50" alt="Avatar" class="rounded-circle">
+                        </div>
+                        <div class="col-8">
+                            <div class="from">Jane Doe</div>
+                            <div class="text">Nullam viverra urna a lacinia faucibus. Aliquam vestibulum tortor mauris,
+                                id elementum ex dignissim quis. Vestibulum consectetur justo quis tellus iaculis, ut
+                                aliquet arcu consequat.</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="time">10:30 AM</div>
+                            <i class="fas fa-ellipsis-v icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
