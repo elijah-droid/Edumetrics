@@ -43,13 +43,23 @@
         <a href="{% url 'school-administrators' %}" class="dropdown-item">School Administrators</a>
     </div>
 </div>
+<div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Security</a>
+    <div class="dropdown-menu bg-transparent border-0">
+        <a href="" class="dropdown-item ">Change Password</a>
+        <a href="" class="dropdown-item">View Permissions</a>
+
+    </div>
+</div>
 
 {% endblock %}
 
 {% block content %}
+            {% if perms.Reports.view_report %}
             <div class="mt-3 text-center"> 
                 <small class="lead text-dark"><u>{{user.schooladministrator.current_school}} Dashboard</u></small>
             </div>
+            {% endif %}
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">

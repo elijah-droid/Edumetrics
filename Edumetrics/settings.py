@@ -79,8 +79,11 @@ INSTALLED_APPS = [
     'FeesManagement',
     'Terms',
     'Enrollments',
-    'Messages'
+    'Messages',
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 MIDDLEWARE = [

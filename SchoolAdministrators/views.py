@@ -5,6 +5,7 @@ from django.utils import timezone
 from .models import SchoolAdministrator
 import plotly.graph_objs as go
 import plotly
+from .forms import LinkAdminForm
 
 
 @login_required
@@ -50,5 +51,13 @@ def school_administrators(request):
         'admins': admins
     }
     return render(request, 'school_administrators.html', context)
+
+
+def register_schooladmin(request):
+    form = LinkAdminForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'register_schooladmin.html', context)
 
 

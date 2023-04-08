@@ -8,7 +8,9 @@
     <hr>
     <div class="d-flex justify-content-between mb-3">
         <span></span>
-        <a href="" class="btn btn-sm btn-dark">Add New</a>
+        {% if perms.SchoolAdministrators.add_schooladministrator %}
+        <a href="{% url 'register-schooladmin' %}" class="btn btn-sm btn-dark">Add New</a>
+        {% endif %}
     </div>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -25,7 +27,7 @@
                 <tr>
                     <td class="text-nowrap text-dark">{{admin}}</td>
                     <td class="text-nowrap text-dark">{{student.Class}}</td>
-                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap text-dark">{% for permission in admin.permissions.all %}<small>{{permission.name}}</small><br>{% endfor %}</td>
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-dark">Change Permissions</a>
                         <a href="" class="btn btn-sm btn-primary">View Actions</a>

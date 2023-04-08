@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 
 
 roles = (
@@ -12,7 +12,12 @@ class SchoolAdministrator(models.Model):
     schools = models.ManyToManyField('Schools.school')
     role = models.CharField(max_length=10, choices=roles, null=True)
     current_school = models.ForeignKey('Schools.School', models.SET_NULL, null=True, related_name='current_school')
-    # other fields for the school administrator model
+    permissions = models.ManyToManyField(
+        Permission,
+        limit_choices_to={'content_type__app_label__in': ['Reports']},
+        blank=True,
+        related_name='my_model_permissions',
+    )
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'

@@ -2,7 +2,6 @@
 {% load static %}
 
 
-
 {% block content %}
         <!-- Appointment Start -->
         <div class="container-xxl py-5">
@@ -11,8 +10,8 @@
                     <div class="row g-0">
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                             <div class="h-100 d-flex flex-column justify-content-center p-3">
-                                <h1 class="mb-4">Enroll Student</h1>
-                                <form enctype="multipart/form-data" method="post" action="." class="text-dark" >
+                                <h1 class="mb-4">Link School Administrator</h1>
+                                <form method="post" action=".">
                                     {% csrf_token %}
                                     <div class="row g-3">
                                         {{form}}
@@ -25,7 +24,7 @@
                         </div>
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                             <div class="position-relative h-100">
-                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/student.jpg' %}" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/support.jpg' %}" style="object-fit: cover;">
                             </div>
                         </div>
                     </div>
