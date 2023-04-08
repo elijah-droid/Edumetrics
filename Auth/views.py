@@ -7,6 +7,8 @@ from Parents.models import Parent
 from django.contrib.auth.models import User
 import random
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.hashers import make_password
+from django.contrib import messages
 
 
 def class_teacher_login(request):
@@ -171,3 +173,15 @@ def signup(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def change_password(request):
+    if request.method == 'POST':
+        old_password = request.POST['old_password']
+        if request.user.check_password(old_password):
+            request.user.password = make_password(request.POST['new_password'])
+            request.user.save()
+            messages.success(request, 'Your password was changed successfully.')
+            return redirect(request.session['next'])
+    else:
+        request.session['next'] = request.META.get('HTTP_REFERER')
+        return render(request, 'change_password.html')
