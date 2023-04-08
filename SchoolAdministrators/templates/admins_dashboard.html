@@ -23,24 +23,58 @@
 <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Modules</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+        {% if perms.Terms.view_term %}
         <a href="{% url 'terms' %}" class="dropdown-item">Terms</a>
+        {% endif %}
+        {% if perms.Circulars.view_circular %}
         <a href="{% url 'circulars' %}" class="dropdown-item">Circulars</a>
+        {% endif %}
+        {% if perms.Attendance.view_attendance %}
         <a href="{% url 'attendance' %}" class="dropdown-item">Attendance</a>
+        {% endif %}
+        {% if perms.Examinations.view_examination %}
         <a href="{% url 'examinations' %}" class="dropdown-item">Examinations</a>
+        {% endif %}
+        {% if perms.Reports.view_report %}
         <a href="{% url 'reports' %}" class="dropdown-item">Reports</a>
+        {% endif %}
+        {% if perms.Grades.view_grade %}
         <a href="{% url 'grades' %}" class="dropdown-item">Grades</a>
+        {% endif %}
+        {% if perms.Divisions.view_division %}
         <a href="{% url 'divisions' %}" class="dropdown-item">Divisions</a>
+        {% endif %}
+        {% if perms.Events.view_event %}
         <a href="{% url 'events' %}" class="dropdown-item">Events</a>
+        {% endif %}
+        {% if perms.Students.view_student %}
         <a href="{% url 'students' %}" class="dropdown-item">Students</a>
+        {% endif %}
+        {% if perms.Enrollments.view_enrollment %}
         <a href="{% url 'enrollments' %}" class="dropdown-item">Enrollments</a>
+        {% endif %}
+        {% if perms.Classes.view_classe %}
         <a href="{% url 'classes' %}" class="dropdown-item">Classes</a>
+        {% endif %}
+        {% if perms.Subjects.view_subject %}
         <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
+        {% endif %}
+        {% if perms.Lessons.view_lesson %}
         <a href="{% url 'lessons' %}" class="dropdown-item">Lessons</a>
+        {% endif %}
+        {% if perms.Teachers.view_teacher %}
         <a href="{% url 'teachers-list' %}" class="dropdown-item">Teachers</a>
+        {% endif %}
+        {% if perms.Parents.view_parent %}
         <a href="{% url 'parents-list' %}" class="dropdown-item">Parents</a>
+        {% endif %}
+        {% if perms.FeesManagement.view_paymentdue %}
         <a href="{% url 'dues' %}" class="dropdown-item">Fees Management</a>
+        {% endif %}
         <a href="{% url 'subscriptions' %}" class="dropdown-item">Service Subscription</a>
+        {% if perms.SchoolAdministrator.view_schooladministrator %}
         <a href="{% url 'school-administrators' %}" class="dropdown-item">School Administrators</a>
+        {% endif %}
     </div>
 </div>
 <div class="nav-item dropdown">
