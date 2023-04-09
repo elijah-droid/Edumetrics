@@ -29,11 +29,16 @@ def add_due(request):
 
 def add_due_payment(request, due):
     form = PaymentForm()
-    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.Classes.all()
+    form.fields['parent'].queryset = request.user.schooladministrator.current_school.Parents.all()
+    form.fields['Student'].queryset = request.user.schooladministrator.current_school.students.all()
     context = {
         'form': form
     }
-    return render(request, 'add_due_payment.html')
+    if request.method == 'POST':
+        payment = form.save(commit=False)
+
+    else:
+        return render(request, 'add_due_payment.html', context)
 
 
 def pay_child_fees(request, child):

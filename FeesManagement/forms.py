@@ -15,8 +15,11 @@ class PaymentDueForm(forms.ModelForm):
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ['Method', 'Amount']
+        fields = ['parent', 'Student', 'Due', 'Method', 'Amount']
         widgets = {
+            'parent': forms.Select(attrs={'class': 'form-control'}),
+            'Student': forms.Select(attrs={'class': 'form-control'}),
+            'Due': forms.Select(attrs={'class': 'form-control'}),
             'Method': forms.Select(attrs={'class': 'form-control'}),
             'Amount': forms.NumberInput(attrs={'class': 'form-control'}),
         }

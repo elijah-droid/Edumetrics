@@ -9,6 +9,7 @@ import random
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
+from SchoolAdministrators.models import Adminship
 
 
 def class_teacher_login(request):
@@ -87,6 +88,8 @@ def student_login(request):
 
 
 def admin_login(request):
+    if request.user.is_authenticated:
+        return redirect('admin_dashboard')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -99,9 +102,10 @@ def admin_login(request):
             login(request, user)
             request.session['base'] = 'admins_dashboard.html'
             if request.user.schooladministrator.current_school is None:
-                request.user.schooladministrator.current_school = random.choice(request.user.schooladministrator.schools.all())
-                request.user.schooladministrator.save()
-            return redirect('admin_dashboard')
+                school = random.choice(request.user.schooladministrator.schools.all())
+            else: 
+                school = request.user.schooladministrator.current_school
+            return redirect('set-school-session', school=school.id)
         else:
             error_message = "Invalid login credentials. Please try again."
             return render(request, 'admin_login.html', {'error': error_message})
@@ -142,6 +146,11 @@ def teacher_login(request):
 def set_school_session(request, school):
     user = request.user.schooladministrator
     school = user.schools.get(pk=school)
+    try:
+        perms = Adminship.objects.get(Admin=request.user.schooladministrator, School=school).permissions.all()
+        request.user.user_permissions.set(perms)
+    except Adminship.DoesNotExist:
+        request.user.user_permissions.clear()
     user.current_school = school
     user.save()
     recent_url = request.META.get('HTTP_REFERER')
@@ -172,6 +181,10 @@ def signup(request):
 
 def logout_view(request):
     logout(request)
+    try:
+        request.user.user_permissions.clear()
+    except:
+        pass
     return redirect('index')
 
 def change_password(request):

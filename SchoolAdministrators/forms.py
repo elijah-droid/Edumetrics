@@ -1,15 +1,18 @@
 from django import forms
 from .models import SchoolAdministrator
+from django.contrib.auth.models import Permission
 
-class LinkAdminForm(forms.ModelForm):
+class LinkAdminForm(forms.Form):
 
-    class Meta:
-        model = SchoolAdministrator
-        fields = ['permissions',]
-        widgets = {
-            'permissions': forms.SelectMultiple(attrs={'class': 'form-control'}),
-        }
 
+    Permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.filter(content_type__app_label__in=['Reports']),
+        widget=forms.SelectMultiple(
+            attrs={
+                'class': 'form-control',
+            }
+        ))
+    
 
     user = forms.IntegerField(
         label='User Id',

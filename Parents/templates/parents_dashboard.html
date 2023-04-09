@@ -4,12 +4,11 @@
 
 {% block nav %}
 <a href="{% url 'parent_dashboard' %}" class="nav-item nav-link">Dashboard</a>
-<a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">My Kids</a>
 <a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">Notifications</a>
-<a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">Messages</a>
 <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Data</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+        <a href="{% url 'circulars' %}" class="dropdown-item">My Kids</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Events</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Reports</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Circulars</a>
@@ -31,7 +30,7 @@
                 <i class="bi bi-people-fill fa-3x"></i>
                 <div class="ms-3">
                     <p class="mb-2 text-nowrap">Children</p>
-                    <h6 class="mb-0 text-white">{{user.schooladministrator.current_school.students.count}}</h6>
+                    <h6 class="mb-0 text-white">{{user.parent.relationships.count}}</h6>
                 </div>
             </div>
         </div>

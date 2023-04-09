@@ -10,7 +10,7 @@ methods = (
 
 class Payment(models.Model):
     parent = models.ForeignKey('Parents.Parent', models.CASCADE)
-    Students = models.ManyToManyField('Students.Student', blank=True)
+    Student = models.ForeignKey('Students.Student', models.SET_NULL, null=True)
     Due = models.ForeignKey('PaymentDue', models.CASCADE)
     Method = models.CharField(max_length=20, choices=methods)
     Amount = models.PositiveIntegerField(null=True)
@@ -22,3 +22,6 @@ class PaymentDue(models.Model):
     Reason = models.CharField(max_length=100)
     Amount_Required = models.PositiveIntegerField(null=True)
     Classes = models.ManyToManyField('Classes.Class', blank=True)
+
+    def __str__(self):
+        return self.Reason

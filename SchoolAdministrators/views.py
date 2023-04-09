@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth.models import Permission
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 from django.utils import timezone
-from .models import SchoolAdministrator
+from .models import SchoolAdministrator, Adminship
 import plotly.graph_objs as go
 import plotly
 from .forms import LinkAdminForm
@@ -46,7 +47,7 @@ def school_admin_dashboard(request):
 
 
 def school_administrators(request):
-    admins = SchoolAdministrator.objects.all()
+    admins = Adminship.objects.filter(School=request.user.schooladministrator.current_school)
     context = {
         'admins': admins
     }
@@ -59,5 +60,16 @@ def register_schooladmin(request):
         'form': form
     }
     return render(request, 'register_schooladmin.html', context)
+
+
+def change_permissions(request, admin):
+    admin = SchoolAdministrator.objects.get(pk=admin)
+    permissions = Permission.objects.filter(content_type__app_label__in=['Reports',])
+    context = {
+        'admin': admin,
+        'permissions': permissions
+    }
+    
+    return render(request, 'change_permissions.html', context)
 
 
