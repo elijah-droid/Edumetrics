@@ -7,14 +7,12 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 import random
 from Classes.models import Class
-import os
 import string
 from Enrollments.models import Enrollment
 import docx
 from django.http import FileResponse
 import io
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx2pdf import convert
 from FeesManagement.templatetags.fees_tags import fees_balance
 
 
@@ -51,25 +49,12 @@ def download_students_info(request):
         table.cell(row, 4).text = f'{fees_balance(student)} UGX'
         row += 1
 
-    file_path = f'{request.user.schooladministrator.current_school}_students_info.docx'
-    doc.save(file_path)
-
-    # Convert the file to a PDF
-    pdf_file_path = f'{request.user.schooladministrator.current_school}_students_info.pdf'
-    file = convert(file_path, pdf_file_path)
-
-    # Delete the original Word document
-
-    os.remove(file_path)
-    # Create a response with the PDF file
-
-    file = open(pdf_file_path, 'rb')
-    response = FileResponse(file, content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="{request.user.schooladministrator.current_school}_students_info.pdf"'
-
-    # Delete the PDF file
+    document_io = io.BytesIO()
+    doc.save(document_io)
+    document_io.seek(0)
+    response = FileResponse(document_io, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="{request.user.schooladministrator.current_school}_students_info.docx"'
     return response
-
 
 
 def student_dashboard(request):
