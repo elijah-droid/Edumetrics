@@ -15,6 +15,34 @@ from pathlib import Path
 import os
 from django.urls import reverse
 
+my_apps = [
+    'Auth',
+    'Examinations',
+    'Parents',
+    'Reports',
+    'SchoolAdministrators',
+    'Students',
+    'Teachers',
+    'Edumetrics',
+    'Schools',
+    'Attendance',
+    'Recruitments',
+    'Classes',
+    'Subjects',
+    'Streams',
+    'Events',
+    'imagekit',
+    'Lessons',
+    'Grading',
+    'Subscriptions',
+    'Circulars',
+    'Tallies',
+    'FeesManagement',
+    'Terms',
+    'Enrollments',
+    'Messages',
+]
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

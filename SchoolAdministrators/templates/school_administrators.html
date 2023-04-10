@@ -18,7 +18,7 @@
             <thead>
                 <tr class="text-dark">
                     <th scope="col">Names</th>
-                    <th class="text-nowrap" scope="col">Role</th>
+                    <th class="text-nowrap" scope="col">Roles</th>
                     <th class="text-nowrap" scope="col">Permissions</th>
                     <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
@@ -27,12 +27,12 @@
                 {% for adminship in admins %}
                 <tr>
                     <td class="text-nowrap text-dark">{{adminship.Admin}}</td>
-                    <td class="text-nowrap text-dark">{{adminship.Admin.role}}</td>
-                    <td class="text-nowrap text-dark">{% for permission in adminship.permissions.all %}<small>{{permission.name}}s</small><br>{% endfor %}</td>
+                    <td class="text-nowrap text-dark">{% for group in adminship.Groups.all %} <small>{{group}}</small> <br> {% endfor %}</td>
+                    <td class="text-nowrap text-dark"><small><u>Group or Role based Permissions</u></small><br/>{% for group in adminship.Groups.all %}{%for perm in group.permissions.all%}<small>{{perm}}</small><br>{% endfor %}{% endfor %}<small><u>Additional Permissions</u></small><br/>{% for permission in adminship.permissions.all|slice:"10" %}<small>{{permission}}s</small><br>{% endfor %}{% if adminship.permissions.count > 10 %} And More.....{% endif %}</td>
                     <td class="text-nowrap">
                         <a href="{% url 'change-permissions' adminship.Admin.pk %}" class="btn btn-sm btn-dark">Change Permissions</a>
                         <a href="" class="btn btn-sm btn-primary">View Actions</a>
-                        <a href="" class="btn btn-sm btn-dark">Deny Access</a>
+                        <a href="" class="btn btn-sm btn-dark">More</a>
                     </td>
                 </tr>
                 {% empty %}

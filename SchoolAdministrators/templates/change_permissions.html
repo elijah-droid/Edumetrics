@@ -1,5 +1,6 @@
 {% extends request.session.base %}
 {% load static %}
+{% load permission_tags%}
 
 
 {% block content %}
@@ -16,12 +17,21 @@
                                     <div class="row g-3">
                                         <div class="form-group">
                                             <label>Permissions</label>
-                                            <select multiple class="form-control">
+                                            <select multiple name="permissions" class="form-control">
                                                 {% for permission in permissions %}
-                                                <option value="{{permission.id}}">{{permission.name}}</option>
+                                                <option {% if permission in admin|permissions:user.schooladministrator.current_school %}selected{% endif %} value="{{permission.id}}">{{permission.name}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>
+                                        <div class="form-group">
+                                            <label>Groups</label>
+                                            <select multiple name="groups" class="form-control">
+                                                {% for group in groups %}
+                                                <option value="{{group.id}}">{{group.name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
                                         <div class="col-12">
                                             <button class="btn btn-primary w-100 py-3" type="submit">Change</button>
                                         </div>
@@ -31,7 +41,7 @@
                         </div>
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                             <div class="position-relative h-100">
-                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/support.jpg' %}" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/security.jpg' %}" style="object-fit: cover;">
                             </div>
                         </div>
                     </div>

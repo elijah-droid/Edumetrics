@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User, Permission
+from django.contrib.auth.models import User, Permission, Group
 
 
 roles = (
@@ -27,5 +27,6 @@ class Adminship(models.Model):
         blank=True,
         related_name='my_model_permissions',
     )
+    Groups = models.ManyToManyField(Group, blank=True)
 
 

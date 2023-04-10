@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.contrib.auth.models import Permission
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import Permission, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 from django.utils import timezone
@@ -7,6 +7,7 @@ from .models import SchoolAdministrator, Adminship
 import plotly.graph_objs as go
 import plotly
 from .forms import LinkAdminForm
+from Edumetrics.settings import my_apps
 
 
 @login_required
@@ -64,12 +65,23 @@ def register_schooladmin(request):
 
 def change_permissions(request, admin):
     admin = SchoolAdministrator.objects.get(pk=admin)
-    permissions = Permission.objects.filter(content_type__app_label__in=['Reports',])
+    permissions = Permission.objects.filter(content_type__app_label__in=my_apps)
+    groups = Group.objects.all()
     context = {
         'admin': admin,
-        'permissions': permissions
+        'permissions': permissions,
+        'groups': groups
     }
-    
-    return render(request, 'change_permissions.html', context)
+    if request.method == 'POST':
+        permissions = request.POST.getlist('permissions')
+        groups = request.POST.getlist('groups')
+        groups = Group.objects.filter(id__in=groups)
+        permissions = Permission.objects.filter(id__in=permissions)
+        adminship = Adminship.objects.get(Admin=admin, School=request.user.schooladministrator.current_school)
+        adminship.permissions.set(permissions)
+        adminship.Groups.set(groups)
+        return redirect('school-administrators')
+    else:
+        return render(request, 'change_permissions.html', context)
 
 
