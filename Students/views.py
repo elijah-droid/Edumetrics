@@ -7,8 +7,16 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 import random
 from Classes.models import Class
+import os
 import string
 from Enrollments.models import Enrollment
+import docx
+from django.http import FileResponse
+import io
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx2pdf import convert
+from FeesManagement.templatetags.fees_tags import fees_balance
+
 
 def generate_student_id():
     # Generate a 4-letter random string
@@ -24,38 +32,44 @@ def generate_student_id():
     return student_id
 
 
-def generate_student_report(request):
-    students = Student.objects.all()
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="student_report.pdf"'
+def download_students_info(request):
+    doc = docx.Document()
+    doc.add_heading(f'{request.user.schooladministrator.current_school} Students Info', level=1).alignment = WD_ALIGN_PARAGRAPH.CENTER
+    doc.add_paragraph()
+    table = doc.add_table(rows=request.user.schooladministrator.current_school.students.count()+1, cols=5)
+    table.cell(0, 0).text = 'First Name'
+    table.cell(0, 1).text = 'Last_Name'
+    table.cell(0, 2).text = 'Class'
+    table.cell(0, 3).text = 'Student Id'
+    table.cell(0, 4).text = 'Fees Balance'
+    row = 1
+    for student in request.user.schooladministrator.current_school.students.all():
+        table.cell(row, 0).text = student.first_name
+        table.cell(row, 1).text = student.last_name
+        table.cell(row, 2).text = student.Class.Name
+        table.cell(row, 3).text = student.student_id
+        table.cell(row, 4).text = f'{fees_balance(student)} UGX'
+        row += 1
 
-    # Create the PDF object, using the response object as its "file."
-    p = canvas.Canvas(response)
+    file_path = f'{request.user.schooladministrator.current_school}_students_info.docx'
+    doc.save(file_path)
 
-    # Set up the PDF document
-    p.setTitle("Student Report")
-    p.setFont("Helvetica-Bold", 16)
-    p.drawCentredString(300, 750, "Student Report")
-    p.setFont("Helvetica", 12)
+    # Convert the file to a PDF
+    pdf_file_path = f'{request.user.schooladministrator.current_school}_students_info.pdf'
+    file = convert(file_path, pdf_file_path)
 
-    # Generate the content for the PDF
-    y = 700
-    p.drawString(50, y, f"Names")
-    p.drawString(150, y, f"Male")
-    p.drawString(250, y, f"{student.date_of_birth}")
-    p.drawString(350, y, f"1")
-    y -= 20
-    for student in students:
-        p.drawString(50, y, f"{student.first_name} {student.last_name}")
-        p.drawString(150, y, f"Male")
-        p.drawString(250, y, f"{student.date_of_birth}")
-        p.drawString(350, y, f"1")
-        y -= 20
+    # Delete the original Word document
 
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
+    os.remove(file_path)
+    # Create a response with the PDF file
+
+    file = open(pdf_file_path, 'rb')
+    response = FileResponse(file, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{request.user.schooladministrator.current_school}_students_info.pdf"'
+
+    # Delete the PDF file
     return response
+
 
 
 def student_dashboard(request):
