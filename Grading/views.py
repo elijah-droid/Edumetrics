@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import GradeForm, DivisionForm
+from django.contrib.auth.decorators import permission_required
 
+
+@permission_required('Grading.can_view_grade', raise_exception=True)
 def grades(request):
     return render(request, 'grades.html')
 

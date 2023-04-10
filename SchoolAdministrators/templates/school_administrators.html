@@ -18,8 +18,10 @@
             <thead>
                 <tr class="text-dark">
                     <th scope="col">Names</th>
+                    <th class="text-nowrap" scope="col">Last Login</th>
+                    <th class="text-nowrap" scope="col">Unauthorized Attempts</th>
                     <th class="text-nowrap" scope="col">Roles</th>
-                    <th class="text-nowrap" scope="col">Permissions</th>
+                    <th class="text-nowrap" scope="col">Permissions </th>
                     <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
@@ -27,12 +29,20 @@
                 {% for adminship in admins %}
                 <tr>
                     <td class="text-nowrap text-dark">{{adminship.Admin}}</td>
+                    <td class="text-nowrap text-dark"><small>{{adminship.last_login}}</small></td>
+                    <td class="text-nowrap text-dark"><small>{{adminship.unauthorized_attempts}}</small></td>
                     <td class="text-nowrap text-dark">{% for group in adminship.Groups.all %} <small>{{group}}</small> <br> {% endfor %}</td>
+                    {% if not adminship.super_admin %}
                     <td class="text-nowrap text-dark"><small><u>Group or Role based Permissions</u></small><br/>{% for group in adminship.Groups.all %}{%for perm in group.permissions.all%}<small>{{perm}}</small><br>{% endfor %}{% endfor %}<small><u>Additional Permissions</u></small><br/>{% for permission in adminship.permissions.all|slice:"10" %}<small>{{permission}}s</small><br>{% endfor %}{% if adminship.permissions.count > 10 %} And More.....{% endif %}</td>
+                    {% else %}
+                    <td class="text-nowrap text-dark"><small>Unlimited Access <br><i class="bi bi-key-fill fa-3x"></i></small></td>
+                    {% endif %}
                     <td class="text-nowrap">
-                        <a href="{% url 'change-permissions' adminship.Admin.pk %}" class="btn btn-sm btn-dark">Change Permissions</a>
                         <a href="" class="btn btn-sm btn-primary">View Actions</a>
+                        {% if not adminship.super_admin %}
+                        <a href="{% url 'change-permissions' adminship.Admin.pk %}" class="btn btn-sm btn-dark">Change Permissions</a>
                         <a href="" class="btn btn-sm btn-dark">More</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}

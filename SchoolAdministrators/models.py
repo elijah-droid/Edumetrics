@@ -9,7 +9,7 @@ roles = (
 
 class SchoolAdministrator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    schools = models.ManyToManyField('Schools.school')
+    schools = models.ManyToManyField('Schools.school', through='Adminship')
     role = models.CharField(max_length=10, choices=roles, null=True)
     current_school = models.ForeignKey('Schools.School', models.SET_NULL, null=True, related_name='current_school')
     adminship = models.ManyToManyField('Adminship', blank=True)
@@ -28,5 +28,10 @@ class Adminship(models.Model):
         related_name='my_model_permissions',
     )
     Groups = models.ManyToManyField(Group, blank=True)
+    super_admin = models.BooleanField(default=False)
+    last_login = models.DateTimeField(null=True, blank=True)
+    unauthorized_attempts = models.PositiveBigIntegerField(default=0)
 
+    class Meta:
+        unique_together = ('Admin', 'School')
 

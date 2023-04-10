@@ -38,3 +38,4 @@ urlpatterns = [
 
 handler404 = 'Edumetrics.views.handler404'
 handler500 = 'Edumetrics.views.handler500'
+handler403 = 'Edumetrics.views.handler403'

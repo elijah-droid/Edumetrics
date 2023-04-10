@@ -1,0 +1,16 @@
+{% extends request.session.base %}
+{% load static %}
+
+{% block content %}
+<div class="text-center container">
+    <small class="text-dark">
+        You don't have the rights to view or access the data on this page.
+    </small>
+        <br>
+    <small class="text-dark">
+        A few more attempts may lead to blocking of this admin account view our. <br> <a href="">privacy policy</a>
+    </small>
+    <br>
+    <img src="{% static 'img/access_denied.jpg' %}" alt="" class="img img-fluid img-round">
+</div>
+{% endblock %}

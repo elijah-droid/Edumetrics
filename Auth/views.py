@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from SchoolAdministrators.models import Adminship
+from django.utils.timezone import now
 
 
 def class_teacher_login(request):
@@ -147,10 +148,19 @@ def set_school_session(request, school):
     user = request.user.schooladministrator
     school = user.schools.get(pk=school)
     try:
-        perms = Adminship.objects.get(Admin=request.user.schooladministrator, School=school).permissions.all()
-        request.user.user_permissions.set(perms)
+        adminship = Adminship.objects.get(Admin=request.user.schooladministrator, School=school)
+        request.user.user_permissions.set(adminship.permissions.all())
+        if adminship.super_admin:
+            request.user.is_superuser = True
+            request.user.save()
+        else:
+            request.user.is_superuser = False
+            request.user.save()
+        adminship.last_login = now()
+        adminship.save()
     except Adminship.DoesNotExist:
         request.user.user_permissions.clear()
+        request.user.is_superuser = False
     user.current_school = school
     user.save()
     recent_url = request.META.get('HTTP_REFERER')
@@ -183,6 +193,8 @@ def logout_view(request):
     logout(request)
     try:
         request.user.user_permissions.clear()
+        request.user.is_superuser = False
+        request.user.save()
     except:
         pass
     return redirect('index')
@@ -198,3 +210,6 @@ def change_password(request):
     else:
         request.session['next'] = request.META.get('HTTP_REFERER')
         return render(request, 'change_password.html')
+    
+
+    
