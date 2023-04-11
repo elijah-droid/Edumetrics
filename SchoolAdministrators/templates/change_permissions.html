@@ -27,7 +27,7 @@
                                             <label>Groups</label>
                                             <select multiple name="groups" class="form-control">
                                                 {% for group in groups %}
-                                                <option value="{{group.id}}">{{group.name}}</option>
+                                                <option {% if group in admin|groups:user.schooladministrator.current_school %}selected{% endif %} value="{{group.id}}">{{group.name}}</option>
                                                 {% endfor %}
                                             </select>
                                         </div>

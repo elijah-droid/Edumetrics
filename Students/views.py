@@ -34,19 +34,21 @@ def download_students_info(request):
     doc = docx.Document()
     doc.add_heading(f'{request.user.schooladministrator.current_school} Students Info', level=1).alignment = WD_ALIGN_PARAGRAPH.CENTER
     doc.add_paragraph()
-    table = doc.add_table(rows=request.user.schooladministrator.current_school.students.count()+1, cols=5)
+    table = doc.add_table(rows=request.user.schooladministrator.current_school.students.count()+1, cols=6)
     table.cell(0, 0).text = 'First Name'
     table.cell(0, 1).text = 'Last_Name'
     table.cell(0, 2).text = 'Class'
     table.cell(0, 3).text = 'Student Id'
-    table.cell(0, 4).text = 'Fees Balance'
+    table.cell(0, 4).text = 'Date Enrolled'
+    table.cell(0, 5).text = 'Fees Balance'
     row = 1
     for student in request.user.schooladministrator.current_school.students.all():
         table.cell(row, 0).text = student.first_name
         table.cell(row, 1).text = student.last_name
         table.cell(row, 2).text = student.Class.Name
         table.cell(row, 3).text = student.student_id
-        table.cell(row, 4).text = f'{fees_balance(student)} UGX'
+        table.cell(row, 4).text = str(student.active_enrollment.Date)
+        table.cell(row, 5).text = f'{fees_balance(student)} UGX'
         row += 1
 
     document_io = io.BytesIO()
@@ -105,6 +107,10 @@ def enroll_student(request):
         form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
         form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
     return render(request, 'enroll_student.html', {'form': form})
+
+
+def  import_student(request):
+    return render(request, 'import_student.html')
 
 
 def child_info(request, child):

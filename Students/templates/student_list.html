@@ -8,7 +8,12 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-dark">Enroll</a>
+        <div class="btn-group">
+            {% if perms.Students.add_student %}
+            <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Enroll</a>
+            <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-dark">Import</a>
+            {% endif %}
+        </div>
         <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-primary">Get Document</a>
     </div>
     <div class="table-responsive">

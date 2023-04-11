@@ -74,6 +74,16 @@ if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.sparklehandscs.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'edumetrics@sparklehandscs.com'
+EMAIL_HOST_PASSWORD = 'intention12-@'
+DEFAULT_FROM_EMAIL = 'edumetrics@sparklehandscs.com'
+
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -94,14 +94,17 @@
         </nav>
         <hr>
         <!-- Navbar End -->
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                {% endfor %}
-        </ul>
-        {% endif %}
 
+        
+        {% if messages %}
+        {% for message in messages %}
+        <div class="text-center">
+            <div class="messages">
+                <small class="p-2 alert-success">{{message}}</small>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% block content %}
         {% endblock %}
 
@@ -169,12 +172,12 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/next.js' %}"></script>
     <script>
-        document.getElementById('generate-pdf').addEventListener('click', function () {
-                var element = document.getElementById('report');
-                html2pdf()
-                    .from(element)
-                    .save();
+        $(document).ready(function () {
+            $('#login-button').click(function () {
+                $('form').submit();
+                $(this).attr('disabled', '');
             });
+        });
     </script>
 
 </body>

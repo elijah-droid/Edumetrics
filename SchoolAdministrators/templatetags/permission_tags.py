@@ -9,3 +9,9 @@ register = template.Library()
 def permissions(admin, school):
     permissions = Adminship.objects.get(Admin=admin, School=school).permissions.all()
     return permissions
+
+
+@register.filter 
+def groups(admin, school):
+    groups = Adminship.objects.get(Admin=admin, School=school).Groups.all()
+    return groups

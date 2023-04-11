@@ -11,6 +11,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from SchoolAdministrators.models import Adminship
 from django.utils.timezone import now
+from django.core.mail import send_mail
 
 
 def class_teacher_login(request):
@@ -150,6 +151,7 @@ def set_school_session(request, school):
     try:
         adminship = Adminship.objects.get(Admin=request.user.schooladministrator, School=school)
         request.user.user_permissions.set(adminship.permissions.all())
+        request.user.groups.set(adminship.Groups.all())
         if adminship.super_admin:
             request.user.is_superuser = True
             request.user.save()
@@ -160,6 +162,7 @@ def set_school_session(request, school):
         adminship.save()
     except Adminship.DoesNotExist:
         request.user.user_permissions.clear()
+        request.user.groups.clear()
         request.user.is_superuser = False
     user.current_school = school
     user.save()
@@ -183,10 +186,25 @@ def signup(request):
             email=email,
             password=password
         )
-        login(request, user)
-        return redirect('user-dashboard')
+        data = f'Hey {user.first_name} {user.last_name}. We are testing the Edumetrics Mailing System.'
+        send_mail(
+        'Testing Edumetrics Mailing System',
+        data,
+        'edumetrics@sparklehandscs.com',
+        [user.email],
+        fail_silently=False,
+        )
+        return redirect('confirm-email', user=user.id)
     else:
         return render(request, 'signup.html', context)
+
+
+def confirm_email(request, user):
+    user = User.objects.get(pk=user)
+    context = {
+        'reg_user': user
+    }
+    return render(request, 'confirm_email.html')
 
 
 def logout_view(request):
@@ -194,6 +212,7 @@ def logout_view(request):
     try:
         request.user.user_permissions.clear()
         request.user.is_superuser = False
+        request.user.groups.clear()
         request.user.save()
     except:
         pass
