@@ -27,7 +27,7 @@
                     <td class="text-nowrap text-dark">{% for relationship in parent|relationships:user.schooladministrator.current_school %}<small>{{relationship.Child}} ({{relationship.Relationship}})</small><br>{% endfor %}</td>
                     <td class="text-nowrap">
                         <a href="{% url 'parent-profile' parent.id %}" class="btn btn-sm btn-dark">Bio</a>
-                        <a href="" class="btn btn-sm btn-primary">Children</a>
+                        <a href="{% url 'email-user' parent.user.id %}" class="btn btn-sm btn-primary">Send Email</a>
                     </td>
                 </tr>
                 {% empty %}

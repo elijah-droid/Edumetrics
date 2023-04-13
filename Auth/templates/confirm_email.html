@@ -2,7 +2,27 @@
 
 
 {% block content %}
-<div class="content text-center">
-    check your email inbox folder.
-</div>
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 col-sm-10">
+        <div class="card my-5">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0 text-white">Enter code that was sent to {{reg_user.email}}</h4>
+          </div>
+          <div class="card-body">
+            <form method="post">
+              {% csrf_token %}
+              {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+              {% endif %}
+              <div class="form-group mb-3">
+                <label for="username">Code:</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter code">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

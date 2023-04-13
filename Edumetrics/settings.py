@@ -118,6 +118,7 @@ INSTALLED_APPS = [
     'Terms',
     'Enrollments',
     'Messages',
+    'LibraryManagement'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

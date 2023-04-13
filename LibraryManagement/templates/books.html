@@ -1,0 +1,47 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Library Books</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <div class="btn-group">
+            <a href="" class="btn btn-sm btn-primary">Lend</a>
+            <a href="" class="btn btn-sm btn-dark">Return</a>
+        </div>
+        <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">Add Book</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Name</th>
+                    <th scope="col">Available</th>
+                    <th scope="col">Lend Outs</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in user.schooladministrator.current_school.Books.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{book.Name}}</td>
+                    <td class="text-nowrap text-dark">{{book.Number}} Books</td>
+                    <td class="text-nowrap text-dark">{{book.Lend_Outs.count}} Books</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-primary">Edit Book Info</a>
+                        <a href="" class="btn btn-sm btn-dark">View Lend Outs</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No books available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

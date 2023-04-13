@@ -6,15 +6,26 @@ from .models import relationships
 
 class ParentForm(forms.Form):
 
-    user = forms.IntegerField(
-        label='Parent User Id',
-        widget=forms.NumberInput(
+    parent = forms.EmailField(
+        label='Parent Email',
+        widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter Parent User Id',
+                'placeholder': 'Enter Parent Email',
             }
         )
     )
+
+    student = forms.CharField(
+        label='Student Id',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter Student Id',
+            }
+        )
+    )
+
 
     Relationship = forms.ChoiceField(
         choices=relationships,

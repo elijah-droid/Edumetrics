@@ -12,7 +12,10 @@ from django.contrib import messages
 from SchoolAdministrators.models import Adminship
 from django.utils.timezone import now
 from django.core.mail import send_mail
-
+from Students.views import generate_student_id
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 def class_teacher_login(request):
     if request.method == 'POST':
@@ -179,20 +182,25 @@ def signup(request):
         second_name = request.POST['second_name']
         email = request.POST['email']
         password = request.POST['password']
+        code = generate_student_id()
+        html_message = render_to_string('confirm_email_message.html', {'code': code})
+        text_message = strip_tags(html_message)
+        subject = 'Confirm Your Email Adress'
+        from_email = 'edumetrics@sparklehandscs.com'
+        to_email = email
+        email_message = EmailMultiAlternatives(subject, text_message, from_email, [to_email])
+
+        # Attach the HTML version of the email message
+        email_message.attach_alternative(html_message, "text/html")
+
+        # Send the email
+        email_message.send()
         user = User.objects.create(
             first_name=first_name,
             last_name=second_name,
             username=email,
             email=email,
             password=password
-        )
-        data = f'Hey {user.first_name} {user.last_name}. We are testing the Edumetrics Mailing System.'
-        send_mail(
-        'Testing Edumetrics Mailing System',
-        data,
-        'edumetrics@sparklehandscs.com',
-        [user.email],
-        fail_silently=False,
         )
         return redirect('confirm-email', user=user.id)
     else:
@@ -204,7 +212,7 @@ def confirm_email(request, user):
     context = {
         'reg_user': user
     }
-    return render(request, 'confirm_email.html')
+    return render(request, 'confirm_email.html', context)
 
 
 def logout_view(request):

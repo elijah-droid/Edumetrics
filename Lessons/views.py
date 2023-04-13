@@ -18,6 +18,7 @@ def add_new(request):
             lesson = form.save(commit=False)
             lesson.School = request.user.schooladministrator.current_school
             lesson.save()
+            lesson.Class.Lessons.add(lesson)
             request.user.schooladministrator.current_school.Lessons.add(lesson)
             lesson.Teacher.Lessons.add(lesson)
             return redirect('lessons')

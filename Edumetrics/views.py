@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 
 
@@ -8,6 +10,24 @@ def index(request):
 
 def user_dashboard(request):
     return render(request, 'user_dashboard.html')
+
+def email_user(request, user_id):
+    user = User.objects.get(id=user_id)
+    if request.method == 'POST':
+        send_mail(
+            f'Email From {request.user.schooladministrator.current_school}',
+            request.POST['message'],
+            'edumetrics@sparklehandscs.com',
+            [user.email],
+            fail_silently=False
+        )
+        return redirect('email-sent')
+    else:
+        return render(request, 'email_user.html')
+
+def email_sent(request):
+    return render(request, 'email_sent.html')
+
 
 def contact_us(request):
     return render(request, 'contact_us.html')

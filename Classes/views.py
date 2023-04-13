@@ -42,3 +42,26 @@ def class_performance(request, clas):
         'graph': plot_div
     }
     return render(request, 'class_performance.html', context)
+
+
+def class_students(request, clas):
+    clas = request.user.schooladministrator.current_school.classes.get(id=clas)
+    context = {
+        'class': clas
+    }
+    return render(request, 'class_students.html', context)
+
+def class_streams(request, clas):
+    clas = request.user.schooladministrator.current_school.classes.get(id=clas)
+    context = {
+        'class': clas
+    }
+    return render(request, 'class_streams.html', context)
+
+
+def class_profile(request, clas):
+    clas = request.user.schooladministrator.current_school.classes.get(id=clas)
+    context = {
+        'class': clas
+    }
+    return render(request, 'class_profile.html', context)

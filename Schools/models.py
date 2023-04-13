@@ -13,7 +13,7 @@ class School(models.Model):
     )
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
-    current_term = models.ForeignKey('Terms.Term', models.SET_NULL, null=True)
+    current_term = models.ForeignKey('Terms.Term', models.SET_NULL, null=True, blank=True)
     Dues = models.ManyToManyField('FeesManagement.PaymentDue', blank=True)
     state = models.CharField(max_length=2)
     zip_code = models.CharField(max_length=10)
@@ -35,6 +35,7 @@ class School(models.Model):
     Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)
     attendance = models.ManyToManyField('Attendance.Attendance', blank=True)
     Circulars = models.ManyToManyField('Circulars.Circular', blank=True)
+    Books = models.ManyToManyField('LibraryManagement.Book', blank=True)
 
     def __str__(self):
         return self.name

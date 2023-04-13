@@ -6,12 +6,12 @@ from Subjects.models import Subject
 
 class TeachersForm(forms.Form):
 
-    user = forms.IntegerField(
-        label='User Id',
-        widget=forms.NumberInput(
+    user = forms.EmailField(
+        label='''Teacher's Email''',
+        widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter User Id',
+                'placeholder': '''Enter Teacher's Email''',
             }
         )
     )

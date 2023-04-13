@@ -1,0 +1,135 @@
+{% extends request.session.base %}
+{% load static %}
+{% load performance_tags %}
+{% load fees_tags %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4 ">
+                <div class="d-flex flex-column h-100 text-center overflow-auto shadow p-3">
+                    <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% static 'img/user_.png' %}" alt="Image">
+                    <small class="lead mt-2 text-dark">{{class}} Class Teacher</small>
+                    <div class="mb-4" style="height: 22px;">
+                        <h4 class="typed-text-output d-inline-block text-light"></h4>
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between border-top">
+                        <a href="#contact" class="btn btn-dark w-50 btn-scroll text-nowrap">Email Teacher</a>
+                        <a href="#contact" class="btn btn-primary w-50 btn-scroll">Edit Class Info</a>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-8 mt-0">
+                <!-- About Start -->
+                <section class="py-5 border-bottom wow fadeInUp text-dark" data-wow-delay="0.1s">
+                    <small class="lead pb-3 mb-5">{{ class }} Class Profile</small>
+                    <hr>
+                    <p>
+                        {{class}} is a class made up of {{class.Students.count}} dedicated and hardworking students. 
+                    </p>
+
+                
+                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="text-center mb-2">
+                        <small>{{class}} class Students</small>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-dark">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">First Name</th>
+                                    <th class="text-nowrap" scope="col">Second Name</th>
+                                    <th class="text-nowrap" scope="col">Date Enrolled</th>
+                                    <th class="text-nowrap" scope="col">Fees Balance</th>
+                                    <th class="text-nowrap" scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in class.Students.all %}
+                                <tr>
+                                    <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                    <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                    <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                    <td class="text-nowrap">{{student|fees_balance}} UGX</td>
+                                    <td class="text-nowrap">
+                                        <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                        <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td>No Students Found in this  {{class}} class</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                </section>
+
+                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="text-center mb-2">
+                        <small>{{class}} class Lessons</small>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-dark">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Subject</th>
+                                    <th class="text-nowrap" scope="col">Teacher</th>
+                                    <th class="text-nowrap" scope="col">Stream</th>
+                                    <th class="text-nowrap" scope="col">Time</th>
+                                    <th class="text-nowrap" scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for lesson in class.Lessons.all %}
+                                <tr>
+                                    <td class="text-nowrap text-dark">{{lesson.Subject}}</td>
+                                    <td class="text-nowrap text-dark">{{lesson.Teacher}}</td>
+                                    <td class="text-nowrap"></td>
+                                    <td class="text-nowrap">{{lesson.From}}</td>
+                                    <td class="text-nowrap">
+                                        <a href="" class="btn btn-sm btn-dark">Attendance</a>
+                                        <a href="" class="btn btn-sm btn-primary">Email Teacher</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td>No Lessons scheduled for {{class}} class</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                </section>
+
+               
+
+                <!-- Contact Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
+                    <h1 class="">Email Parents</h1>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <label for="subject">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-dark w-100 py-3" type="submit">Send Email</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <!-- Contact End -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

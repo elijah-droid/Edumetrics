@@ -109,6 +109,26 @@ def enroll_student(request):
     return render(request, 'enroll_student.html', {'form': form})
 
 
+def change_student(request, student):
+    student = request.user.schooladministrator.current_school.students.get(pk=student)
+    form = StudentForm(instance=student)
+    form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
+    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
+    context = {
+        'form': form
+    }
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            student = form.save()
+            messages.success(request, f'Student {student.first_name} {student.last_name} info was changed successfully.')
+            return redirect('students')
+        else:
+            print(form)
+    else:
+        return render(request, 'change_student.html', context)
+
+
 def  import_student(request):
     return render(request, 'import_student.html')
 

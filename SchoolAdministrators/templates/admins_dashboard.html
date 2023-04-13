@@ -62,6 +62,7 @@
         {% if perms.Subjects.view_subject %}
         <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
         {% endif %}
+        <a href="{% url 'books' %}" class="dropdown-item">Library</a>
         {% if perms.Lessons.view_lesson %}
         <a href="{% url 'lessons' %}" class="dropdown-item">Lessons</a>
         {% endif %}
