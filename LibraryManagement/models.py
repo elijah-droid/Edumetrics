@@ -13,4 +13,5 @@ class LendOut(models.Model):
     Book = models.ForeignKey('Book', models.CASCADE)
     Student = models.ForeignKey('Students.Student', models.CASCADE)
     Date = models.DateTimeField(default=now)
+    Number = models.PositiveIntegerField(default=1)
     Returned = models.BooleanField(default=False)

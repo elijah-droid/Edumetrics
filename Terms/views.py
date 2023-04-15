@@ -7,6 +7,14 @@ def terms(request):
 
 def new_term(request):
     form = TermForm()
+    for term in request.user.schooladministrator.current_school.Terms.all():
+        for choice in form.fields['Name'].choices:
+            try:
+                request.user.schooladministrator.current_school.Terms.get(Name__in=choice)
+                new_tuple = tuple(filter(lambda x: x != choice, form.fields['Name'].choices))
+                form.fields['Name'].choices = new_tuple
+            except Term.DoesNotExist:
+                pass
     context = {
         'form': form
     }

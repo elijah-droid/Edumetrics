@@ -10,3 +10,15 @@ register = template.Library()
 def fees_balance(student):
     amt = student.school.Dues.aggregate(total=Sum('Amount_Required'))['total']
     return amt
+
+@register.filter
+def due_balance(student, due):
+    paid = due.Payments.filter(Student=student).aggregate(total=Sum('Amount'))['total']
+    balance = due.Amount_Required - paid
+    return balance
+
+
+@register.filter
+def amount_paid(due):
+    paid = due.Payments.aggregate(total=Sum('Amount'))['total']
+    return paid

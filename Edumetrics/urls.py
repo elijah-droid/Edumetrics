@@ -36,6 +36,8 @@ urlpatterns = [
     path('email-user/<int:user_id>/', email_user, name='email-user'),
     path('email-sent/', email_sent, name='email-sent'),
     path('Library/', include('LibraryManagement.urls')),
+    path('programmes/', include('Programmes.urls')),
+    path('SickBay/', include('SickBay.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

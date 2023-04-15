@@ -27,13 +27,25 @@ def school_admin_dashboard(request):
     trace2 = go.Bar(x=x, y=y2, name='Attendance')
 
     # Create a layout for the chart
-    layout = go.Layout(title=f'{user.schooladministrator.current_school} Student Statistics', xaxis=dict(title='Classes'), yaxis=dict(title='Student'))
+    layout = go.Layout(title=f'Student Statistics', xaxis=dict(title='Classes'), yaxis=dict(title='Student'))
 
     # Render the chart in the template
     plot_div = plotly.offline.plot({
         "data": [trace1, trace2],
         "layout": layout
     }, output_type="div")
+    labels = ['Paid', 'Unpaid']
+    values = [20, 50]
+    colors = ['#FE5D37', '#103741']
+    trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors))
+    layout = go.Layout(title='Fees Payments')
+    chart = plotly.offline.plot({'data': [trace], 'layout': layout}, output_type='div')
+    labels = ['Paid', 'Unpaid']
+    values = [20, 50]
+    colors = ['#FE5D37', '#103741']
+    trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors))
+    layout = go.Layout(title='Fees Payments')
+    chart = plotly.offline.plot({'data': [trace], 'layout': layout}, output_type='div')
     admin_activity = LogEntry.objects.filter(
         content_type__app_label='app',
         action_time__gte=timezone.now() - timezone.timedelta(days=7)
@@ -41,7 +53,8 @@ def school_admin_dashboard(request):
 
     context = {
         'admin_activity': admin_activity,
-        "plot_div": plot_div
+        "plot_div": plot_div,
+        'plot2': chart,
     }
 
     return render(request, 'admins_dashboard.html', context)

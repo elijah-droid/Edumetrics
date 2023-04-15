@@ -1,0 +1,46 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Sick Bay Admissions</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <div class="btn-group">
+            <a href="{% url 'admit' %}" class="btn btn-sm btn-primary">Admit</a>
+            <a href="" class="btn btn-sm btn-dark">Dismiss</a>
+        </div>
+        <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">Get Records</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Student</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Complications</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in user.schooladministrator.current_school.patient_admissions.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{book.Name}}</td>
+                    <td class="text-nowrap text-dark">{{book.Number}} Books</td>
+                    <td class="text-nowrap text-dark">{{book.Lend_Outs.count}} Books</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Call Parent</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Patients have been admitted.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

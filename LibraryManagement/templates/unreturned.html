@@ -1,0 +1,49 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Library Unreturned Books</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <div class="btn-group">
+        </div>
+        <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">Get Document</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th class="text-nowrap" scope="col">Name</th>
+                    <th class="text-nowrap" scope="col">Borrowed By</th>
+                    <th class="text-nowrap" scope="col">Borrowed On</th>
+                    <th scope="col">Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in unreturned %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{lendout.Book.Name}}</td>
+                    <td class="text-nowrap text-dark">{{lendout.Student}}</td>
+                    <td class="text-nowrap text-dark">{{lendout.Date}}</td>
+                    <td class="text-nowrap text-dark">{{lendout.Number}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-primary">Edit Book Info</a>
+                        <div class="btn-group">
+                            <a href="" class="btn btn-sm btn-primary">Lend</a>
+                            <a href="" class="btn btn-sm btn-dark">Return</a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No unreturned books.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

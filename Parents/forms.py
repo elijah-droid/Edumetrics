@@ -6,22 +6,12 @@ from .models import relationships
 
 class ParentForm(forms.Form):
 
-    parent = forms.EmailField(
+    email = forms.EmailField(
         label='Parent Email',
         widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter Parent Email',
-            }
-        )
-    )
-
-    student = forms.CharField(
-        label='Student Id',
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter Student Id',
             }
         )
     )

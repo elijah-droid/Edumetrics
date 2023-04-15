@@ -7,6 +7,7 @@ import random
 from django.urls import reverse
 from Students.models import Student
 from Examinations.models import Examination
+import docx
 
 
 def batch_reports(request):
@@ -24,18 +25,22 @@ def batch_reports(request):
             Exam = form.cleaned_data['Exam']
             students = school.students.filter(Class=cls)
             for student in students:
-                report = student.Reports.create(
-                    Student=student,
-                    Examination=Exam,
-                    Total_Score=0
-                )
-                for subject in student.Subjects.all():
-                    report.Scores.create(
-                        Report=report,
-                        Subject=subject,
-                        Score=0,
+                try:
+                    Report.objects.get(Student=student, Examination=Exam)
+                except Report.DoesNotExist:
+                    report = student.Reports.create(
+                        Student=student,
+                        Examination=Exam,
+                        Total_Score=0
                     )
-                Exam.Reports.add(report)
+                    school.Reports.add(report)
+                    for subject in student.Subjects.all():
+                        report.Scores.create(
+                            Report=report,
+                            Subject=subject,
+                            Score=0,
+                        )
+                    Exam.Reports.add(report)
             return redirect('reports')
     else:
         return render(request, 'batch_reports.html', context)
@@ -103,3 +108,26 @@ def create_report(request, student, examination):
         report.Scores.create(Score=0, Report=report, Subject=subject)
     student.school.Reports.add(report)
     return redirect('edit-report', report=report.id)
+
+
+def download_report(request, report):
+    report = Report.objects.get(pk=report)
+    doc = docx.Document()
+    for clas in request.user.schooladministrator.current_school.classes.all():
+        doc.add_heading(f'{report.student} {report.student.Examination} Reports', level=1).alignment = WD_ALIGN_PARAGRAPH.CENTER
+        doc.add_paragraph()
+        table = doc.add_table(rows=report.Student.Subjects.count()+4, cols=4)
+        table.cell(0, 0).text = 'Subject'
+        table.cell(0, 1).text = 'Marks'
+        cl = 1
+        for score in report.Scores.all():
+            table.cell(0, cl).text = score.Subject.name
+            cl+=1
+        doc.add_page_break()
+
+    document_io = io.BytesIO()
+    doc.save(document_io)
+    document_io.seek(0)
+    response = FileResponse(document_io, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="{request.user.schooladministrator.current_school}_{exam}_assessment_sheets.docx"'
+    return response

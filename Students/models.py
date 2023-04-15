@@ -19,7 +19,7 @@ class Student(models.Model):
         blank=True
     )
     active_enrollment = models.ForeignKey('Enrollments.Enrollment', models.SET_NULL, null=True)
-    Programme = models.CharField(max_length=100, choices=programmes, null=True)
+    Programme = models.ForeignKey('Programmes.Programme', models.SET_NULL, null=True)
     parents = models.ManyToManyField('Parents.Parent', blank=True)
     date_of_birth = models.DateField()
     address = models.CharField(max_length=100)

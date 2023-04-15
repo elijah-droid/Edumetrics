@@ -29,7 +29,8 @@
                     <td class="text-nowrap text-dark">{% for class in division.Classes.all %}<small>{{class}}</small><br>{% endfor %}</td>
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-dark">Delete</a>
-                        <a href="" class="btn btn-sm btn-primary">Statistics</a>
+                        <a href="{% url 'division-stats' division.id %}" class="btn btn-sm btn-primary">Statistics</a>
+                        <a href="" class="btn btn-sm btn-dark">Edit</a>
                     </td>
                 </tr>
                 {% empty %}

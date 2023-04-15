@@ -36,6 +36,8 @@ class School(models.Model):
     attendance = models.ManyToManyField('Attendance.Attendance', blank=True)
     Circulars = models.ManyToManyField('Circulars.Circular', blank=True)
     Books = models.ManyToManyField('LibraryManagement.Book', blank=True)
+    Programmes = models.ManyToManyField('Programmes.Programme', blank=True)
+    patient_admissions = models.ManyToManyField('SickBay.Admission', blank=True)
 
     def __str__(self):
         return self.name

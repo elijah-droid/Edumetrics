@@ -1,0 +1,46 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Programmes</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{% url 'add-due' %}" class="btn btn-sm btn-primary">Statistics</a>
+        <a href="{% url 'add-programme' %}" class="btn btn-sm btn-dark">New Programme</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Name</th>
+                    <th class="text-nowrap" scope="col">No. of Students</th>
+                    <th class="text-nowrap" scope="col">Fees Required</th>
+                    <th class="text-nowrap" scope="col">Requirements</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for programme in user.schooladministrator.current_school.Programmes.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{due.Reason}}</td>
+                    <td class="text-nowrap text-dark">{{due.Amount_Required}} UGX</td>
+                    <td class="text-nowrap">{{due|amount_paid}} UGX</td>
+                    <td class="text-nowrap">{% for class in due.Classes.all %}<small>{{class}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">
+                        <a href="{% url 'due-payments' due.id %}" class="btn btn-sm btn-dark">View Payments</a>
+                        <a href="{% url 'add-due-payment' due.pk %}" class="btn btn-sm btn-primary">Add Payment</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Programmes available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,41 +1,43 @@
 {% extends request.session.base %}
+{% load fees_tags %}
 
 {% block content %}
 <div class="container text-dark">
     <div class="text-center">
-        <small class="lead">{{user.schooladministrator.current_school}} Dues</small>
+        <small class="lead">{{due}} Payments</small>
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <small class="lead text-dark"></small>
-        <a href="{% url 'add-due' %}" class="btn btn-sm btn-dark">New</a>
+        <a href="" class="btn btn-sm btn-dark">Get Document</a> 
+        <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">View Unpaid</a>
     </div>
     <div class="table-responsive">
-        <table class="table table-bordered text-dark">
+        <table class="table table-bordered">
             <thead>
                 <tr class="text-dark">
-                    <th scope="col">Due</th>
-                    <th class="text-nowrap" scope="col">Amount Required</th>
-                    <th class="text-nowrap" scope="col">Total Amount Paid</th>
-                    <th class="text-nowrap" scope="col">Classes</th>
+                    <th scope="col">Sudent</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">Paid By</th>
                     <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for due in user.schooladministrator.current_school.Dues.all %}
+                {% for payment in due.Payments.all|dictsortreversed:'Date' %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{due.Reason}}</td>
-                    <td class="text-nowrap text-dark">{{due.Amount_Required}} UGX</td>
-                    <td class="text-nowrap"></td>
-                    <td class="text-nowrap">{% for class in due.Classes.all %}<small>{{class}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap text-dark">{{payment.Student}}</td>
+                    <td class="text-nowrap text-dark">{{payment.Date}}</td>
+                    <td class="text-nowrap text-dark"><small>{{payment.Amount}} UGX</small> / <small>{{due.Amount_Required}} UGX</small></td>
+                    <td class="text-nowrap text-dark"><small>{{payment.Student|due_balance:due}} UGX</small></td>
+                    <td class="text-nowrap text-dark">{{payment.parent}}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">View Payments</a>
-                        <a href="{% url 'add-due-payment' due.pk %}" class="btn btn-sm btn-primary">Add Payment</a>
+                        <a href="" class="btn btn-sm btn-dark">Payment Info</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td>No Dues available</td>
+                    <td>No payments for {{due}}.</td>
                 </tr>
                 {% endfor %}
             </tbody>

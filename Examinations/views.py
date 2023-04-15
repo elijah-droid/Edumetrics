@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import FileResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from .models import Examination
 from .forms import ExamScheduleForm
+import io
+import docx
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 
 
@@ -61,7 +65,21 @@ def view_exam_reports(request, exam):
 
 def assessments(request, exam):
     exam = request.user.schooladministrator.current_school.Examinations.get(pk=exam)
-    context = {
-        'exam': exam
-    }
-    return render(request, 'assessments.html', context)
+    doc = docx.Document()
+    for clas in request.user.schooladministrator.current_school.classes.all():
+        doc.add_heading(f'{request.user.schooladministrator.current_school} {clas} {exam} Assessment Sheet', level=1).alignment = WD_ALIGN_PARAGRAPH.CENTER
+        doc.add_paragraph()
+        table = doc.add_table(rows=request.user.schooladministrator.current_school.students.count()+1, cols=request.user.schooladministrator.current_school.Subjects.count()+1)
+        table.cell(0, 0).text = 'Student'
+        cl = 1
+        for subject in request.user.schooladministrator.current_school.Subjects.all():
+            table.cell(0, cl).text = subject.name
+            cl+=1
+        doc.add_page_break()
+
+    document_io = io.BytesIO()
+    doc.save(document_io)
+    document_io.seek(0)
+    response = FileResponse(document_io, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="{request.user.schooladministrator.current_school}_{exam}_assessment_sheets.docx"'
+    return response

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import GradeForm, DivisionForm
 from django.contrib.auth.decorators import permission_required
+import plotly.graph_objs as go
+import plotly
 
 
 @permission_required('Grading.can_view_grade', raise_exception=True)
@@ -43,3 +45,25 @@ def add_division(request):
             request.user.schooladministrator.current_school.Divisions.add(division)
             return redirect('divisions')
     return render(request, 'add_division.html', context)
+
+def division_stats(request, division):
+    division = request.user.schooladministrator.current_school.Divisions.get(id=division)
+    x = [exam.Name for exam in request.user.schooladministrator.current_school.Examinations.all()[:3]]
+    y1 = [20, 35, 30, 25, 40]
+    
+
+    # Create a bar chart trace
+    trace2 = go.Bar(x=x, y=y1, name=division.Name)
+
+    # Create a layout for the chart
+    layout = go.Layout(title=f'{division.Name} Statistics', xaxis=dict(title='Last Three Sets'), yaxis=dict(title=f'Number of {division.Name}s'))
+
+    # Render the chart in the template
+    plot_div = plotly.offline.plot({
+        "data": [trace2],
+        "layout": layout
+    }, output_type="div")
+    context = {
+        'graph': plot_div
+    }
+    return render(request, 'division_stats.html', context)

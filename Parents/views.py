@@ -6,6 +6,7 @@ from Reports.models import Report
 from .models import Parent, Relationship
 from .forms import ParentForm
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 
 
@@ -40,7 +41,7 @@ def link_parent(request, student):
         form = ParentForm(request.POST)
         if form.is_valid():
             try:
-                user = User.objects.get(id=form.cleaned_data['user'])
+                user = User.objects.get(email=form.cleaned_data['email'])
                 try:
                     parent = Parent.objects.get(user=user)
                 except Parent.DoesNotExist:
@@ -50,9 +51,19 @@ def link_parent(request, student):
                     relationship = parent.relationships.get(Child=student)
                 except Relationship.DoesNotExist:
                     relationship = parent.relationships.create(Parent=parent, Child=student, Relationship=form.cleaned_data['Relationship'])
+                student.school.Parents.add(parent)
+                message = '''
+                You can now login as a parent and monitor attendance, pay fees, monitor and track performance and so much more.
+                '''
+                send_mail(
+                    f'Linked {student} at {student.school} to your Edumetrics Parents Account',
+                    message,
+                    'edumetrics@sparklehandscs.com',
+                    [parent.user.email]
+                )
                 return redirect('student-profile', student=student.id)
             except User.DoesNotExist:
-                form.add_error('user', 'Invalid User Id')
+                form.add_error('email', 'No Parent with such Email')
                 return render(request, 'link_parent.html', {'form': form})
         else:
             print(form)

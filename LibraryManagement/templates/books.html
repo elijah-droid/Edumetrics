@@ -9,8 +9,7 @@
     <hr>
     <div class="d-flex justify-content-between mb-3">
         <div class="btn-group">
-            <a href="" class="btn btn-sm btn-primary">Lend</a>
-            <a href="" class="btn btn-sm btn-dark">Return</a>
+            <a href="{% url 'unreturned' %}" class="btn btn-sm btn-dark">Unreturned Books</a>
         </div>
         <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">Add Book</a>
     </div>
@@ -20,7 +19,7 @@
                 <tr class="text-dark">
                     <th scope="col">Name</th>
                     <th scope="col">Available</th>
-                    <th scope="col">Lend Outs</th>
+                    <th scope="col">Unreturned</th>
                     <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
@@ -32,7 +31,10 @@
                     <td class="text-nowrap text-dark">{{book.Lend_Outs.count}} Books</td>
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-primary">Edit Book Info</a>
-                        <a href="" class="btn btn-sm btn-dark">View Lend Outs</a>
+                        <div class="btn-group">
+                            <a href="{% url 'lend-book' book.id %}" class="btn btn-sm btn-primary">Lend</a>
+                            <a href="" class="btn btn-sm btn-dark">Return</a>
+                        </div>
                     </td>
                 </tr>
                 {% empty %}
