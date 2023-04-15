@@ -96,7 +96,7 @@ def admin_login(request):
     if request.user.is_authenticated:
         return redirect('admin_dashboard')
     if request.method == 'POST':
-        username = request.POST['username']
+        username = request.POST['email']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         try:
