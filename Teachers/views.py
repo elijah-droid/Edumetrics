@@ -5,6 +5,7 @@ from .forms import TeachersForm
 from Lessons.models import Lesson
 from django.utils.timezone import now
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 
 @login_required
@@ -111,7 +112,7 @@ def recruit_teacher(request):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                user = User.objects.get(id=data['user'])
+                user = User.objects.get(email=data['email'])
                 try:
                     teacher = Teacher.objects.get(user=user)
                 except Teacher.DoesNotExist:
@@ -123,6 +124,21 @@ def recruit_teacher(request):
                 )
                 profile.Classes.set(data['Classes'])
                 profile.Subjects.set(data['Subjects'])
+                message = f'''
+                Dear {user.first_name} you have been recruited as a teacher at {request.user.schooladministrator.current_school},
+
+                You will be able to teach {', '.join(str(s) for s in data['Subjects'])} in {', '.join(str(c)+' class' for c in data['Classes'])}
+
+                You now have the access to interact with the school in your teachers Edumetrics Account.
+
+                Thank you
+                '''
+                send_mail(
+                    f'{request.user.schooladministrator.current_school} RECRUIT',
+                    message,
+                    'edumetrics@sparklehandscs.com',
+                    [user.email]
+                )
                 return redirect('teacher-profile', teacher=teacher.pk)
             except User.DoesNotExist:
                 form.add_error('user', 'Invalid User Id')

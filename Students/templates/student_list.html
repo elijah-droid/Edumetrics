@@ -34,13 +34,14 @@
                 <tr>
                     <td class="text-nowrap text-dark">{{student}}</td>
                     <td class="text-nowrap text-dark">{{student.active_enrollment.Date}}</td>
-                    <td class="text-nowrap text-dark">{{student.active_enrollment.Programme}}</td>
+                    <td class="text-nowrap text-dark">{{student.active_enrollment.Programme.Name}}</td>
                     <td class="text-nowrap text-dark">{{student.Class}}</td>
                     <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
                     <td class="text-nowrap text-dark">{{student|fees_balance}} UGX</td>
                     <td class="text-nowrap">
-                        <a href="{% url 'link-parent' student.id %}" class="btn btn-sm btn-dark">Link Parent</a>
+                        <a href="{% url 'link-parent' student.id %}" class="btn btn-sm btn-primary">Link Parent</a>
                         <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">Profile</a>
+                        <a href="{% url 'change-student' student.pk %}" class="btn btn-sm btn-primary">Edit Info</a>
                     </td>
                 </tr>
                 {% empty %}

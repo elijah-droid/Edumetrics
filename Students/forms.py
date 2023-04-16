@@ -8,7 +8,7 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'photo', 'email', 'student_id', 'Programme', 'date_of_birth', 'Class', 'Subjects']
+        fields = ['first_name', 'last_name', 'photo', 'student_id', 'Programme', 'date_of_birth', 'Class', 'Subjects']
         widgets = {
             'Programme': forms.Select(attrs={'class': 'form-control'}),
             'photo': forms.FileInput(attrs={'class': 'form-control'})
@@ -31,16 +31,6 @@ class StudentForm(forms.ModelForm):
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter last name',
-            }
-        )
-    )
-
-    email = forms.EmailField(
-        label='Email',
-        widget=forms.EmailInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Enter Email',
             }
         )
     )

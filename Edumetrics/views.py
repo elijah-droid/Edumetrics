@@ -1,6 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+import os
+from Students.models import Student
+from django.contrib import messages
+
+
+def get_image(request, student):
+    student = Student.objects.get(id=student)
+    if student.photo:
+        image_path = student.photo.path
+    else:
+        image_path = 'Edumetrics/static/img/user_.png'
+    with open(image_path, 'rb') as f:
+        image_data = f.read()
+    return HttpResponse(image_data, content_type='image/png')
 
 
 
@@ -21,7 +36,9 @@ def email_user(request, user_id):
             [user.email],
             fail_silently=False
         )
-        return redirect('email-sent')
+        messages.success(request, 'Email sent successfully')
+        recent_url = request.META.get('HTTP_REFERER')
+        return redirect(recent_url)
     else:
         return render(request, 'email_user.html')
 

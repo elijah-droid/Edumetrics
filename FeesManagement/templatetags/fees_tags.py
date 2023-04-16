@@ -8,7 +8,7 @@ register = template.Library()
 
 @register.filter
 def fees_balance(student):
-    amt = student.school.Dues.aggregate(total=Sum('Amount_Required'))['total']
+    amt = student.school.Dues.filter(Compulsory=True).aggregate(total=Sum('Amount_Required'))['total']
     return amt
 
 @register.filter

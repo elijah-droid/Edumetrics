@@ -118,7 +118,7 @@ def change_student(request, student):
         'form': form
     }
     if request.method == 'POST':
-        form = StudentForm(request.POST, instance=student)
+        form = StudentForm(request.POST, request.FILES, instance=student)
         if form.is_valid():
             student = form.save()
             messages.success(request, f'Student {student.first_name} {student.last_name} info was changed successfully.')

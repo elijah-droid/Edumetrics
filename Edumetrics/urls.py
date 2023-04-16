@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import index, user_dashboard, contact_us, about_us, email_user, email_sent
+from .views import index, user_dashboard, contact_us, about_us, email_user, email_sent, get_image
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -38,6 +38,7 @@ urlpatterns = [
     path('Library/', include('LibraryManagement.urls')),
     path('programmes/', include('Programmes.urls')),
     path('SickBay/', include('SickBay.urls')),
+    path('get-image/<int:student>/', get_image, name='get-image'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

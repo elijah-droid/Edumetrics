@@ -14,10 +14,16 @@ def profile(teacher, school):
 @register.simple_tag
 def teacher_score(teacher, subject, school):
     profile = teacher.work_profile.get(School=school)
-    scores = Score.objects.filter(Subject=subject)
+    scores = Score.objects.filter(Subject=subject, Report__Student__Class__in=profile.Classes.all(), Report__Student__school=profile.School)
     print(scores)
     figure = scores.aggregate(score=Avg('Score'))['score']
     try:
         return int(figure)
     except:
         return 0
+
+@register.filter
+def students(teacher, school):
+    profile = teacher.work_profile.get(School=school)
+    students = school.students.filter(Class__in=profile.Classes.all(), school=profile.School, Subjects__in=profile.Subjects.all()).distinct()
+    return students

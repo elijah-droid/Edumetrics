@@ -6,7 +6,7 @@ from Subjects.models import Subject
 
 class TeachersForm(forms.Form):
 
-    user = forms.EmailField(
+    email = forms.EmailField(
         label='''Teacher's Email''',
         widget=forms.EmailInput(
             attrs={

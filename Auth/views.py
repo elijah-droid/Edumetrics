@@ -34,9 +34,9 @@ def class_teacher_login(request):
 
 def parents_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=email, password=password)
         try:
             Parent.objects.get(user=user)
         except Parent.DoesNotExist:
@@ -169,6 +169,7 @@ def set_school_session(request, school):
         request.user.is_superuser = False
     user.current_school = school
     user.save()
+    messages.success(request, f'You are now operating at {school}')
     recent_url = request.META.get('HTTP_REFERER')
     return redirect(recent_url)
 
