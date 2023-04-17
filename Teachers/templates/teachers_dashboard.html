@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load teachers_tags %}
 
 {% block nav %}
 <a href="{% url 'teacher_dashboard' %}" class="nav-item nav-link">Dashboard</a>
 <div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Data</a>
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Menu</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
         <a href="{% url 'attendance' %}" class="dropdown-item">Students</a>
         <a href="{% url 'tallies' %}" class="dropdown-item">Tallies</a> 
@@ -17,7 +18,7 @@
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">current school</a>
     <div class="dropdown-menu bg-transparent border-0">
         {% for work in user.teacher.work_profile.all %}
-        <a href="{% url 'login-parent' %}" class="dropdown-item {% if school == user.teacher.current_school %}active{% endif %}">{{work.School}}</a>
+        <a href="" class="dropdown-item {% if school == user.teacher.current_school %}active{% endif %}">{{work.School}}</a>
         {% endfor %}
     </div>
 </div>
@@ -25,7 +26,7 @@
 
 {% block content %}
 <div class="mt-3 text-center"> 
-    <small class="lead text-dark"><u>Teachers Dashboard</u></small>
+    <small class="lead text-dark"><u>Teachers Dashboard ({{user.teacher.current_profile.School}})</u></small>
 </div>
 <!-- Sale & Revenue Start -->
 <div class="container-fluid pt-4 px-4">
@@ -35,7 +36,7 @@
                 <i class="bi bi-people-fill fa-3x"></i>
                 <div class="ms-3">
                     <p class="mb-2 text-nowrap">Students</p>
-                    <h6 class="mb-0 text-white">{{user.schooladministrator.current_school.students.count}}</h6>
+                    <h6 class="mb-0 text-white">{% with students=user.teacher|students:user.teacher.current_profile.School %} {{students.count}} {% endwith %}</h6>
                 </div>
             </div>
         </div>
@@ -43,8 +44,8 @@
             <div class="bg-dark text-white rounded d-flex align-items-center justify-content-between p-4">
                 <i class="bi bi-clipboard-data fa-3x"></i>
                 <div class="ms-3">
-                    <p class="mb-2 text-nowrap">Reports</p>
-                    <h6 class="mb-0 text-white">{{user.schooladministrator.current_school.students.count}}</h6>
+                    <p class="mb-2 text-nowrap">Subjects</p>
+                    <h6 class="mb-0 text-white">{{user.teacher.current_profile.Subjects.count}}</h6>
                 </div>
             </div>
         </div>
@@ -53,16 +54,16 @@
                 <i class="bi bi-calendar-day fa-3x"></i>
                 <div class="ms-3">
                     <p class="mb-2 text-nowrap">Lessons</p>
-                    <h6 class="mb-0 text-white">{{user.schooladministrator.current_school.students.count}}</h6>
+                    <h6 class="mb-0 text-white">{% with lessons=user.teacher|lessons:user.teacher.current_profile.School %} {{lessons.count}} {% endwith %}</h6>
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-xl-3">
             <div class="bg-dark text-white rounded d-flex align-items-center justify-content-between p-4">
-                <i class="bi bi-cash-stack fa-3x"></i>
+                <i class="bi bi-star-fill fa-3x"></i>
                 <div class="ms-3">
-                    <p class="mb-2 text-nowrap">Total Fees Balance</p>
-                    <h6 class="mb-0 text-white">0 UGX</h6>
+                    <p class="mb-2 text-nowrap">Average Rating</p>
+                    <h6 class="mb-0 text-white">0</h6>
                 </div>
             </div>
         </div>
@@ -89,7 +90,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for lesson in lessons|dictsort:"From" %}
+                    {% for lesson in user.teacher|lessons:user.teacher.current_profile.School %}
                     <tr>
                         <td class="text-nowrap">{{lesson.Subject}}</td>
                         <td class="text-nowrap">{{lesson.Class}}</td>

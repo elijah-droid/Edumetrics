@@ -1,0 +1,17 @@
+{% extends request.session.base %}
+{% load static %}
+{% load children_tags %}
+
+{% block content %}
+<div class="text-center">
+    <small class="lead">Your Children's Reports</small>
+</div>
+
+ {% for report in user.parent|parent_reports %}
+ {% include 'report.html' %}
+ {% empty %}
+ <div class="text-center mt-3">
+    <small class="lead">No Reports Available at the moment</small>
+ </div>
+ {% endfor %}
+{% endblock %}

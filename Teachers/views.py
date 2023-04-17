@@ -10,12 +10,7 @@ from django.core.mail import send_mail
 
 @login_required
 def teachers_dashboard(request):
-    day = now().strftime("%A")
-    lessons = Lesson.objects.filter(Teacher__user=request.user, Day=day)
-    context = {
-        'lessons': lessons
-    }
-    return render(request, 'teachers_dashboard.html', context)
+    return render(request, 'teachers_dashboard.html')
 
 
 @login_required

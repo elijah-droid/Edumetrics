@@ -6,6 +6,7 @@ class Report(models.Model):
     Scores = models.ManyToManyField('Score', blank=True)
     Total_Score = models.PositiveIntegerField(null=True)
     Aggregate = models.PositiveIntegerField(null=True)
+    Published = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.Student) + ' '+str(self.Examination)

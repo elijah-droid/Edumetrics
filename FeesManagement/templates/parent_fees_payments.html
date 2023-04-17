@@ -1,0 +1,40 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">Your Fees Payments</small>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Child</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col">Paid For</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in user.parent.Fees_Payments.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{payment.Student}}</td>
+                    <td class="text-nowrap text-dark">{{payment.Date}}</td>
+                    <td class="text-nowrap text-dark">{{payment.Amount}} UGX</td>
+                    <td class="text-nowrap text-dark">{{payment.Due.Reason}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Payment Info</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No payments for made.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

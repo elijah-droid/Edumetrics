@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Report
-from .forms import BatchReportsForm
+from .forms import BatchReportsForm, PublishBatchReportsForm
 import random
 from django.urls import reverse
 from Students.models import Student
@@ -131,3 +131,21 @@ def download_report(request, report):
     response = FileResponse(document_io, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     response['Content-Disposition'] = f'attachment; filename="{request.user.schooladministrator.current_school}_{exam}_assessment_sheets.docx"'
     return response
+
+def publish_batch(request):
+    context = {
+        'form': PublishBatchReportsForm()
+    }
+    if request.method == 'POST':
+        form = PublishBatchReportsForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            reports = request.user.schooladministrator.current_school.Reports.filter(Student__Class=data['Class'], Examination=data['Exam'])
+            reports.update(Published=True)
+            return redirect('reports')
+    else:
+        return render(request, 'publish_batch.html', context)
+
+
+def child_reports(request):
+    return render(request, 'child_reports.html')

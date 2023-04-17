@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import PaymentDueForm, PaymentForm
 from .models import PaymentDue
+from django.core.mail import send_mail
 
 def dues(request):
     dues = PaymentDue.objects.all()
@@ -47,13 +48,28 @@ def add_due_payment(request, due):
         if form.is_valid():
             payment = form.save(commit=False)
             payment.Due = due
+            payment.paid_via = 'School'
             payment.save()
             due.Payments.add(payment)
+            payment.parent.Fees_Payments.add(payment)
+            message = f'''
+            A total amount of {payment.Amount} UGX was paid to {request.user.schooladministrator.current_school} 
+            via the school For {payment.Student} {payment.Due.Reason}.
+            '''
+            send_mail(
+                f'Fees Payment Made to {request.user.schooladministrator.current_school}',
+                message,
+                'edumetrics@sparklehandscs.com',
+                [payment.parent.user.email]
+            )
             return redirect('due-payments', due=due.id)
     else:
         return render(request, 'add_due_payment.html', context)
 
 
 def pay_child_fees(request, child):
-    
     return render(request, 'pay_child_fees.html', context)
+
+
+def parent_fees_payments(request):
+    return render(request, 'parent_fees_payments.html')

@@ -2,6 +2,8 @@ from django import template
 from django.db.models import Avg
 from Reports.models import Report, Score
 from django.urls import reverse
+from Lessons.models import Lesson
+from django.utils.timezone import now
 
 register = template.Library()
 
@@ -27,3 +29,10 @@ def students(teacher, school):
     profile = teacher.work_profile.get(School=school)
     students = school.students.filter(Class__in=profile.Classes.all(), school=profile.School, Subjects__in=profile.Subjects.all()).distinct()
     return students
+
+
+@register.filter
+def lessons(teacher, school):
+    day = now().strftime("%A")
+    lessons = Lesson.objects.filter(Teacher=teacher, School=school, Day=day)
+    return lessons

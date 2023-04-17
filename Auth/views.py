@@ -120,9 +120,9 @@ def admin_login(request):
 
 def teacher_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=email, password=password)
         try:
             teacher = Teacher.objects.get(user=user)
         except Teacher.DoesNotExist:
@@ -132,12 +132,6 @@ def teacher_login(request):
             if teacher.current_profile is None:
                 teacher.current_profile = random.choice(teacher.work_profile.all())
                 teacher.save()
-            if teacher.current_class is None:
-                teacher.current_class = random.choice(classes)
-                teacher.save()
-            streams = teacher.current_class.Streams.filter()
-            if teacher.current_stream is None:
-                teacher.current_stream = random.choice(streams)
             request.session['base'] = 'teachers_dashboard.html'
             return redirect('teacher_dashboard')
         else:
