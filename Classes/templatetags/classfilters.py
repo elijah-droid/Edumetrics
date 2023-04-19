@@ -12,4 +12,3 @@ def attendance(clas, request):
     except Attendance.DoesNotExist:
         return 0
 
-

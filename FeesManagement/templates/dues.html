@@ -32,6 +32,7 @@
                     <td class="text-nowrap">
                         <a href="{% url 'due-payments' due.id %}" class="btn btn-sm btn-dark">View Payments</a>
                         <a href="{% url 'add-due-payment' due.pk %}" class="btn btn-sm btn-primary">Add Payment</a>
+                        <a href="{% url 'delete-due' due.id %}" class="btn btn-sm btn-dark">Delete</a>
                     </td>
                 </tr>
                 {% empty %}

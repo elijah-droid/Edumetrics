@@ -99,6 +99,7 @@ def enroll_student(request):
             enrollment = Enrollment.objects.create(School=request.user.schooladministrator.current_school, Student=student, Programme=student.Programme, By=request.user.schooladministrator)
             student.active_enrollment = enrollment
             student.save()
+            student.Programme.Students.add(student)
             student.school.Enrollments.add(enrollment)
             messages.success(request, f'Student {student.first_name} {student.last_name} has been enrolled successfully.')
             return redirect('students')

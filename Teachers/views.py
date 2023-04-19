@@ -6,6 +6,7 @@ from Lessons.models import Lesson
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.contrib import messages
 
 
 @login_required
@@ -136,7 +137,7 @@ def recruit_teacher(request):
                 )
                 return redirect('teacher-profile', teacher=teacher.pk)
             except User.DoesNotExist:
-                form.add_error('user', 'Invalid User Id')
+                messages.success(request, 'Invalid Email')
                 return render(request, 'recruit_teacher.html', {'form': form})
 
     else:

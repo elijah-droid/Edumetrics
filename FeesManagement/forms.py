@@ -23,3 +23,13 @@ class PaymentForm(forms.ModelForm):
             'Method': forms.Select(attrs={'class': 'form-control'}),
             'Amount': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+
+class ParentPaymentForm(forms.ModelForm):
+    class Meta:
+        model = Payment
+        fields = ['Due', 'Amount']
+        widgets = {
+            'Due': forms.Select(attrs={'class': 'form-control'}),
+            'Amount': forms.NumberInput(attrs={'class': 'form-control'}),
+        }

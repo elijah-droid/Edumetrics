@@ -185,7 +185,7 @@
                                     <td>{{class|attendance:request}}</td>
                                     <td class="text-nowrap">
                                         <a href="{% url 'class-performance' class.pk %}" class="btn btn-sm btn-dark">Performance</a>
-                                        <a href="" class="btn btn-sm btn-primary">More</a>
+                                        <a href="{% url 'class-profile' class.id %}" class="btn btn-sm btn-primary">More</a>
                                     </td>
                                 </tr>
                                 {% endfor %}

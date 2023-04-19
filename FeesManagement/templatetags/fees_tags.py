@@ -11,6 +11,10 @@ register = template.Library()
 def fees_balance(student):
     amt = student.school.Dues.filter(Compulsory=True).aggregate(total=Sum('Amount_Required'))['total']
     paid = Payment.objects.filter(Due__Compulsory=True).aggregate(total=Sum('Amount'))['total']
+    if not amt:
+        amt = 0
+    if not paid:
+        paid = 0
     return amt - paid
 
 @register.filter

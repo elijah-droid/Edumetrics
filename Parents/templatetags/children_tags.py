@@ -2,6 +2,7 @@ from django import template
 from django.urls import reverse
 from Reports.models import Report
 from FeesManagement.templatetags import fees_tags
+from Events.models import Event
 
 register = template.Library()
 
@@ -23,6 +24,11 @@ def relationship(child, parent):
 def parent_reports(parent):
     reports = Report.objects.filter(Student__in=parent.relationships.values('Child'), Published=True)
     return reports
+
+@register.filter
+def parent_events(parent):
+    events = Event.objects.filter(school__in=parent.relationships.values('Child__school'), Classes__in=parent.relationships.values('Child__Class')).distinct()
+    return events
 
 @register.filter
 def total_fees_balance(parent):

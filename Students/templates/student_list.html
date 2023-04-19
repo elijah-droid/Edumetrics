@@ -12,6 +12,7 @@
             {% if perms.Students.add_student %}
             <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Enroll</a>
             <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-dark">Import</a>
+            <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Promote</a>
             {% endif %}
         </div>
         <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-primary">Get Document</a>

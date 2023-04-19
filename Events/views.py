@@ -17,20 +17,21 @@ def schedule_event(request):
         form = ScheduleEventForm(request.POST)
         if form.is_valid():
             event = form.save(commit=False)
-            event.School = request.user.schooladministrator.current_school
+            event.school = request.user.schooladministrator.current_school
             event.save()
+            event.Classes.set(form.cleaned_data['Classes'])
             request.user.schooladministrator.current_school.Events.add(event)
             message = f'''
-            {event.School} has scheduled a {event.title}, Please endeavour to attend if your child attends.
-            {', '.join(event.Classes.all())}.
-
+            {event.school} has scheduled a {event.title}, Please endeavour to attend if your child attends.
+            {', '.join(str(e) for e in event.Classes.all())}.
+            
             See you There.
             '''
             send_mail(
                 f'{request.user.schooladministrator.current_school} {event.title} Event.',
                 message,
                 'edumetrics@sparklehandscs.com',
-                [parent.user.email for parent in list(event.School.Parents.all())]
+                [parent.user.email for parent in list(event.school.Parents.all())]
             )
             return redirect('events')
     else:

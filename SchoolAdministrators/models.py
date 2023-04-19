@@ -15,7 +15,7 @@ class SchoolAdministrator(models.Model):
     adminship = models.ManyToManyField('Adminship', blank=True)
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return f'{self.user.username}'
 
 
 class Adminship(models.Model):

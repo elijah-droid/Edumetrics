@@ -8,6 +8,7 @@ import plotly.graph_objs as go
 import plotly
 from .forms import LinkAdminForm
 from Edumetrics.settings import my_apps
+from Classes.templatetags import classfilters
 
 
 @login_required
@@ -18,8 +19,8 @@ def school_admin_dashboard(request):
     # Get recent admin activity
 
     x = [cl.Name for cl in user.schooladministrator.current_school.classes.all()]
-    y1 = [20, 35, 30, 25, 40]
-    y2 = [15, 25, 25, 20, 35]
+    y1 = [cl.Students.count() for cl in user.schooladministrator.current_school.classes.all()]
+    y2 = [classfilters.attendance(cl, request) for cl in user.schooladministrator.current_school.classes.all()]
     
 
     # Create a bar chart trace
@@ -41,7 +42,8 @@ def school_admin_dashboard(request):
     layout = go.Layout(title='Fees Payments')
     chart = plotly.offline.plot({'data': [trace], 'layout': layout}, output_type='div')
     labels = ['Paid', 'Unpaid']
-    values = [20, 50]
+    students = request.user.schooladministrator.current_school.students.count()
+    values = [students, 0]
     colors = ['#FE5D37', '#103741']
     trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors))
     layout = go.Layout(title='Fees Payments')

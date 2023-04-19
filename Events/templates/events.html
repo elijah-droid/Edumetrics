@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <small class="lead text-dark">15</small>
+        <small class="lead text-dark"></small>
         <a href="{% url 'schedule-event' %}" class="btn btn-sm btn-dark">Schedule</a>
     </div>
     <div class="table-responsive">
@@ -17,6 +17,7 @@
                     <th scope="col">Name</th>
                     <th class="text-nowrap" scope="col">Time to start</th>
                     <th class="text-nowrap" scope="col">Time to end</th>
+                    <th class="text-nowrap" scope="col">Classes</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     <td class="text-nowrap text-dark">{{event}}</td>
                     <td class="text-nowrap text-dark">{{event.start_time}}</td>
                     <td class="text-nowrap">{{event.end_time}}</td>
+                    <td class="text-nowrap">{{event.Classes.all}}</td>
                 </tr>
                 {% empty %}
                 <tr>

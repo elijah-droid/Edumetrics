@@ -16,7 +16,7 @@
                     <div class="mb-4" style="height: 22px;">
                         <h4 class="typed-text-output d-inline-block text-light"></h4>
                     </div>
-                    <div class="d-flex align-items-end justify-content-between border-top">
+                    <div class="d-flex align-items-end justify-content-between btn-group border-top">
                         <a href="" class="btn btn-dark w-50 border-end">Terminate</a>
                         <a href="#contact" class="btn btn-primary w-50 btn-scroll">Edit Profile</a>
                     </div>
@@ -31,94 +31,212 @@
                     <p>
                         {{student}} is a dedicated and hardworking teacher who teaches students in {{student.Class}} {{student.Subjects.all|join:", "}}. 
                     </p>
-                    <div class="row mb-4">
-                        <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Names:</span> {{teacher}}
+                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="text-center mb-2">
+                            <small>Today's Lessons</small>
                         </div>
-                        <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Students Capacity:</span> {% with students=teacher|students:user.schooladministrator.current_school %}{{students.count}}{% endwith %}
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-dark">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Subject</th>
+                                        <th class="text-nowrap" scope="col">Class</th>
+                                        <th class="text-nowrap" scope="col">Time</th>
+                                        <th class="text-nowrap" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in class.Students.all %}
+                                    <tr>
+                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                        <td class="text-nowrap"> UGX</td>
+                                        <td class="text-nowrap">
+                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td>No Students Found in this  {{class}} class</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    </section>
+                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="text-center mb-2">
+                            <small>Subjects Taught</small>
                         </div>
-                        <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Classes:</span> {{student.Class}}
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-dark">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Name</th>
+                                        <th class="text-nowrap" scope="col">Students</th>
+                                        <th class="text-nowrap" scope="col">H.O.D</th>
+                                        <th class="text-nowrap" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in class.Students.all %}
+                                    <tr>
+                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                        <td class="text-nowrap"> UGX</td>
+                                        <td class="text-nowrap">
+                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td>No Students Found in this  {{class}} class</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    </section>
+                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="text-center mb-2">
+                            <small>Classes Taught</small>
                         </div>
-                        <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Subjects:</span> {{student.student_id}}
-                        </div>
-                        <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Email:</span> {{student.user.email}}
-                        </div>
-                        <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Address:</span> {{student.Address}}
-                        </div>
-                    </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-dark">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Name</th>
+                                        <th class="text-nowrap" scope="col">Students Capacity</th>
+                                        <th class="text-nowrap" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in class.Students.all %}
+                                    <tr>
+                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                        <td class="text-nowrap"> UGX</td>
+                                        <td class="text-nowrap">
+                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td>No Students Found in this  {{class}} class</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    </section>
 
-                <!-- Skills Start -->
-                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="row">
-                        <div class="col-sm-6 text-dark mb-3">
-                        <h1 class="">Subjects Taught</h1>
-                        {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
-                        {% for subject in profile.Subjects.all %}
-                        <small class="lead">{{subject}}</small>
-                        <br>
-                        {% endfor %}
-                        {% endwith %}
+                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="text-center mb-2">
+                            <small>Students Taught</small>
                         </div>
-                        <div class="col-sm-6 text-dark">
-                        <h1 class="">Classes Taught</h1>
-                        {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
-                        {% for class in profile.Classes.all %}
-                        <small class="lead">{{class}}</small>
-                        <br>
-                        {% endfor %}
-                        {% endwith %}
-                        </div>
-                    </div>
-                </section>
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-dark">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Names</th>
+                                        <th class="text-nowrap" scope="col">Class</th>
+                                        <th class="text-nowrap" scope="col">Subjects</th>
+                                        <th class="text-nowrap" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in class.Students.all %}
+                                    <tr>
+                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                        <td class="text-nowrap"> UGX</td>
+                                        <td class="text-nowrap">
+                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td>No Students Found in this  {{class}} class</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    </section>
 
-                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="row">
-                        <div class="col-sm-6 text-dark">
-                        <h1 class="">Progress</h1>
-                        {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
-                        {% for subject in profile.Subjects.all %}
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <p class="mb-2">{{subject}}</p>
-                                    <p class="mb-2">{% teacher_score teacher subject request.user.schooladministrator.current_school %}%</p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 50%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% endwith %}
+                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="text-center mb-2">
+                            <small>Progress</small>
                         </div>
-                        <div class="col-sm-6 text-dark">
-                        <h1 class="">Lessons Today</h1>
-                            {% with profile=teacher|profile:request.user.schooladministrator.current_school %}
-                            {% for lesson in profile.Lessons.all %}
-                            <small>{{lesson.Subject}} @ {{lesson.From}}</small><br>
-                            {% endfor %}
-                            {% endwith %}
-                        </div>
-                    </div>
-                </section>
-                <!-- Skills End -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-dark">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">Subject</th>
+                                        <th class="text-nowrap" scope="col">Class</th>
+                                        <th class="text-nowrap" scope="col">Average Score</th>
+                                        <th class="text-nowrap" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in class.Students.all %}
+                                    <tr>
+                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                        <td class="text-nowrap"> UGX</td>
+                                        <td class="text-nowrap">
+                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td>No Students Found in this  {{class}} class</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    </section>
 
-                <!-- Expericence Start -->
-                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="title pb-3 mb-5">Teaching History</h1>
-                    <div class="border-start border-2 border-light pt-2 ps-5">
-                        <div class="position-relative mb-4">
-                            <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
-                            <h5 class="mb-1">Kampala Parents</h5>
-                            <p class="mb-2">Nursery | <small>2007 - 2010</small></p>
-                            <p>Learned How To Read and Write</p>
+                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="text-center mb-2">
+                            <small>Teaching History</small>
                         </div>
-                    </div>
-                </section>
-                <!-- Expericence End -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-dark">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th scope="col">School</th>
+                                        <th class="text-nowrap" scope="col">Classes</th>
+                                        <th class="text-nowrap" scope="col">Subjects</th>
+                                        <th class="text-nowrap" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in class.Students.all %}
+                                    <tr>
+                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                        <td class="text-nowrap"> UGX</td>
+                                        <td class="text-nowrap">
+                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td>No Students Found in this  {{class}} class</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    </section>
 
                
 
