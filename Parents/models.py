@@ -17,6 +17,7 @@ class Parent(models.Model):
     Fees_Payments = models.ManyToManyField('FeesManagement.Payment', related_name='feespayments')
     address = models.CharField(max_length=255)
     subscribed = models.BooleanField(default=False)
+    applications = models.ManyToManyField('Applications.Application', blank=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'

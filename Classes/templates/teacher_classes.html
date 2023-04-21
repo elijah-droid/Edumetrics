@@ -1,0 +1,37 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">Classes You Teach in {{user.teacher.current_profile.School}}</small>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Name</th>
+                    <th class="text-nowrap" scope="col">Students</th>
+                    <th class="text-nowrap" scope="col">More</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for class in user.teacher.current_profile.Classes.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{class}} Class</td>
+                    <td class="text-nowrap text-dark">{{class.Students.count}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">View Students</a>
+                        <a href="" class="btn btn-sm btn-primary">View Lessons</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No classes available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

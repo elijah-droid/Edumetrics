@@ -38,6 +38,8 @@ class School(models.Model):
     Books = models.ManyToManyField('LibraryManagement.Book', blank=True)
     Programmes = models.ManyToManyField('Programmes.Programme', blank=True)
     patient_admissions = models.ManyToManyField('SickBay.Admission', blank=True)
+    mark_sheets = models .ManyToManyField('MarkSheets.MarkSheet', blank=True)
+    Applications = models.ManyToManyField('Applications.Application', related_name='parent_applications')
 
     def __str__(self):
         return self.name

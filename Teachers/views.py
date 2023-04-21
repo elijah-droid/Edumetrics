@@ -150,3 +150,7 @@ def teacher_profile(request, teacher):
         'teacher': teacher
     }
     return render(request, 'teacher_profile.html', context)
+
+
+def fellow_staff(request):
+    return render(request, 'fellow_staff.html')

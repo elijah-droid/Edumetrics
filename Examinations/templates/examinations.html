@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <small class="lead text-dark">{{user.schooladministrator.current_school.Examinations.count}}</small>
+        <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-primary">Mark Sheets</a>
         <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-dark">Schedule</a>
     </div>
     <div class="table-responsive">

@@ -1,0 +1,41 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Applications</small>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Parent</th>
+                    <th scope="col">Student</th>
+                    <th class="text-nowrap" scope="col">Date</th>
+                    <th class="text-nowrap" scope="col">Status</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in user.schooladministrator.current_school.Applications.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{application.Parent}}</td>
+                    <td class="text-nowrap text-dark"><a href="{% url 'applicant-profile' application.id %}">{{application.Student}}</a></td>
+                    <td class="text-nowrap text-dark">{{application.Date}}</td>
+                    <td class="text-nowrap text-dark">{{application.status}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Approve</a>
+                        <a href="" class="btn btn-sm btn-primary">Reject</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No applications available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">Mark sheets</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small></small>
+        <a href="{% url 'create-marksheet' %}" class="btn btn-sm btn-dark">Create</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Exam</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Stream</th>
+                    <th scope="col">Subject</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sheet in user.teacher.current_profile.School.mark_sheets.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{sheet.Exam}}</td>
+                    <td class="text-nowrap text-dark">{{sheet.Class}}</td>
+                    <td class="text-nowrap text-dark"></td>
+                    <td class="text-nowrap text-dark">{{sheet.Subject}}</td>
+                    <td class="text-nowrap">
+                        <a href="{% url 'marksheet-tallies' sheet.id %}" class="btn btn-sm btn-dark">View Marks</a>
+                        <a href="" class="btn btn-sm btn-primary">Commit Changes</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Mark Sheets available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

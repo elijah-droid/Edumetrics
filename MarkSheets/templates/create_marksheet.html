@@ -1,0 +1,34 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+{% block content %}
+        <!-- Appointment Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="rounded">
+                    <div class="row g-0">
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="h-100 d-flex flex-column justify-content-center p-3">
+                                <h1 class="mb-4">Create Mark Sheet</h1>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {% if error %}
+                                      <div class="alert alert-danger text-nowrap">{{ error }}</div>
+                                    {% endif %}
+                                    {{form}}
+                                    <button type="submit" class="btn btn-sm btn-dark d-flex mt-3">Create</button>
+                                  </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/tally.jpg' %}" style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Appointment End -->
+{% endblock %}

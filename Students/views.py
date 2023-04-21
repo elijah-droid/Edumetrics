@@ -178,3 +178,7 @@ def student_profile(request, student):
         'student': student
     }
     return render(request, 'student_profile.html', context)
+
+
+def old_students(request):
+    return render(request, 'old_students.html')

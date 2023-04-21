@@ -70,6 +70,10 @@ def school_administrators(request):
     return render(request, 'school_administrators.html', context)
 
 
+def teacher_administrators(request):
+    return render(request, 'teacher_administrators.html')
+
+
 def register_schooladmin(request):
     form = LinkAdminForm()
     context = {

@@ -1,0 +1,167 @@
+{% extends request.session.base %}
+{% load static %}
+{% load performance_tags %}
+{% load children_tags %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4 ">
+                <div class="d-flex flex-column h-100 text-center overflow-auto shadow p-3">
+                    <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% url 'get-image' application.Student.id %}" alt="Image">
+                    <small class="lead mt-2 text-dark">{{application.Student}}</small>
+                    <div class="mb-4" style="height: 22px;">
+                        <h4 class="typed-text-output d-inline-block text-light"></h4>
+                    </div>
+                    <div class="d-flex align-items-end justify-content-between border-top btn-group">
+                        <a href="" class="btn btn-dark w-50 border-end">Approve</a>
+                        <a href="" class="btn btn-primary w-50 btn-scroll">Reject</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 mt-0">
+                <!-- About Start -->
+                <section class="py-5 border-bottom wow fadeInUp text-dark" data-wow-delay="0.1s">
+                    <small class="lead pb-3 mb-5">Applicant's Profile</small>
+                    <hr>
+                    <p>
+                        {{application.Student}} is a dedicated and hardworking student currently in {{application.Student.school}} who currently studies {{application.Student.Subjects.all|join:", "}}. 
+                    </p>
+                    <div class="row mb-4">
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Name:</span> {{student}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Enrollment Date:</span> {{student.active_enrollment.Date}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Birthday:</span> {{student.Date_of_birth}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Class:</span> {{student.Class}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Id:</span> {{student.student_id}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Email:</span> {{student.user.email}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Address:</span> {{student.Address}}
+                        </div>
+                    </div>
+
+                <!-- Skills Start -->
+                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="row">
+                        <div class="col-sm-6 text-dark">
+                        <h1 class="">Performance</h1>
+                            {% for subject in application.Student.Subjects.all %}
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <p class="mb-2">{{subject}}</p>
+                                    <p class="mb-2">{% average_score application.Student subject %}%</p>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {% average_score application.Student subject %}%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-6 text-dark">
+                        <h1 class="">Parents</h1>
+                        {% for parent in application.Student.parents.all %}
+                        <div class="d-flex align-items-center border-bottom py-3">
+                            <img class="rounded-circle flex-shrink-0" src="{% static 'img/user_.png' %}" alt="" style="width: 40px; height: 40px;">
+                            <div class="w-100 ms-3 text-dark">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <small style="font-size: small;" class="mb-0 lead text-dark">{{parent}}</small>
+                                </div>
+                                <span>{{application.Student|relationship:parent}}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </section>
+
+                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="text-center mb-2">
+                        <small>Recent Performance</small>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-dark">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Exam</th>
+                                    <th class="text-nowrap" scope="col">Grade</th>
+                                    <th class="text-nowrap" scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in class.Students.all %}
+                                <tr>
+                                    <td class="text-nowrap text-dark">{{student.first_name}}</td>
+                                    <td class="text-nowrap text-dark">{{student.last_name}}</td>
+                                    <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
+                                    <td class="text-nowrap">{{student}} UGX</td>
+                                    <td class="text-nowrap">
+                                        <a href="" class="btn btn-sm btn-primary">Profile</a>
+                                        <a href="" class="btn btn-sm btn-dark">Performance</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td>No Students Found in this  {{class}} class</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                </section>
+                <!-- Skills End -->
+
+                <!-- Expericence Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="title pb-3 mb-5">Education History</h1>
+                    <div class="border-start border-2 border-light pt-2 ps-5">
+                        <div class="position-relative mb-4">
+                            <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
+                            <h5 class="mb-1">Kampala Parents</h5>
+                            <p class="mb-2">Nursery | <small>2007 - 2010</small></p>
+                            <p>Learned How To Read and Write</p>
+                        </div>
+                    </div>
+                </section>
+                <!-- Expericence End -->
+
+               
+
+                <!-- Contact Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
+                    <h1 class="">Email Parents</h1>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <label for="subject">Subject</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
+                                    <label for="message">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-dark w-100 py-3" type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <!-- Contact End -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -13,5 +13,8 @@ def permissions(admin, school):
 
 @register.filter 
 def groups(admin, school):
-    groups = Adminship.objects.get(Admin=admin, School=school).Groups.all()
-    return groups
+    adminship = Adminship.objects.get(Admin=admin, School=school)
+    if adminship.super_admin:
+        return ['Super User']
+    else:
+        return groups

@@ -39,6 +39,9 @@ urlpatterns = [
     path('programmes/', include('Programmes.urls')),
     path('SickBay/', include('SickBay.urls')),
     path('get-image/<int:student>/', get_image, name='get-image'),
+    path('marksheets/', include('MarkSheets.urls')),
+    path('applications/', include('Applications.urls')),
+    path('Schools/', include('Schools.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

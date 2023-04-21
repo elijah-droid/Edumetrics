@@ -1,0 +1,40 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">Your Applications</small>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Student</th>
+                    <th class="text-nowrap" scope="col">School</th>
+                    <th class="text-nowrap" scope="col">Date</th>
+                    <th class="text-nowrap" scope="col">Status</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in user.parent.applications.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{application.Student}}</td>
+                    <td class="text-nowrap text-dark">{{application.School}}</td>
+                    <td class="text-nowrap text-dark">{{application.Date}}</td>
+                    <td class="text-nowrap text-dark">{{application.status}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Cancel Application</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No applications available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

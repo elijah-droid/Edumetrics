@@ -1,0 +1,43 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">Schools Listing</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <input type="search" class="form-control">
+        <button class="btn btn-sm btn-dark">Search</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Name</th>
+                    <th class="text-nowrap" scope="col">Students Capacity</th>
+                    <th class="text-nowrap" scope="col">Rating</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for school in schools %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{school.name}}</td>
+                    <td class="text-nowrap text-dark">{{school.students.count}}</td>
+                    <td class="text-nowrap text-dark">{{attendance.Students}}</td>
+                    <td class="text-nowrap">
+                        <a href="{% url 'school-profile' school.id %}" class="btn btn-sm btn-dark">Profile</a>
+                        <a href="" class="btn btn-sm btn-primary">Apply</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No schools available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

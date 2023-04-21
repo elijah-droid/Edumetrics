@@ -67,3 +67,7 @@ def class_profile(request, clas):
         'class': clas
     }
     return render(request, 'class_profile.html', context)
+
+
+def teacher_classes(request):
+    return render(request, 'teacher_classes.html')

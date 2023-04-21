@@ -11,11 +11,11 @@
         <div class="btn-group">
             {% if perms.Students.add_student %}
             <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Enroll</a>
-            <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-dark">Import</a>
+            <a href="{% url 'old-students' %}" class="btn btn-sm btn-dark">Old Students</a>
             <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Promote</a>
             {% endif %}
         </div>
-        <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-primary">Get Document</a>
+        <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-dark">Export</a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered">

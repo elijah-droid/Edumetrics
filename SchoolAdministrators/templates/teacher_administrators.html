@@ -1,0 +1,42 @@
+{% extends request.session.base %}
+{% load permission_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.teacher.current_profile.School}} Administrators</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <span></span>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Names</th>
+                    <th class="text-nowrap" scope="col">Roles</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in user.teacher.current_profile.School.Administrators.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{admin.user.first_name}} {{admin.user.last_name}}</td>
+                    <td class="text-nowrap text-dark">{% for group in admin|groups:user.teacher.current_profile.School %} <small>{{group}}</small> <br> {% endfor %}</td>
+                    
+                    <td class="text-nowrap">
+                        <a href="mailto:{{admin.user.email}}" class="btn btn-sm btn-dark">Send Email</a>
+                        <a href="" class="btn btn-sm btn-primary">Send Whatsapp</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No administrators have been added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
