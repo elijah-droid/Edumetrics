@@ -19,3 +19,7 @@ class LendOutForm(forms.ModelForm):
     class Meta:
         model = LendOut
         fields = ['Student', 'Number']
+        widgets = {
+            'Student': forms.Select(attrs={'class': 'form-control'}),
+            'Number': forms.NumberInput(attrs={'class': 'form-control'})
+        }

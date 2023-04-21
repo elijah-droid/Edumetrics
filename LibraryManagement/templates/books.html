@@ -30,10 +30,9 @@
                     <td class="text-nowrap text-dark">{{book.Number}} Books</td>
                     <td class="text-nowrap text-dark">{{book.Lend_Outs.count}} Books</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-primary">Edit Book Info</a>
                         <div class="btn-group">
+                            <a href="" class="btn btn-sm btn-dark">Edit Book Info</a>
                             <a href="{% url 'lend-book' book.id %}" class="btn btn-sm btn-primary">Lend</a>
-                            <a href="" class="btn btn-sm btn-dark">Return</a>
                         </div>
                     </td>
                 </tr>

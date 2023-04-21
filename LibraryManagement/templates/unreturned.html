@@ -23,18 +23,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for book in unreturned %}
+                {% for lendout in unreturned %}
                 <tr>
                     <td class="text-nowrap text-dark">{{lendout.Book.Name}}</td>
                     <td class="text-nowrap text-dark">{{lendout.Student}}</td>
                     <td class="text-nowrap text-dark">{{lendout.Date}}</td>
                     <td class="text-nowrap text-dark">{{lendout.Number}}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-primary">Edit Book Info</a>
-                        <div class="btn-group">
-                            <a href="" class="btn btn-sm btn-primary">Lend</a>
-                            <a href="" class="btn btn-sm btn-dark">Return</a>
-                        </div>
+                        <a href="{% url 'returned' lendout.id %}" class="btn btn-sm btn-dark">Returned</a>
                     </td>
                 </tr>
                 {% empty %}

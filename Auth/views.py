@@ -16,6 +16,7 @@ from Students.views import generate_student_id
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from .models import PasswordReset
 
 def class_teacher_login(request):
     if request.method == 'POST':
@@ -235,3 +236,55 @@ def change_password(request):
     
 
     
+def forgot_password(request):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(email=request.POST['email'])
+            code = generate_student_id()
+            message = f'''
+            Your O-T-P code is:
+
+            {code}
+            '''
+            send_mail(
+                'Password Reset',
+                message,
+                'edumetrics@sparklehandscs.com',
+                [user.email],
+            )
+            try:
+                reset = PasswordReset(User=user)
+                reset.current_otp = code
+                reset.save()
+            except PasswordReset.DoesNotExist:
+                reset = PasswordReset.objects.create(User=user, current_otp=code)
+            return redirect('reset-password', reset=reset.id)
+            messages.success(request, 'Code has been sent to your email')
+            return redirect('.')
+        except User.DoesNotExist:
+            messages.success(request, 'Unknown Email')
+            return redirect('.')
+    return render(request, 'forgot_password.html')
+
+
+
+def reset_password(request, reset):
+    reset = PasswordReset.objects.get(id=reset)
+    if request.method == 'POST':
+        code = request.POST['code']
+        password = request.POST['password']
+        confirm = request.POST['confirm']
+        if reset.current_otp == code:
+            if password == confirm:
+                reset.User.password = make_password(password)
+                reset.User.save()
+                messages.success(request, 'Password Reset Successful')
+                return redirect('/')
+            else:
+                messages.success(request, 'Passwords Dont Match')
+                return redirect('.')
+        else:
+            messages.success(request, 'Invalid Code')
+            return redirect('.')
+    else:
+        return render(request, 'password_reset.html')
