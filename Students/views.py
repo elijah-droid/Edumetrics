@@ -14,6 +14,7 @@ from django.http import FileResponse
 import io
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from FeesManagement.templatetags.fees_tags import fees_balance
+from django.core.paginator import Paginator
 
 
 def generate_student_id():
@@ -166,6 +167,9 @@ def delete_student(request, student_id):
 
 def student_list(request):
     students = request.user.schooladministrator.current_school.students.all().order_by('active_enrollment__Date').reverse()
+    paginator = Paginator(students, 6)
+    page = request.GET.get('page')
+    students = paginator.get_page(page)
     context = {
         'students': students
     }

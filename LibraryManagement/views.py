@@ -34,7 +34,7 @@ def returned(request, lendout):
     lendout = LendOut.objects.get(id=lendout)
     lendout.Returned = True
     lendout.save()
-    lendout.Book.Number += 1
+    lendout.Book.Number += lendout.Number
     lendout.Book.save()
     lendout.Book.Lend_Outs.remove(lendout)
     return redirect('books')

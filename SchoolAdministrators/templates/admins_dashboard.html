@@ -29,11 +29,13 @@
 {% if perms %}
 <div class="nav-item dropdown  ">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Modules</a>
-    <div style="font-size: small;" class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0 overflow-auto dropdown-menu-right">
+    <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0 overflow-auto dropdown-menu-right">
         {% if perms.Terms.view_term %}
         <a href="{% url 'terms' %}" class="dropdown-item">Terms</a>
         {% endif %}
+        {% if perms.Applications.view_application %}
         <a href="{% url 'school-applications' %}" class="dropdown-item">Applications</a>
+        {% endif %}
         {% if perms.Circulars.view_circular %}
         <a href="{% url 'circulars' %}" class="dropdown-item">Circulars</a>
         {% endif %}
@@ -58,7 +60,9 @@
         {% if perms.Students.view_student %}
         <a href="{% url 'students' %}" class="dropdown-item">Students</a>
         {% endif %}
+        {% if perms.SickBay.view_admission %}
         <a href="{% url 'admissions' %}" class="dropdown-item">Sick Bay</a>
+        {% endif %}
         {% if perms.Enrollments.view_enrollment %}
         <a href="{% url 'enrollments' %}" class="dropdown-item">Enrollments</a>
         {% endif %}
@@ -68,7 +72,9 @@
         {% if perms.Subjects.view_subject %}
         <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
         {% endif %}
+        {% if perms.LibraryManagement.view_book %}
         <a href="{% url 'books' %}" class="dropdown-item">Library</a>
+        {%  endif %}
         {% if perms.Lessons.view_lesson %}
         <a href="{% url 'lessons' %}" class="dropdown-item">Lessons</a>
         {% endif %}
@@ -81,7 +87,9 @@
         {% if perms.FeesManagement.view_paymentdue %}
         <a href="{% url 'dues' %}" class="dropdown-item">Fees Management</a>
         {% endif %}
+        {% if perms.Programmes.view_programme %}
         <a href="{% url 'programmes' %}" class="dropdown-item">Programmes</a>
+        {% endif %}
         {% if perms.Subscriptions.view_subscription %}
         <a href="{% url 'subscriptions' %}" class="dropdown-item">Service Subscription</a>
         {% endif %}

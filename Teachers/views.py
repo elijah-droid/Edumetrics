@@ -106,20 +106,21 @@ def recruit_teacher(request):
     if request.method == 'POST':
         form = TeachersForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
+            profile = form.save(commit=False)
+            profile.School = request.user.schooladministrator.current_school
             try:
-                user = User.objects.get(email=data['email'])
+                user = User.objects.get(email=form.cleaned_data['email'])
                 try:
                     teacher = Teacher.objects.get(user=user)
                 except Teacher.DoesNotExist:
                     teacher = Teacher.objects.create(user=user)
+                profile.Teacher = teacher
+                profile.save()
                 request.user.schooladministrator.current_school.Teachers.add(teacher)
-                profile = teacher.work_profile.create(
-                    School=request.user.schooladministrator.current_school,
-                    Teacher=teacher
-                )
-                profile.Classes.set(data['Classes'])
-                profile.Subjects.set(data['Subjects'])
+                teacher.work_profile.add(profile)
+                profile.Classes.set(form.cleaned_data['Classes'])
+                profile.Subjects.set(form.cleaned_data['Subjects'])
+                data = form.cleaned_data
                 message = f'''
                 Dear {user.first_name} you have been recruited as a teacher at {request.user.schooladministrator.current_school},
 
@@ -154,3 +155,23 @@ def teacher_profile(request, teacher):
 
 def fellow_staff(request):
     return render(request, 'fellow_staff.html')
+
+
+def change_teacher_profile(request, teacher):
+    teacher = Teacher.objects.get(id=teacher)
+    profile = teacher.work_profile.get(School=request.user.schooladministrator.current_school)
+    form = TeachersForm(instance=profile)
+    del form.fields['email']
+    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.classes.all()
+    form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
+    context = {
+        'form': form
+    }
+    if request.method == 'POST':
+        form = TeachersForm(request.POST, instance=profile)
+        del form.fields['email']
+        if form.is_valid():
+            form.save()
+            return redirect('teachers-list')
+    else:
+        return render(request, 'change_teacher_profile.html', context)

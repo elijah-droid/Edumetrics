@@ -10,42 +10,6 @@ from Examinations.models import Examination
 import docx
 
 
-def batch_reports(request):
-    form = BatchReportsForm()
-    form.fields['Exam'].queryset = request.user.schooladministrator.current_school.Examinations.all()
-    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
-    school = request.user.schooladministrator.current_school
-    context = {
-        'form': form
-    }
-    if request.method == 'POST':
-        form = BatchReportsForm(request.POST)
-        if form.is_valid():
-            cls = form.cleaned_data['Class']
-            Exam = form.cleaned_data['Exam']
-            students = school.students.filter(Class=cls)
-            for student in students:
-                try:
-                    Report.objects.get(Student=student, Examination=Exam)
-                except Report.DoesNotExist:
-                    report = student.Reports.create(
-                        Student=student,
-                        Examination=Exam,
-                        Total_Score=0
-                    )
-                    school.Reports.add(report)
-                    for subject in student.Subjects.all():
-                        report.Scores.create(
-                            Report=report,
-                            Subject=subject,
-                            Score=0,
-                        )
-                    Exam.Reports.add(report)
-            return redirect('reports')
-    else:
-        return render(request, 'batch_reports.html', context)
-
-
 def reports(request):
     reports = Report.objects.all()
     context = {

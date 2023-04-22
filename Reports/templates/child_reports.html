@@ -8,7 +8,9 @@
 </div>
 
  {% for report in user.parent|parent_reports %}
+ {% with perms='1' %}
  {% include 'report.html' %}
+ {% endwith %}
  {% empty %}
  <div class="text-center mt-3">
     <small class="lead">No Reports Available at the moment</small>

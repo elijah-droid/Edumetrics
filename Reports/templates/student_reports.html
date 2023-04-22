@@ -6,12 +6,9 @@
     <small class="lead text-dark">{{student}} Reports</small>
 </div>
 <hr>
-<div class=" d-flex justify-content-between container">
-    <a href="{% url 'create-batch' %}" class="btn btn-sm btn-dark">Create Batch</a>
-    <a href="{% url 'create-batch' %}" class="btn btn-sm btn-dark">Publish Batch</a>
-</div>
 
  {% for report in student.Reports.all %}
+
  {% include 'report.html' %}
  {% empty %}
  <div class="text-center mt-3">

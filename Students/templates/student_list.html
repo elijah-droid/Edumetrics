@@ -17,41 +17,71 @@
         </div>
         <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-dark">Export</a>
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr class="text-dark">
-                    <th scope="col">Names</th>
-                    <th scope="col">Date Enrolled</th>
-                    <th scope="col">Programme</th>
-                    <th class="text-nowrap" scope="col">Class</th>
-                    <th class="text-nowrap" scope="col">Subjects</th>
-                    <th class="text-nowrap" scope="col">Fees Balance</th>
-                    <th class="text-nowrap" scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for student in students %}
-                <tr>
-                    <td class="text-nowrap text-dark">{{student}}</td>
-                    <td class="text-nowrap text-dark">{{student.active_enrollment.Date}}</td>
-                    <td class="text-nowrap text-dark">{{student.active_enrollment.Programme.Name}}</td>
-                    <td class="text-nowrap text-dark">{{student.Class}}</td>
-                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
-                    <td class="text-nowrap text-dark">{{student|fees_balance}} UGX</td>
-                    <td class="text-nowrap">
-                        <a href="{% url 'link-parent' student.id %}" class="btn btn-sm btn-primary">Link Parent</a>
-                        <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">Profile</a>
-                        <a href="{% url 'change-student' student.pk %}" class="btn btn-sm btn-primary">Edit Info</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td>No students have been added.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    <div class="card-deck mb-3">
+        <div class="row">
+            {% for student in students %}
+          <div class="col-lg-2 col-md-4 col-sm-6">
+            <div class="card">
+              <img src="{% url 'get-image' student.id %}" class="card-img-top" alt="{{ teacher.name }}">
+              <div class="card-body text-center">
+                <p class="card-title text-nowrap">{{student}}</p>
+                <p class="card-text">{{ student.Class }} Class</p>
+                <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">View Profile</a>
+              </div>
+            </div>
+          </div>
+          {% if forloop.counter|divisibleby:6 and not forloop.last %}
+          </div>
+          <div class="row">
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      
+      <div class="text-center">
+        <ul class="pagination">
+          {% if students.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ students.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          {% endif %}
+      
+          {% for i in students.paginator.page_range %}
+            {% if students.number == i %}
+              <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+      
+          {% if students.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ students.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+      
+      
 </div>
 {% endblock %}

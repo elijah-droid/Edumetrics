@@ -25,7 +25,7 @@
                     </tr>
                     {% endfor %}
                     <tr class="text-dark">
-                        <td class="text-nowrap"></td>
+                        <td class="text-nowrap">Position</td>
                         <td class="text-nowrap"></td>
                         <td></td>
                     </tr>
@@ -44,7 +44,9 @@
         </div>
     <div class="justify-content-between d-flex mt-3">
         <div class="btn-group">
+            {% if perms.Reports.change_report %}
             <a href="{% url 'edit-report' report.pk %}" class="btn btn-sm btn-dark">Edit</a>
+            {% endif %}
             <a href="" class="btn btn-sm btn-primary">Download</a>
         </div>
     </div>

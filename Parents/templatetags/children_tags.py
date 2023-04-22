@@ -1,8 +1,8 @@
-from django import template
 from django.urls import reverse
 from Reports.models import Report
 from FeesManagement.templatetags import fees_tags
 from Events.models import Event
+from django import template
 
 register = template.Library()
 

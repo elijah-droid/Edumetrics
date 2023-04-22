@@ -1,4 +1,5 @@
 {% extends request.session.base %}
+{% load teachers_tags %}
 
 {% block content %}
 <div class="container text-dark">
@@ -21,23 +22,34 @@
             </thead>
             <tbody>
                 {% for teacher in request.user.schooladministrator.current_school.Teachers.all %}
+                {% with profile=teacher|profile:user.schooladministrator.current_school %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{teacher}}</td>
-                    <td class="text-nowrap text-dark">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
-                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap text-dark">{{profile.Teacher}}</td>
+                    <td class="text-nowrap text-dark">{% for class in profile.Classes.all %}<small>{{class}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">{% for subject in profile.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Add Responsibilities</a>
-                        <a href="" class="btn btn-sm btn-primary">View Responsibilities</a>
+                        <a href="{% url 'change-teacher-profile' teacher.id %}" class="btn btn-sm btn-primary">Change Profile</a>
                         <a href="{% url 'teacher-profile' teacher.id %}" class="btn btn-sm btn-dark">Profile</a>
                     </td>
                 </tr>
+                {% endwith %}
                 {% empty %}
                 <tr>
-                    <td>No students have been added.</td>
+                    <td>No teachers available.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    <div class="text-center">
+        <ul class="pagination">
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </div>
+      
 </div>
 {% endblock %}

@@ -1,6 +1,9 @@
 from django.db import models
 
 subjects = (
+    ('Reading', 'Reading'),
+    ('Writing', 'Writing'),
+    ('Drawing', 'Drawing'),
     ('Mathematics', 'Mathematics'),
     ('English', 'English'),
     ('Science', 'Science'),
