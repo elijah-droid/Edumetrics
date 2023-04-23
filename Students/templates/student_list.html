@@ -7,6 +7,18 @@
         <small class="lead">{{user.schooladministrator.current_school}} Students</small>
     </div>
     <hr>
+    <div class="container">
+        <form>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search...">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    <hr>
+      
     <div class="d-flex justify-content-between mb-3">
         <div class="btn-group">
             {% if perms.Students.add_student %}

@@ -1,0 +1,58 @@
+{% extends request.session.base %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="https://th.bing.com/th/id/R.bf56a76d617ae835c03a8cf59f7693d3?rik=Vaf0zaXbN2Gjgw&pid=ImgRaw&r=0" class="card-img-top img-fluid" alt="Book 1" style="object-fit: cover; height: 500px;">
+          <div class="card-body">
+            <h5 class="card-title">Book 1</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit feugiat magna eget faucibus.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+              </div>
+              <small class="text-muted">25,000 UGX</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="https://th.bing.com/th/id/R.a161ce9f3dc03b3d041c2989a6b5cf97?rik=CwXVLM52yF%2byXg&pid=ImgRaw&r=0" class="card-img-top img-fluid" alt="Book 2" style="object-fit: cover; height: 500px;">
+          <div class="card-body">
+            <h5 class="card-title">Book 2</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit feugiat magna eget faucibus.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+              </div>
+              <small class="text-muted">15,000 UGX</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <img src="https://th.bing.com/th/id/R.3c844780c53b3af24f53d77c1fed518c?rik=DyDSM5S%2f9zHbsA&pid=ImgRaw&r=0" class="card-img-top img-fluid" alt="Book 3" style="object-fit: cover; height: 500px;">
+          <div class="card-body">
+            <h5 class="card-title">Book 3</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit feugiat magna eget faucibus.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Add to cart</button>
+              </div>
+              <small class="text-muted">$14.99</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}

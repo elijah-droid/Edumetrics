@@ -42,6 +42,8 @@ urlpatterns = [
     path('marksheets/', include('MarkSheets.urls')),
     path('applications/', include('Applications.urls')),
     path('Schools/', include('Schools.urls')),
+    path('Shop/', include('Shop.urls')),
+    path('PastPapers/', include('PastPapers.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

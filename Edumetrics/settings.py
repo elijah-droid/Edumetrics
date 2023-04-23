@@ -122,7 +122,10 @@ INSTALLED_APPS = [
     'Programmes',
     'SickBay',
     'MarkSheets',
-    'Applications'
+    'Applications',
+    'Shop',
+    'QuestionBanks',
+    'PastPapers'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -78,3 +78,6 @@ def parent_profile(request, parent):
     }
     return render(request, 'parents_profile.html', context)
     
+
+def parent_kids(request):
+    return render(request, 'parent_kids.html')
