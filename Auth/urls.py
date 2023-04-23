@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import parents_login, admin_login, student_login, teacher_login, logout_view, set_school_session, signup, user_login, change_password, confirm_email, forgot_password, reset_password
+from .views import parents_login, admin_login, student_login, teacher_login, logout_view, set_school_session, signup, user_login, change_password, confirm_email, forgot_password, reset_password, teacher_switch_profile
 
 
 urlpatterns = [
@@ -14,5 +14,6 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('confirm-email/<int:user>/', confirm_email, name='confirm-email'),
     path('forgot-password/', forgot_password, name='forgot-password'),
-    path('reset-password/<int:reset>/', reset_password, name='reset-password')
+    path('reset-password/<int:reset>/', reset_password, name='reset-password'),
+    path('switch-teachers-profile/<int:profile>/', teacher_switch_profile, name='switch-profile')
 ]

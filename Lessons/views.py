@@ -37,3 +37,5 @@ def add_new(request):
         return render(request, 'new_lesson.html', context)
 
 
+def teacher_lessons(request):
+    return render(request, 'teacher_lessons.html')

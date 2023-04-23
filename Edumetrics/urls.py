@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import index, user_dashboard, contact_us, about_us, email_user, email_sent, get_image
+from .views import index, user_dashboard, contact_us, about_us, email_user, email_sent, get_image, features
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
@@ -44,6 +44,7 @@ urlpatterns = [
     path('Schools/', include('Schools.urls')),
     path('Shop/', include('Shop.urls')),
     path('PastPapers/', include('PastPapers.urls')),
+    path('features/', features, name='features'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

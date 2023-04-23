@@ -17,6 +17,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .models import PasswordReset
+from django.core.exceptions import ObjectDoesNotExist
 
 def class_teacher_login(request):
     if request.method == 'POST':
@@ -288,3 +289,14 @@ def reset_password(request, reset):
             return redirect('.')
     else:
         return render(request, 'password_reset.html')
+
+
+def teacher_switch_profile(request, profile):
+    try:
+        profile = request.user.teacher.work_profile.get(id=profile)
+        request.user.teacher.current_profile = profile
+        request.user.teacher.save()
+    except ObjectDoesNotExist:
+        pass
+    recent_url = request.META.get('HTTP_REFERER')
+    return redirect(recent_url)

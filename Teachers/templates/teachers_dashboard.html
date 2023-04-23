@@ -8,18 +8,11 @@
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Menu</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
         <a href="{% url 'fellow-staff' %}" class="dropdown-item">Fellow Staff</a>
-        <a href="{% url 'fellow-staff' %}" class="dropdown-item">Past Papers</a>
+        <a href="{% url 'pastpapers' %}" class="dropdown-item">Past Papers</a>
         <a href="{% url 'teacher-admins' %}" class="dropdown-item">Administrators</a>
         <a href="{% url 'teacher-classes' %}" class="dropdown-item">My Classes</a>
         <a href="{% url 'mark-sheets' %}" class="dropdown-item">Mark Sheets</a> 
         <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Lessons</a>
-    </div>
-</div>
-<div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
-    <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-        <a href="{% url 'fellow-staff' %}" class="dropdown-item">Book Shop</a>
-        <a href="{% url 'fellow-staff' %}" class="dropdown-item">Study Material</a>
     </div>
 </div>
 
@@ -28,7 +21,7 @@
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">current school</a>
     <div class="dropdown-menu bg-transparent border-0">
         {% for work in user.teacher.work_profile.all %}
-        <a href="" class="dropdown-item {% if school == user.teacher.current_school %}active{% endif %}">{{work.School}}</a>
+        <a href="{% url 'switch-profile' work.id %}" class="dropdown-item {% if work.School == user.teacher.current_profile.School %}active{% endif %}">{{work.School}}</a>
         {% endfor %}
     </div>
 </div>
@@ -86,7 +79,7 @@
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h6 class="mb-0">Today's Lessons</h6>
-            <a href="">Show All</a>
+            <a href="{% url 'teacher-lessons' %}">Show All</a>
         </div>
         <div class="table-responsive">
             <table class="table text-start text-dark align-middle table-bordered table-hover mb-0">

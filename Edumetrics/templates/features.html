@@ -1,0 +1,171 @@
+{% extends request.session.base %}
+
+
+{% block content %}
+<div class="container">
+    <div class="text-center">
+      <small class="lead text-dark">All Features</small>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top"
+            src="https://4.imimg.com/data4/DB/QV/MY-29214035/library-management-system-500x500.jpg"
+            style="object-fit: cover; width: 100%; height: 200px;" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Library Management</h5>
+            <p class="card-text">Librarians can manage Books, Lends and Returns on the go.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top"
+            src="https://th.bing.com/th/id/R.7d4dcb9aa18f7abb1c5e9b79ef0ce3c1?rik=d61gDUz28dpsPA&pid=ImgRaw&r=0&sres=1&sresct=1"
+            alt="Card image cap" style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Sick Bay Management</h5>
+            <p class="card-text">Students health data is a click away both to the schools and the parents.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top"
+            src="https://th.bing.com/th/id/R.ab9db47f103fad2e465c2c84d73fcd62?rik=OBQtI%2feTxIAHng&pid=ImgRaw&r=0"
+            alt="Card image cap" style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Fees Management</h5>
+            <p class="card-text">Fees payment records and online payments are an intergration away..</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="/static/img/dad.jpg" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Parents Access</h5>
+            <p class="card-text">Parents can login to the system and access insights from the schools they are connected
+              to.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="/static/img/teacher.webp" alt="{{request.HOST}}"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Teachers Access</h5>
+            <p class="card-text">Teachers can login to the system and access insights from the schools they are connected
+              to.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="/static/img/security.jpg" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Administrators Access</h5>
+            <p class="card-text">Super Admins can limit what their administrators can edit delete or access.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="/static/img/report.png" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Digital Reports</h5>
+            <p class="card-text">Reports are automatically generated while teachers tally in the students Results.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" width="200" src="/static/img/pdf.png" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Past Papers</h5>
+            <p class="card-text">Teachers can upload past papers and these can be downloaded by the students as well.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="https://th.bing.com/th/id/OIP.KZyOa31s0xZ0kIwQHiIrkQHaHa?pid=ImgDet&rs=1" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Mail Alerts</h5>
+            <p class="card-text">Parents can be communicated to via mail and the system sends mails to those concerned where necessary.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="https://th.bing.com/th/id/R.e0adb58f42d221bda73d2478cd7bb8bf?rik=95mGVenTHtuO0Q&pid=ImgRaw&r=0" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">SMS BroadCasts</h5>
+            <p class="card-text">Here schools can send sms to all parents in less than no time.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="https://th.bing.com/th/id/OIP.VgvaeyG252asONV02Zmj2gHaHa?pid=ImgDet&w=512&h=512&rs=1" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Online Applications</h5>
+            <p class="card-text">Parents can apply for students online in any school available in our listing.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="https://thumbs.dreamstime.com/b/girl-reading-book-school-37712945.jpg" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Online Enrollment</h5>
+            <p class="card-text">Easily enroll students and keep track of their records with Edumetrics.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="https://thumbs.dreamstime.com/b/events-icon-web-button-events-web-button-calendar-icon-vector-illustration-isolated-white-background-120205703.jpg" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Schedule Events</h5>
+            <p class="card-text">This automatically communicates to parents in concern with the event</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img class="card-img-top" src="https://th.bing.com/th/id/R.cae08c834222f0832b169786cb1317e2?rik=pRC01Ln0HKUWcw&pid=ImgRaw&r=0" alt="Card image cap"
+            style="object-fit: cover; width: 100%; height: 200px;">
+          <div class="card-body">
+            <h5 class="card-title">Grading System</h5>
+            <p class="card-text">This automaticallyautomatically grades reports every time changes are made.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

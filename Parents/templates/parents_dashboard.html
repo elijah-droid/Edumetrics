@@ -6,13 +6,6 @@
 {% block nav %}
 <a href="{% url 'parent_dashboard' %}" class="nav-item nav-link">Dashboard</a>
 <div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Shop</a>
-    <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-        <a href="{% url 'products' 'Book Shop' %}" class="dropdown-item">Book Shop</a>
-        <a href="{% url 'schools-listing' %}" class="dropdown-item">School Items</a>
-    </div>
-</div>
-<div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Menu</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
         <a href="{% url 'kids' %}" class="dropdown-item">My Children</a>

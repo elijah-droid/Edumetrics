@@ -7,6 +7,10 @@ from Students.models import Student
 from django.contrib import messages
 
 
+def features(request):
+    return render(request, 'features.html')
+
+
 def get_image(request, student):
     student = Student.objects.get(id=student)
     if student.photo:
