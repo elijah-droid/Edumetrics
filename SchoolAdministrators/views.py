@@ -9,7 +9,7 @@ import plotly
 from .forms import LinkAdminForm
 from Edumetrics.settings import my_apps
 from Classes.templatetags import classfilters
-
+from django.db.models import Sum
 
 @login_required
 def school_admin_dashboard(request):
@@ -42,8 +42,16 @@ def school_admin_dashboard(request):
     layout = go.Layout(title='Fees Payments')
     chart = plotly.offline.plot({'data': [trace], 'layout': layout}, output_type='div')
     labels = ['Paid', 'Unpaid']
+    expected = request.user.schooladministrator.current_school.Dues.filter(Compulsory=True).aggregate(total=Sum('Amount_Required'))['total']
+    if expected:
+        pass
+    else:
+        expected = 0
+    expected_pay = expected * request.user.schooladministrator.current_school.students.count()
     students = request.user.schooladministrator.current_school.students.count()
-    values = [students, 0]
+    percentage = int(students/2)*expected
+    percentage = (percentage/expected_pay) * 100
+    values = [percentage, 100-percentage]
     colors = ['#FE5D37', '#103741']
     trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors))
     layout = go.Layout(title='Fees Payments')

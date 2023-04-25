@@ -8,10 +8,11 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'photo', 'student_id', 'Programme', 'date_of_birth', 'Class', 'Subjects']
+        fields = ['first_name', 'last_name', 'photo', 'student_id', 'Programme', 'date_of_birth', 'Class', 'Combination', 'Subjects']
         widgets = {
             'Programme': forms.Select(attrs={'class': 'form-control'}),
-            'photo': forms.FileInput(attrs={'class': 'form-control'})
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
+            'Combination': forms.Select(attrs={'class': 'form-control'})
         }
 
 

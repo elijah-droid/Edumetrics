@@ -1,0 +1,43 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{programme}} Programme Fees Structure</small>
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Due</th>
+                    <th class="text-nowrap" scope="col">Amount Required</th>
+                    <th class="text-nowrap" scope="col">Total Amount Paid</th>
+                    <th class="text-nowrap" scope="col">Classes</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for due in user.schooladministrator.current_school.Dues.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{due.Reason}}</td>
+                    <td class="text-nowrap text-dark">{{due.Amount_Required}} UGX</td>
+                    <td class="text-nowrap">{{due|amount_paid}} UGX</td>
+                    <td class="text-nowrap">{% for class in due.Classes.all %}<small>{{class}}</small><br>{% endfor %}</td>
+                    <td class="text-nowrap">
+                        <a href="{% url 'due-payments' due.id %}" class="btn btn-sm btn-dark">View Payments</a>
+                        <a href="{% url 'add-due-payment' due.pk %}" class="btn btn-sm btn-primary">Add Payment</a>
+                        <a href="{% url 'delete-due' due.id %}" class="btn btn-sm btn-dark">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Dues available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

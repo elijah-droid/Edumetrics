@@ -13,7 +13,11 @@ subjects = (
     ('Social Studies', 'Social Studies'),
     ('Geography', 'Geography'),
     ('Christian Religious Education', 'Christian Religious Education'),
-    ('Islamic Religious Education', 'Islamic Religious Education')
+    ('Islamic Religious Education', 'Islamic Religious Education'),
+    ('History', 'History'),
+    ('Physics', 'Physics'),
+    ('Chemistry', 'Chemistry'),
+    ('Turkish', 'Turkish')
 )
 
 class Subject(models.Model):
@@ -27,3 +31,8 @@ class Subject(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Combination(models.Model):
+    Principals = models.ManyToManyField('Subjects.Subject', blank=True)
+    Subsidiary = models.ForeignKey('Subjects.Subject', models.CASCADE, related_name='subsidiary')

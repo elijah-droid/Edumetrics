@@ -20,6 +20,7 @@ class School(models.Model):
     mtn_account = models.PositiveIntegerField(null=True, blank=True)
     Enrollments = models.ManyToManyField('Enrollments.Enrollment', blank=True)
     airtel_account =  models.PositiveIntegerField(null=True, blank=True)
+    Levels = models.ManyToManyField('Levels.Level', blank=True)
     students = models.ManyToManyField('Students.Student', related_name='school_children', blank=True)
     Teachers = models.ManyToManyField('Teachers.Teacher', blank=True)
     Administrators = models.ManyToManyField('SchoolAdministrators.SchoolAdministrator', through="SchoolAdministrators.Adminship")

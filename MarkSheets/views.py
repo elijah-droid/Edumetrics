@@ -4,6 +4,7 @@ from .forms import MarkSheetForm
 from Tallies.forms import TallyForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Sum
 
 
 def marksheets(request):
@@ -49,6 +50,8 @@ def add_score(request, marksheet):
         if form.is_valid():
             try:
                 tally = marksheet.Tallies.get(Student=form.cleaned_data['Student'])
+                tally = TallyForm(request.POST, instance=tally)
+                tally = tally.save()
             except ObjectDoesNotExist:
                 tally = form.save()
                 marksheet.Tallies.add(tally)
@@ -63,6 +66,8 @@ def add_score(request, marksheet):
             score.Score = tally.Score
             score.Grade = tally.Grade
             score.save()
+            report.Total_Score = report.Scores.aggregate(total=Sum('Score'))['total']
+            report.save()
             return redirect('marksheet-tallies', marksheet=marksheet.pk)
     else:
         return render(request, 'marksheet_addscore.html', context)

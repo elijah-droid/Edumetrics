@@ -9,16 +9,24 @@
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Menu</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
         <a href="{% url 'kids' %}" class="dropdown-item">My Children</a>
+        <a href="{% url 'parent-requirements' %}" class="dropdown-item">Requirements</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Merge Student Data</a>
         <a href="{% url 'schools-listing' %}" class="dropdown-item">Schools</a>
         <a href="{% url 'parent-applications' %}" class="dropdown-item">Applications</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Events</a>
         <a href="{% url 'child-reports' %}" class="dropdown-item">Reports</a>
-        <a href="{% url 'parent-pastpapers' %}" class="dropdown-item">Past Papers</a>
+        <a href="{% url 'browse-pastpapers' %}" class="dropdown-item">Past Papers</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Coaching</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Circulars</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Assessments</a>
         <a href="{% url 'parent-fees-payments' %}" class="dropdown-item text-nowrap">Fees Payments</a>
+    </div>
+</div>
+<div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Security</a>
+    <div class="dropdown-menu bg-transparent border-0">
+        <a href="{% url 'change-password' %}" class="dropdown-item ">Change Password</a>
+        <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
     </div>
 </div>
 {% endblock %}
@@ -116,47 +124,48 @@
 <!-- Recent Sales End -->
 
 
-<!-- Widgets Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-md-6 col-xl-4">
-            <div class="h-100 bg-dark rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <small class="mb-0 text-white lead">Published Circulars</small>
-                    <a href="">Show All</a>
-                </div>
-                {% for exam in user.schooladministrator.current_school.Examinations.all %}
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span class="text-white">{{exam}}</span>
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow fadeInUp">
+                <div class="h-100 bg-dark rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <small class="mb-0 text-white lead">Upcoming Examinations</small>
+                        <a href="">Show All</a>
+                    </div>
+                    {% for exam in user.schooladministrator.current_school.Examinations.all %}
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span class="text-white">{{exam}}</span>
+                            </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <small style="font-size: medium;" class="lead text-white">No upcoming examinations</small>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <small style="font-size: medium;" class="lead text-white">No upcoming examinations</small>
-                {% endfor %}
             </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-xl-4">
-            <div class="h-100 bg-dark rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <small class="mb-0 text-white lead">Upcoming Events</small>
-                    <a href="">Show All</a>
-                </div>
-                {% for event in user.schooladministrator.current_school.Events.all %}
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span class="text-white">{{event}}</span>
+            <div class="col-lg-6 wow fadeInUp">
+                <div class="h-100 bg-dark rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <small class="mb-0 text-white lead">Upcoming Events</small>
+                        <a href="">Show All</a>
+                    </div>
+                    {% for event in user.schooladministrator.current_school.Events.all %}
+                    <div class="d-flex align-items-center border-bottom py-2">
+                        <div class="w-100 ms-3">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <span class="text-white">{{event}}</span>
+                            </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <small style="font-size: medium;" class="lead text-white">No upcoming events</small>
+                    {% endfor %}
                 </div>
-                {% empty %}
-                <small style="font-size: medium;" class="lead text-white">No upcoming events</small>
-                {% endfor %}
-            </div>
+            </div>              
         </div>
     </div>
-</div>
+</div> 
 {% endblock %}

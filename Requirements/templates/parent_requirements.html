@@ -1,0 +1,45 @@
+{% extends request.session.base %}
+{% load static %}
+{% load fees_tags %}
+{% load children_tags %}
+
+
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="text-center mb-3">
+            <h6 class="mb-0">Requirements</h6>
+        </div>
+        <hr>
+        
+        <div class="table-responsive">
+            <table class="table text-start text-dark align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">Child</th>
+                        <th scope="col">Programme</th>
+                        <th class="text-nowrap" scope="col">School</th>
+                        <th class="text-nowrap" scope="col">Class</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for relationship in user.parent.relationships.all %}
+                    <tr>
+                        <td class="text-nowrap">{{relationship.Child}}</td>
+                        <td class="text-nowrap">{{relationship.Child.active_enrollment.Programme}}</td>
+                        <td class="text-nowrap">{{relationship.Child.school}}</td>
+                        <td class="text-nowrap">{{relationship.Child.Class}}</td>
+                        <td class="text-nowrap">
+                            <a href="{% url 'student-reports' relationship.Child.id %}" class="btn btn-sm btn-dark">View Requirements</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td class="text-nowrap">No students linked to this account</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

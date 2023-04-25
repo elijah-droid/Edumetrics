@@ -36,3 +36,13 @@ def switch_term(request, term):
     request.user.schooladministrator.current_school.save()
     recent_url = request.META.get('HTTP_REFERER')
     return redirect(recent_url)
+
+
+def change_term_dates(request, term):
+    term = Term.objects.get(id=term)
+    form = TermForm(instance=term)
+    del form.fields['Name']
+    context = {
+        'form': form
+    }
+    return render(request, 'change_term_dates.html', context)

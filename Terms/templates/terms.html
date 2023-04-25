@@ -26,7 +26,7 @@
                     <td class="text-nowrap text-dark">{{term.From}}</td>
                     <td class="text-nowrap text-dark">{{term.To}}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Change Dates</a>
+                        <a href="{% url 'change-term-dates' term.id %}" class="btn btn-sm btn-dark">Change Dates</a>
                         <a href="" class="btn btn-sm btn-primary">Delete</a>
                     </td>
                 </tr>

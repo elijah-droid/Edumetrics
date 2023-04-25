@@ -11,7 +11,7 @@ class Programme(models.Model):
     Name = models.CharField(max_length=100, choices=names)
     Fees = models.ManyToManyField('FeesManagement.PaymentDue', blank=True)
     Students = models.ManyToManyField('Students.Student', blank=True)
-    Requirements = models.TextField(max_length=10000, null=True)
+    Requirements = models.ManyToManyField('Requirements.Requirement', blank=True)
 
     def __str__(self):
         return self.Name

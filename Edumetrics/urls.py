@@ -45,6 +45,8 @@ urlpatterns = [
     path('Shop/', include('Shop.urls')),
     path('PastPapers/', include('PastPapers.urls')),
     path('features/', features, name='features'),
+    path('requirements/', include('Requirements.urls')),
+    path('Levels/', include('Levels.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

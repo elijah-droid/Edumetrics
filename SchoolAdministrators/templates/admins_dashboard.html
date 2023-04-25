@@ -57,35 +57,20 @@
         {% if perms.Events.view_event %}
         <a href="{% url 'events' %}" class="dropdown-item">Events</a>
         {% endif %}
-        {% if perms.Students.view_student %}
-        <a href="{% url 'students' %}" class="dropdown-item">Students</a>
-        {% endif %}
-        {% if perms.SickBay.view_admission %}
-        <a href="{% url 'admissions' %}" class="dropdown-item">Sick Bay</a>
-        {% endif %}
         {% if perms.Enrollments.view_enrollment %}
         <a href="{% url 'enrollments' %}" class="dropdown-item">Enrollments</a>
         {% endif %}
         {% if perms.Classes.view_classe %}
         <a href="{% url 'classes' %}" class="dropdown-item">Classes</a>
         {% endif %}
+        {% if perms.Levels.view_level %}
+        <a href="{% url 'levels' %}" class="dropdown-item">Levels</a>
+        {% endif %}
         {% if perms.Subjects.view_subject %}
         <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
         {% endif %}
-        {% if perms.LibraryManagement.view_book %}
-        <a href="{% url 'books' %}" class="dropdown-item">Library</a>
-        {%  endif %}
         {% if perms.Lessons.view_lesson %}
         <a href="{% url 'lessons' %}" class="dropdown-item">Lessons</a>
-        {% endif %}
-        {% if perms.Teachers.view_teacher %}
-        <a href="{% url 'teachers-list' %}" class="dropdown-item">Teachers</a>
-        {% endif %}
-        {% if perms.Parents.view_parent %}
-        <a href="{% url 'parents-list' %}" class="dropdown-item">Parents</a>
-        {% endif %}
-        {% if perms.FeesManagement.view_paymentdue %}
-        <a href="{% url 'dues' %}" class="dropdown-item">Fees Management</a>
         {% endif %}
         {% if perms.Programmes.view_programme %}
         <a href="{% url 'programmes' %}" class="dropdown-item">Programmes</a>
@@ -93,18 +78,42 @@
         {% if perms.Subscriptions.view_subscription %}
         <a href="{% url 'subscriptions' %}" class="dropdown-item">Service Subscription</a>
         {% endif %}
-        {% if perms.SchoolAdministrators.view_schooladministrator %}
-        <a href="{% url 'school-administrators' %}" class="dropdown-item">School Administrators</a>
-        {% endif %}
+        
     </div>
 </div>
 {% endif %}
+<div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Sectors</a>
+    <div class="dropdown-menu bg-transparent border-0">
+        {% if perms.Teachers.view_teacher %}
+        <a href="{% url 'teachers-list' %}" class="dropdown-item">Teachers</a>
+        {% endif %}
+        {% if perms.Students.view_student %}
+        <a href="{% url 'students' %}" class="dropdown-item">Students</a>
+        {% endif %}
+        {% if perms.Parents.view_parent %}
+        <a href="{% url 'parents-list' %}" class="dropdown-item">Parents</a>
+        {% endif %}
+        {% if perms.FeesManagement.view_paymentdue %}
+        <a href="{% url 'dues' %}" class="dropdown-item">Fees Management</a>
+        {% endif %}
+        {% if perms.LibraryManagement.view_book %}
+        <a href="{% url 'books' %}" class="dropdown-item">Library</a>
+        {%  endif %}
+        {% if perms.SickBay.view_admission %}
+        <a href="{% url 'admissions' %}" class="dropdown-item">Sick Bay</a>
+        {% endif %}
+    </div>
+</div>
 <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Security</a>
     <div class="dropdown-menu bg-transparent border-0">
         <a href="{% url 'change-password' %}" class="dropdown-item ">Change Password</a>
         <a href="" class="dropdown-item">View Permissions</a>
-
+        {% if perms.SchoolAdministrators.view_schooladministrator %}
+        <a href="{% url 'school-administrators' %}" class="dropdown-item">School Administrators</a>
+        {% endif %}
+        <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
     </div>
 </div>
 
@@ -157,16 +166,18 @@
                     </div>
                 </div>
             </div>
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        {{ plot_div|safe }}
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        {{ plot2|safe }}
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="row g-5 align-items-center">
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                            {{plot_div|safe}}
+                        </div>
+                        <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                          {{plot2|safe}}
+                      </div>                    
                     </div>
                 </div>
-            </div>    
+            </div>  
 
 
             <!-- Recent Sales Start -->
@@ -205,49 +216,52 @@
             </div>
             <!-- Recent Sales End -->
 
-
-            <!-- Widgets Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-dark rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <small class="mb-0 text-white lead">Upcoming Examinations</small>
-                                <a href="">Show All</a>
-                            </div>
-                            {% for exam in user.schooladministrator.current_school.Examinations.all %}
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span class="text-white">{{exam}}</span>
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="row g-5 align-items-center">
+                        <div class="col-lg-6 wow fadeInUp">
+                            <div class="h-100 bg-dark rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <small class="mb-0 text-white lead">Upcoming Examinations</small>
+                                    <a href="">Show All</a>
+                                </div>
+                                {% for exam in user.schooladministrator.current_school.Examinations.all %}
+                                <div class="d-flex align-items-center border-bottom py-2">
+                                    <div class="w-100 ms-3">
+                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                            <span class="text-white">{{exam}}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                {% empty %}
+                                <small style="font-size: medium;" class="lead text-white">No upcoming examinations</small>
+                                {% endfor %}
                             </div>
-                            {% empty %}
-                            <small style="font-size: medium;" class="lead text-white">No upcoming examinations</small>
-                            {% endfor %}
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-xl-4">
-                        <div class="h-100 bg-dark rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <small class="mb-0 text-white lead">Upcoming Events</small>
-                                <a href="">Show All</a>
-                            </div>
-                            {% for event in user.schooladministrator.current_school.Events.all %}
-                            <div class="d-flex align-items-center border-bottom py-2">
-                                <div class="w-100 ms-3">
-                                    <div class="d-flex w-100 align-items-center justify-content-between">
-                                        <span class="text-white">{{event}}</span>
+                        <div class="col-lg-6 wow fadeInUp">
+                            <div class="h-100 bg-dark rounded p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <small class="mb-0 text-white lead">Upcoming Events</small>
+                                    <a href="">Show All</a>
+                                </div>
+                                {% for event in user.schooladministrator.current_school.Events.all %}
+                                <div class="d-flex align-items-center border-bottom py-2">
+                                    <div class="w-100 ms-3">
+                                        <div class="d-flex w-100 align-items-center justify-content-between">
+                                            <span class="text-white">{{event}}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                {% empty %}
+                                <small style="font-size: medium;" class="lead text-white">No upcoming events</small>
+                                {% endfor %}
                             </div>
-                            {% empty %}
-                            <small style="font-size: medium;" class="lead text-white">No upcoming events</small>
-                            {% endfor %}
-                        </div>
+                        </div>              
                     </div>
                 </div>
-            </div>
+            </div> 
+                    
+                    
+            
             <!-- Widgets End -->
 {% endblock %}

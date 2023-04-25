@@ -125,7 +125,9 @@ INSTALLED_APPS = [
     'Applications',
     'Shop',
     'QuestionBanks',
-    'PastPapers'
+    'PastPapers',
+    'Requirements',
+    'Levels'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,0 +1,44 @@
+{% extends request.session.base %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{user.schooladministrator.current_school}} Levels</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <small class="lead text-dark"></small>
+        <a href="{% url 'add-level' %}" class="btn btn-sm btn-dark">Add New</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Name</th>
+                    <th scope="col">Students</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in user.schooladministrator.current_school.jects.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{subject.name}}</td>
+                    <td class="text-nowrap text-dark">{{subject.Head_Of_Department}}</td>
+                    <td class="text-nowrap">{{subject.Teachers.count}}</td>
+                    <td class="text-nowrap">{{subject.Students.count}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Change</a>
+                        <a href="{% url 'delete-subject' subject.pk %}" class="btn btn-sm btn-primary">Delete</a>
+                        <a href="" class="btn btn-sm btn-dark">Email H.O.D</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No levels have been added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

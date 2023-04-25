@@ -1,0 +1,37 @@
+{% extends request.session.base %}
+{% load fees_tags %}
+
+{% block content %}
+<div class="container text-dark">
+    <div class="text-center">
+        <small class="lead">{{programme}} Programme Requirements</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <div class="btn-group">
+            <a href="{% url 'add-programme-requirement' programme.id %}" class="btn btn-sm btn-primary">Add New</a>
+        </div>
+        <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-dark">Export</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered text-dark">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Requirement</th>
+                    <th class="text-nowrap" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for requirement in programme.Requirements.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{requirement.Name}}</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-dark">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

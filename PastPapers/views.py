@@ -6,7 +6,7 @@ import os
 from django.http import FileResponse
 
 
-def parent_view_pastpapers(request):
+def browse_pastpapers(request):
     form = PastPaperForm()
     del form.fields['Questions_Pdf']
     del form.fields['Answers_Pdf']
@@ -32,7 +32,7 @@ def parent_view_pastpapers(request):
             }
             return render(request, 'query_results.html', context)
     else:
-        return render(request, 'parent_pastpapers.html', context)
+        return render(request, 'browse_pastpapers.html', context)
 
 
 def teachers_pastpapers(request):

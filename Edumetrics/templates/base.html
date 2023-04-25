@@ -72,7 +72,6 @@
                     {% if user.is_authenticated %}
                     {% block nav %}
                     {% endblock %}
-                    <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
                     {% else %}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
