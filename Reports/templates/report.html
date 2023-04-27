@@ -2,11 +2,13 @@
 
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
-        <img style="border-radius: 50%; object-fit: cover;" width="100" class="img mb-2" src="{% url 'get-image' report.Student.id %}"></img>
+        <a href="{% url 'get-image' report.Student.id %}">
+            <img style="border-radius: 50%; object-fit: cover;" width="100" class="img mb-2" src="{% url 'get-image' report.Student.id %}"></img>
+        </a>
         <div class="text-center mb-4">
             <h6 class="mb-0">{{report.Student}} <br>{{report.Examination}} Report</h6>
         </div>
-        <div class="table-responsive">
+        <div style="font-family: 'Times New Roman', Times, serif;" class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead>
                     <tr class="text-dark">

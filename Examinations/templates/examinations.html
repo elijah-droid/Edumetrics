@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-primary">Mark Sheets</a>
+        <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-primary">Search</a>
         <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-dark">Schedule</a>
     </div>
     <div class="table-responsive">
@@ -15,8 +15,7 @@
             <thead>
                 <tr class="text-dark">
                     <th scope="col">Name</th>
-                    <th class="text-nowrap" scope="col">Date to start</th>
-                    <th class="text-nowrap" scope="col">Date to end</th>
+                    <th class="text-nowrap" scope="col">Date</th>
                     <th class="text-nowrap" scope="col">More</th>
                 </tr>
             </thead>
@@ -25,9 +24,8 @@
                 <tr>
                     <td class="text-nowrap text-dark">{{exam}}</td>
                     <td class="text-nowrap text-dark">{{exam.Date}}</td>
-                    <td class="text-nowrap"></td>
                     <td class="text-nowrap">
-                        <a href="{% url 'assessments' exam.pk %}" class="btn btn-sm btn-dark">Assesments</a>
+                        <a href="{% url 'exam-marksheets' exam.pk %}" class="btn btn-sm btn-dark">Mark Sheets</a>
                         <a href="" class="btn btn-sm btn-primary">Reschedule</a>
                         <a href="" class="btn btn-sm btn-dark">Reports</a>
                     </td>
@@ -39,6 +37,15 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    <div class="text-center">
+        <ul class="pagination">
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        </ul>
     </div>
 </div>
 {% endblock %}

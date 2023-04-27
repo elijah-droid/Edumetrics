@@ -48,3 +48,5 @@ def programme_requirments(request, programme):
         'programme': programme
     }
     return render(request, 'programme_requirements.html', context)
+
+

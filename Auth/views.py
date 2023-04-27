@@ -16,7 +16,7 @@ from Students.views import generate_student_id
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import PasswordReset
+from .models import PasswordReset, EmailConfirmation
 from django.core.exceptions import ObjectDoesNotExist
 
 def class_teacher_login(request):
@@ -175,33 +175,56 @@ def signup(request):
         'form': form
     }
     if request.method == 'POST':
-        first_name = request.POST['first_name']
-        second_name = request.POST['second_name']
         email = request.POST['email']
-        password = request.POST['password']
-        code = generate_student_id()
-        html_message = render_to_string('confirm_email_message.html', {'code': code})
-        text_message = strip_tags(html_message)
-        subject = 'Confirm Your Email Adress'
-        from_email = 'edumetrics@sparklehandscs.com'
-        to_email = email
-        email_message = EmailMultiAlternatives(subject, text_message, from_email, [to_email])
+        try:
+            User.objects.get(email=email)
+            message = 'The email you entered is already in use.'
+            messages.success(request, message)
+            return redirect('.')
+        except ObjectDoesNotExist:
+            code = generate_student_id()
+            message = f'''
+                Use this code on the sign up page
 
-        # Attach the HTML version of the email message
-        email_message.attach_alternative(html_message, "text/html")
-
-        # Send the email
-        email_message.send()
-        user = User.objects.create(
-            first_name=first_name,
-            last_name=second_name,
-            username=email,
-            email=email,
-            password=password
-        )
-        return redirect('confirm-email', user=user.id)
+                {code}
+            '''
+            send_mail(
+                'Email Confirmation Code',
+                message,
+                'edumetrics@sparklehandscs.com',
+                [email]
+            )
+            try:
+                confirmation = EmailConfirmation.objects.get(Email=email)
+                confirmation.Code = code
+                confirmation.save()
+            except ObjectDoesNotExist:
+                confirmation = EmailConfirmation.objects.create(Email=email, Code=email)
+            return redirect('signup-details', confirmation=confirmation.id)
+        return redirect('.')
     else:
         return render(request, 'signup.html', context)
+
+
+def signup_details(request, confirmation):
+    confirmation = EmailConfirmation.objects.get(id=confirmation)
+    if request.method == 'POST':
+        code = request.POST['code']
+        if code == confirmation.Code:
+            user = User.objects.create(
+                username=confirmation.Email,
+                first_name=request.POST['first_name'],
+                last_name=request.POST['second_name'],
+                email=confirmation.Email,
+                password=make_password(request.POST['password'])
+            )
+            messages.success(request, 'Account created successfully.')
+            return redirect('/')
+        else:
+            messages.success(request, 'Invalid Code.')
+            return redirect('.')
+    else:
+        return render(request, 'signup_details.html')
 
 
 def confirm_email(request, user):

@@ -1,34 +1,24 @@
 from django import forms
-from .models import SchoolAdministrator
+from .models import SchoolAdministrator, Adminship
 from django.contrib.auth.models import Permission, Group
 from Edumetrics.settings import my_apps
 
-class LinkAdminForm(forms.Form):
+class LinkAdminForm(forms.ModelForm):
 
-
-    
-
-    user = forms.EmailField(
-        label='User email',
+    email = forms.EmailField(
+        label='''Admin's Email''',
         widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter User email',
+                'placeholder': '''Enter Administrator's Email''',
             }
         )
-    ) 
-    Permissions = forms.ModelMultipleChoiceField(
-        queryset=Permission.objects.filter(content_type__app_label__in=my_apps),
-        widget=forms.SelectMultiple(
-            attrs={
-                'class': 'form-control',
-            }
-        ))
-
-    Groups = forms.ModelMultipleChoiceField(
-        queryset=Group.objects.all(),
-        widget=forms.SelectMultiple(
-            attrs={
-                'class': 'form-control',
-            }
-        ))
+    )
+    
+    class Meta:
+        model = Adminship
+        fields = ['Groups', 'super_admin']
+        widgets = {
+            'Groups': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'super_admin': forms.CheckboxInput(attrs={'class': 'form-check-input text-nowrap'})
+        }

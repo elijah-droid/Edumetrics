@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Permission, Group
-
+from django.utils.timezone import now
 
 roles = (
     ('Super', 'Super'),
@@ -21,6 +21,7 @@ class SchoolAdministrator(models.Model):
 class Adminship(models.Model):
     Admin = models.ForeignKey('SchoolAdministrator', models.CASCADE, related_name='admin_ship')
     School = models.ForeignKey('Schools.School', models.CASCADE)
+    Date_Authorised = models.DateTimeField(default=now)
     permissions = models.ManyToManyField(
         Permission,
         limit_choices_to={'content_type__app_label__in': ['Reports', 'Examinations']},

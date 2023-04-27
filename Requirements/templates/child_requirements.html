@@ -4,13 +4,11 @@
 {% block content %}
 <div class="container text-dark">
     <div class="text-center">
-        <small class="lead">{{programme}} Programme Requirements</small>
+        <small class="lead">{{child.active_enrollment.Programme}} Programme Requirements</small>
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <div class="btn-group">
-            <a href="{% url 'add-programme-requirement' programme.id %}" class="btn btn-sm btn-primary">Add New</a>
-        </div>
+        <small></small>
         <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-dark">Export</a>
     </div>
     <div class="table-responsive">
@@ -18,24 +16,19 @@
             <thead>
                 <tr class="text-dark">
                     <th scope="col">Requirement</th>
-                    <th scope="col">Quantity</th>
-                    <th class="text-nowrap" scope="col">Actions</th>
+                    <th class="text-nowrap" scope="col">Quantity</th>
                 </tr>
             </thead>
             <tbody>
-                {% for requirement in programme.Requirements.all %}
+                {% for requirement in child.active_enrollment.Programme.Requirements.all %}
                 <tr>
                     <td class="text-nowrap text-dark">{{requirement.Name}}</td>
                     <td class="text-nowrap text-dark">{{requirement.Quantity}}</td>
-                    <td class="text-nowrap">
-                        <a href="{% url 'delete-requirement' requirement.id %}" class="btn btn-sm btn-dark">Delete</a>
-                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td class="text-nowrap text-dark">No {{programme}} Requirements</td>
-                    <td class="text-nowrap">
-                    </td>
+                    <td class="text-nowrap text-dark">No Requirements listed.</td>
+                    <td class="text-nowrap text-dark"></td>
                 </tr>
                 {% endfor %}
             </tbody>

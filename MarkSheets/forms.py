@@ -12,3 +12,4 @@ class MarkSheetForm(forms.ModelForm):
             'Class': forms.Select(attrs={'class': 'form-control'}),
             'Subject': forms.Select(attrs={'class': 'form-control'})
         }
+        

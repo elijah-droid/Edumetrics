@@ -7,7 +7,6 @@
         <small class="lead">{{user.schooladministrator.current_school}} Students</small>
     </div>
     <hr>
-    <hr>
       
     <div class="d-flex justify-content-between mb-3">
         <div class="btn-group">
@@ -17,7 +16,10 @@
             <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Promote</a>
             {% endif %}
         </div>
-        <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-dark">Export</a>
+        <div class="btn-group">
+          <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-primary">Search</a>
+          <a href="{% url 'download-students-info' %}" class="btn btn-sm btn-dark">Export</a>
+        </div>
     </div>
     <div class="card-deck mb-3">
         <div class="row">
@@ -25,10 +27,16 @@
           <div class="col-lg-2 col-md-4 col-sm-6">
             <div class="card">
               <img src="{% url 'get-image' student.id %}" class="card-img-top" alt="{{ teacher.name }}">
-              <div class="card-body text-center">
-                <p class="card-title text-nowrap">{{student}}</p>
-                <p class="card-text">{{ student.Class }} Class</p>
-                <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">View Profile</a>
+              <div class="card-body">
+                <div class="text-center">
+                  <p class="card-title text-nowrap">{{student}}</p>
+                  <p class="card-text">{{ student.Class }} Class</p>
+                </div>
+                <br>
+                <div class="btn-group text-nowrap">
+                  <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">View Profile</a>
+                  <a href="{% url 'link-parent' student.id %}" class="btn btn-sm btn-primary">Link Parent</a>
+                </div>
               </div>
             </div>
           </div>

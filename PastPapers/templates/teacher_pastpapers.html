@@ -36,6 +36,11 @@
           {% endif %}
           {% endfor %}
         </div>
+        {% if not papers %}
+        <div class="text-center">
+          <h6>You don't have any past papers.</h6>
+        </div>
+        {% endif %}
       </div>
       <div class="text-center">
         <ul class="pagination">

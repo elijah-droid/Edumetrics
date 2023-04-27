@@ -2,20 +2,36 @@
 {% load static %}
 
 {% block content %}
-<div class="text-center">
-    <small class="lead">{{user.schooladministrator.current_school}} Student Reports</small>
+<div class="container">
+    <div class="container text-center">
+        <small class="lead text-dark">{{student}} Reports</small>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{% url 'add-book' %}" class="btn btn-sm btn-dark">Search</a>
+        <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">Publish</a>
+    </div>
+    <hr>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                {% for report in user.schooladministrator.current_school.Reports.all %}
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    {% include 'report.html' %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+     <div class="text-center">
+        <ul class="pagination">
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </div>
 </div>
-<hr>
-<div class=" d-flex justify-content-between container">
-    <small></small>
-    <a href="{% url 'publish-batch' %}" class="btn btn-sm btn-dark">Publish Batch</a>
-</div>
-
- {% for report in user.schooladministrator.current_school.Reports.all %}
- {% include 'report.html' %}
- {% empty %}
- <div class="text-center mt-3">
-    <small class="lead">No Reports Available at the moment</small>
- </div>
- {% endfor %}
 {% endblock %}

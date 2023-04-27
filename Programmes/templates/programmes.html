@@ -1,5 +1,6 @@
 {% extends request.session.base %}
 {% load fees_tags %}
+{% load programmetags %}
 
 {% block content %}
 <div class="container text-dark">
@@ -27,8 +28,8 @@
                 <tr>
                     <td class="text-nowrap text-dark">{{programme.Name}}</td>
                     <td class="text-nowrap text-dark">{{programme.Students.count}}</td>
-                    <td class="text-nowrap"></td>
-                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap">{{programme|programme_fees_total}} UGX</td>
+                    <td class="text-nowrap">{{programme.Requirements.count}} Listed</td>
                     <td class="text-nowrap">
                         <a href="{% url 'students-on-programme' programme.id %}" class="btn btn-sm btn-dark">View Students</a>
                         <a href="{% url 'programme-fees-structure' programme.id %}" class="btn btn-sm btn-primary">Fees Structure</a>

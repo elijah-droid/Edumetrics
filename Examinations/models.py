@@ -6,7 +6,8 @@ class Examination(models.Model):
     Reports = models.ManyToManyField('Reports.Report', blank=True)
     Date = models.DateField(null=True)
     Classes = models.ManyToManyField('Classes.Class', blank=True)
+    mark_sheets = models.ManyToManyField('MarkSheets.MarkSheet')
+    Open_To_Tallying = models.BooleanField(default=True)
 
     def __str__(self):
         return self.Name
-    

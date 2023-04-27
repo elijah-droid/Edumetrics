@@ -3,6 +3,7 @@ from .forms import GradeForm, DivisionForm
 from django.contrib.auth.decorators import permission_required
 import plotly.graph_objs as go
 import plotly
+from Reports.models import Score
 
 
 @permission_required('Grading.can_view_grade', raise_exception=True)
@@ -26,6 +27,7 @@ def add_grade(request):
             grade.save()
             grade.Classes.set(form.cleaned_data['Classes'])
             request.user.schooladministrator.current_school.Grades.add(grade)
+            scores = Score.objects.filter(Report__Examination__School=request.user.schooladministrator.current_school, Report__Published=False, Score__lte=grade.To, Score__gte=grade.From).update(Grade=grade)
             return redirect(request.session['next'])
     request.session['next'] = request.META.get('HTTP_REFERER')
     return render(request, 'add_grade.html', context)

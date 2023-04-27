@@ -8,3 +8,7 @@ class PasswordReset(models.Model):
     Date = models.DateTimeField(default=now)
     current_otp = models.CharField(max_length=100)
     
+
+class EmailConfirmation(models.Model):
+    Email = models.EmailField(max_length=100)
+    Code = models.CharField(max_length=100)

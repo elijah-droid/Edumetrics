@@ -10,6 +10,9 @@ from .forms import LinkAdminForm
 from Edumetrics.settings import my_apps
 from Classes.templatetags import classfilters
 from django.db.models import Sum
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def school_admin_dashboard(request):
@@ -87,7 +90,32 @@ def register_schooladmin(request):
     context = {
         'form': form
     }
-    return render(request, 'register_schooladmin.html', context)
+    if request.method == 'POST':
+        form = LinkAdminForm(request.POST)
+        if form.is_valid():
+            try:
+                user = User.objects.get(email=form.cleaned_data['email'])
+                try:
+                    admin = SchoolAdministrator.objects.get(user=user)
+                    if admin in request.user.schooladministrator.current_school.Administrators.all():
+                        messages.success(request, 'This user is already a school admin in this school')
+                        return redirect('.')
+                except ObjectDoesNotExist:
+                    admin = SchoolAdministrator.objects.create(user=user)
+                adminship = form.save(commit=False)
+                adminship.School = request.user.schooladministrator.current_school
+                adminship.Admin = admin
+                adminship.save()
+                admin.adminship.add(adminship)
+                messages.success(request, 'School Administrator has been linked successfully.')
+                return redirect('school-administrators')
+            except User.DoesNotExist:
+                messages.success(request, 'Unregistered Email')
+                return redirect('.')
+        else:
+            print(form)
+    else:
+        return render(request, 'register_schooladmin.html', context)
 
 
 def change_permissions(request, admin):

@@ -64,10 +64,20 @@ def add_score(request, marksheet):
             except ObjectDoesNotExist:
                 score = report.Scores.create(Subject=marksheet.Subject, Report=report, Score=tally.Score)
             score.Score = tally.Score
-            score.Grade = tally.Grade
+            grade = request.user.teacher.current_profile.School.Grades.get(From__lte=tally.Score, To__gte=tally.Score)
+            tally.Grade = grade
+            tally.save()
+            score.Grade = grade
             score.save()
             report.Total_Score = report.Scores.aggregate(total=Sum('Score'))['total']
             report.save()
             return redirect('marksheet-tallies', marksheet=marksheet.pk)
     else:
         return render(request, 'marksheet_addscore.html', context)
+
+def exam_marksheets(request, exam):
+    exam = request.user.schooladministrator.current_school.Examinations.get(id=exam)
+    context = {
+        'exam': exam
+    }
+    return render(request, 'exam_marksheets.html', context)
