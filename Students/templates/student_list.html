@@ -11,7 +11,6 @@
     <div class="d-flex justify-content-between mb-3">
         <div class="btn-group">
             {% if perms.Students.add_student %}
-            <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Enroll</a>
             <a href="{% url 'old-students' %}" class="btn btn-sm btn-dark">Old Students</a>
             <a href="{% url 'enroll-student' %}" class="btn btn-sm btn-primary">Promote</a>
             {% endif %}

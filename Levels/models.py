@@ -12,5 +12,6 @@ names = (
 class Level(models.Model):
     School = models.ForeignKey('Schools.School', models.SET_NULL, null=True)
     Name = models.CharField(max_length=100, choices=names)
+    Students = models.ManyToManyField('Students.Student')
     Subjects = models.ManyToManyField('Subjects.Subject')
     Classes = models.ManyToManyField('Classes.Class')

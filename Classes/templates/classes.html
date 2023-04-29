@@ -2,71 +2,47 @@
 {% load static %}
 
 {% block content %}
-<div class="container-xxl py-5">
+<div class="container text-dark">
     <div class="text-center">
-        <h1>{{user.schooladministrator.current_school}} Classes</h1>
+        <small class="lead">{{user.schooladministrator.current_school}} Classes</small>
     </div>
     <hr>
-    <div class="container">
-        <div class="justify-content-between d-flex mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <a href="{% url 'add-class' %}" class="btn btn-sm btn-primary">Add class</a>
-        </div>
-        <div class="row g-4">
-            {% for class in user.schooladministrator.current_school.classes.all %}
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="classes-item">
-                    <div class="bg-light rounded-circle w-75 mx-auto p-3">
-                        <img class="img-fluid rounded-circle" src="img/classes-1.jpg" alt="">
-                    </div>
-                    <div class="bg-light rounded p-4 mt-n5">
-                        <a class="d-block text-center h3 mt-3 mb-4" href="">{{class.Name}}</a>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            {% if class.Class_Teacher %}
-                            <div class="d-flex align-items-center">
-                                <img class="rounded-circle flex-shrink-0" src="{% static 'img/user_.png' %}" alt="" style="width: 45px; height: 45px;">
-                                <div class="ms-3">
-                                    <h6 class="text-primary mb-1">Jhon Doe</h6>
-                                    <small>Class Teacher</small>
-                                </div>
-                            </div>
-                            {% else %}
-                            <small>No Class Teacher</small>
-                            {% endif %}
-                            <a href="{% url 'class-profile' class.id %}" class="bg-primary text-white rounded-pill py-2 px-3" href="">MORE</a>
-                        </div>
-                        <div class="row g-1">
-                            <div class="col-4">
-                                <div class="border-top border-3 border-primary pt-2">
-                                    <h6 class="text-primary mb-1 text-nowrap">Streams:</h6>
-                                    <small>{{class.Streams.count}}</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="border-top border-3 border-success pt-2">
-                                    <h6 class="text-success mb-1">Time:</h6>
-                                    <small class="text-dark">{% if class.From %}{{class.From|time:"H"}}-{{class.To}}{% endif %}</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="border-top border-3 border-warning pt-2">
-                                    <h6 class="text-warning mb-1">Capacity:</h6>
-                                    <small>{{class.Students.count}} Students</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <a class="btn btn-sm btn-dark" href="{% url 'class-streams' class.id %}">Streams</a>
-                            <a class="btn btn-sm btn-dark" href="{% url 'class-students' class.id %}">Students</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="text-center">
-                <small class="lead">No classes available</small>
-            </div>
-            {% endfor %}
-        </div>
+    <div class="d-flex justify-content-between mb-3">
+        <small></small>
+        <a href="{% url 'add-class' %}" class="btn btn-sm btn-dark">Add Class</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="text-dark">
+                    <th scope="col">Class</th>
+                    <th scope="col">Class Teacher</th>
+                    <th class="text-nowrap" scope="col">Students</th>
+                    <th class="text-nowrap" scope="col">Starts</th>
+                    <th class="text-nowrap" scope="col">Ends</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for class in request.user.schooladministrator.current_school.classes.all %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{class}}</td>
+                    <td class="text-nowrap text-dark">{{class.Class_Teacher}}</td>
+                    <td class="text-nowrap text-dark">{{class.Students.count}} Students</td>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap"></td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-primary">View Students</a>
+                        <a href="" class="btn btn-sm btn-dark">Class Info</a>
+                        <a href="" class="btn btn-sm btn-primary">TimeTable</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No classes registered.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

@@ -22,6 +22,7 @@ classes = (
 class Class(models.Model):
     School = models.ForeignKey('Schools.School', models.SET_NULL, null=True)
     Name = models.CharField(max_length=100, choices=classes)
+    Index = models.PositiveIntegerField(default=1)
     Class_Teacher = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True, blank=True)
     Streams = models.ManyToManyField('Streams.Stream')
     Students = models.ManyToManyField('Students.Student', blank=True)

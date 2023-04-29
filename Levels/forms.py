@@ -9,7 +9,7 @@ class LevelForm(forms.ModelForm):
         model = Level
         fields = ['Name', 'Classes', 'Subjects']
         widgets = {
-            'Name': forms.TextInput(attrs={'class': 'form-control'}),
+            'Name': forms.Select(attrs={'class': 'form-control'}),
             'Classes': forms.SelectMultiple(attrs={'class': 'form-control'}),
             'Subjects': forms.SelectMultiple(attrs={'class': 'form-control'})
         }

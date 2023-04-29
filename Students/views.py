@@ -80,13 +80,20 @@ def student_dashboard(request):
 
 
 @login_required
-def enroll_student(request):
+def enroll_student(request, level):
+    level = request.user.schooladministrator.current_school.Levels.get(id=level)
+    form = StudentForm(initial={'student_id': generate_student_id()})
+    form.fields['Subjects'].queryset = level.Subjects.all()
+    form.fields['Class'].queryset = level.Classes.all()
+    if level.Name != 'Advance Level':
+        del form.fields['Combination']
     if request.method == 'POST':
         form = StudentForm(request.POST, request.FILES)
         if form.is_valid():
             student = form.save(commit=False)
             student.school = request.user.schooladministrator.current_school
             student.user = User.objects.create(username=form.cleaned_data['student_id'])
+            student.Level = level
             student.save()
             request.user.schooladministrator.current_school.students.add(student)
             cls = form.cleaned_data['Class']
@@ -104,10 +111,6 @@ def enroll_student(request):
             student.school.Enrollments.add(enrollment)
             messages.success(request, f'Student {student.first_name} {student.last_name} has been enrolled successfully.')
             return redirect('students')
-    else:
-        form = StudentForm(initial={'student_id': generate_student_id()})
-        form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
-        form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
     return render(request, 'enroll_student.html', {'form': form})
 
 
@@ -197,6 +200,8 @@ def terminate_student(request, student):
             School=request.user.schooladministrator.current_school,
             From=student.active_enrollment.Date,
         )
+        student.active_enrollment.Programme.Students.remove(student)
+        student.Class.Students.remove(student)
         student.active_enrollment = None
         student.Class = None
         student.school = None

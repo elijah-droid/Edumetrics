@@ -20,16 +20,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for subject in user.schooladministrator.current_school.jects.all %}
+                {% for level in user.schooladministrator.current_school.Levels.all %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{subject.name}}</td>
-                    <td class="text-nowrap text-dark">{{subject.Head_Of_Department}}</td>
-                    <td class="text-nowrap">{{subject.Teachers.count}}</td>
-                    <td class="text-nowrap">{{subject.Students.count}}</td>
+                    <td class="text-nowrap text-dark">{{level.Name}}</td>
+                    <td class="text-nowrap text-dark"></td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Change</a>
-                        <a href="{% url 'delete-subject' subject.pk %}" class="btn btn-sm btn-primary">Delete</a>
-                        <a href="" class="btn btn-sm btn-dark">Email H.O.D</a>
+                        <a href="" class="btn btn-sm btn-dark">View Students</a>
+                        <a href="{% url 'enroll-student' level.id %}" class="btn btn-sm btn-primary">Enroll Student</a>
                     </td>
                 </tr>
                 {% empty %}
