@@ -33,6 +33,7 @@
                     <td class="text-nowrap">
                         <a href="{% url 'change-teacher-profile' teacher.id %}" class="btn btn-sm btn-primary">Change Profile</a>
                         <a href="{% url 'teacher-profile' teacher.id %}" class="btn btn-sm btn-dark">Profile</a>
+                        <a href="{% url 'terminate-teacher' profile.Teacher.id %}" class="btn btn-sm btn-primary">Terminate</a>
                     </td>
                 </tr>
                 {% endwith %}

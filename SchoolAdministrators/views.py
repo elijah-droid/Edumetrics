@@ -120,21 +120,17 @@ def register_schooladmin(request):
 
 def change_permissions(request, admin):
     admin = SchoolAdministrator.objects.get(pk=admin)
-    permissions = Permission.objects.filter(content_type__app_label__in=my_apps)
-    groups = Group.objects.all()
+    adminship = admin.adminship.get(School=request.user.schooladministrator.current_school, Admin=admin)
+    form = LinkAdminForm(instance=adminship)
+    del form.fields['email']
     context = {
-        'admin': admin,
-        'permissions': permissions,
-        'groups': groups
+        'form': form
     }
     if request.method == 'POST':
-        permissions = request.POST.getlist('permissions')
-        groups = request.POST.getlist('groups')
-        groups = Group.objects.filter(id__in=groups)
-        permissions = Permission.objects.filter(id__in=permissions)
-        adminship = Adminship.objects.get(Admin=admin, School=request.user.schooladministrator.current_school)
-        adminship.permissions.set(permissions)
-        adminship.Groups.set(groups)
+        form = LinkAdminForm(request.POST, instance=adminship)
+        del form.fields['email']
+        if form.is_valid():
+            form.save()
         return redirect('school-administrators')
     else:
         return render(request, 'change_permissions.html', context)

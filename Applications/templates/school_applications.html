@@ -25,8 +25,10 @@
                     <td class="text-nowrap text-dark">{{application.Date}}</td>
                     <td class="text-nowrap text-dark">{{application.status}}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Approve</a>
+                        {% if application.status == 'Pending' %}
+                        <a href="{% url 'approve-application' application.id %}" class="btn btn-sm btn-dark">Approve</a>
                         <a href="" class="btn btn-sm btn-primary">Reject</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% empty %}

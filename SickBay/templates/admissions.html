@@ -9,10 +9,9 @@
     <hr>
     <div class="d-flex justify-content-between mb-3">
         <div class="btn-group">
-            <a href="{% url 'admit' %}" class="btn btn-sm btn-primary">Admit</a>
-            <a href="" class="btn btn-sm btn-dark">Dismiss</a>
+            <a href="{% url 'admit' %}" class="btn btn-sm btn-dark">Admit</a>
         </div>
-        <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">Get Records</a>
+        <a href="" class="btn btn-sm btn-primary">Export</a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -25,13 +24,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for book in user.schooladministrator.current_school.patient_admissions.all %}
+                {% for patient in user.schooladministrator.current_school.patient_admissions.all %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{book.Name}}</td>
-                    <td class="text-nowrap text-dark">{{book.Number}} Books</td>
-                    <td class="text-nowrap text-dark">{{book.Lend_Outs.count}} Books</td>
+                    <td class="text-nowrap text-dark">{{patient.Student}}</td>
+                    <td class="text-nowrap text-dark">{{patient.Time}}</td>
+                    <td class="text-nowrap text-dark">{{patient.Complications|linebreaks}}</td>
                     <td class="text-nowrap">
-                        <a href="" class="btn btn-sm btn-dark">Call Parent</a>
+                        <a href="" class="btn btn-sm btn-dark">Call Parents</a>
+                        <a href="" class="btn btn-sm btn-primary">Dismiss</a>
                     </td>
                 </tr>
                 {% empty %}

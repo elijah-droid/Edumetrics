@@ -10,6 +10,7 @@ class Teacher(models.Model):
     current_stream = models.ForeignKey('Streams.Stream', models.SET_NULL, null=True)
     Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)
     Past_Papers = models.ManyToManyField('PastPapers.PastPaper', blank=True)
+    TeachingHistory = models.ManyToManyField('TeachingHistory.TeachingHistory', blank=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'

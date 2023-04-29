@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from Schools.models import School
 from .forms import ApplicationForm
+from django.core.mail import send_mail
 
 def  schools_listing(request):
     schools = School.objects.all()
@@ -44,3 +45,22 @@ def applicant_profile(request, application):
         'application': application
     }
     return render(request, 'applicant_profile.html', context)
+
+
+def approve_application(request, application):
+    application = request.user.schooladministrator.current_school.Applications.get(id=application)
+    application.status = 'Approved'
+    application.save()
+    email = application.Parent.user.email
+    message = f'''
+    The application you sent to {request.user.schooladministrator.current_school}.
+    Was finally approved.
+    You are free to visit the administration offices to summarise the process.
+    '''
+    send_mail(
+        'Application Approved',
+        message,
+        'edumetrics@sparklehandscs.com',
+        [email]
+    )
+    return redirect('school-applications')

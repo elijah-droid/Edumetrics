@@ -186,3 +186,21 @@ def student_profile(request, student):
 
 def old_students(request):
     return render(request, 'old_students.html')
+
+def terminate_student(request, student):
+    student = request.user.schooladministrator.current_school.students.get(id=student)
+    if request.method == 'POST':
+        reason = request.POST['reason']
+        request.user.schooladministrator.current_school.students.remove(student)
+        student.education_history.create(
+            Student=student,
+            School=request.user.schooladministrator.current_school,
+            From=student.active_enrollment.Date,
+        )
+        student.active_enrollment = None
+        student.Class = None
+        student.school = None
+        student.save()
+        return redirect('students')
+    else:
+        return render(request, 'terminate_student.html')

@@ -175,3 +175,9 @@ def change_teacher_profile(request, teacher):
             return redirect('teachers-list')
     else:
         return render(request, 'change_teacher_profile.html', context)
+
+
+def terminate_teacher(request, teacher):
+    teacher = request.user.schooladministrator.current_school.Teachers.get(id=teacher)
+    profile = teacher.work_profile.get(School=request.user.schooladministrator.current_school)
+    return render(request, 'terminate_teacher.html')

@@ -1,5 +1,6 @@
 {% extends request.session.base %}
 {% load fees_tags %}
+{% load student_tags %}
 
 {% block content %}
 <div class="container text-dark">
@@ -17,31 +18,26 @@
             <thead>
                 <tr class="text-dark">
                     <th scope="col">Names</th>
-                    <th class="text-nowrap" scope="col">Date Enrolled</th>
+                    <th class="text-nowrap" scope="col">From</th>
                     <th class="text-nowrap" scope="col">Left In</th>
                     <th scope="col">Current School</th>
                     <th scope="col">Current Class</th>
-                    <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for student in students %}
+                {% for student in user.schooladministrator.current_school.old_students.all %}
+                {% with history=student|education_history:user.schooladministrator.current_school %}
                 <tr>
                     <td class="text-nowrap text-dark">{{student}}</td>
-                    <td class="text-nowrap text-dark">{{student.active_enrollment.Date}}</td>
-                    <td class="text-nowrap text-dark">{{student.active_enrollment.Programme.Name}}</td>
+                    <td class="text-nowrap text-dark">{{history.From}}</td>
+                    <td class="text-nowrap text-dark">{{history.To}}</td>
+                    <td class="text-nowrap text-dark">{{student.school}}</td>
                     <td class="text-nowrap text-dark">{{student.Class}}</td>
-                    <td class="text-nowrap">{% for subject in student.Subjects.all %}<small>{{subject}}</small><br>{% endfor %}</td>
-                    <td class="text-nowrap text-dark">{{student|fees_balance}} UGX</td>
-                    <td class="text-nowrap">
-                        <a href="{% url 'link-parent' student.id %}" class="btn btn-sm btn-primary">Link Parent</a>
-                        <a href="{% url 'student-profile' student.id %}" class="btn btn-sm btn-dark">Profile</a>
-                        <a href="{% url 'change-student' student.pk %}" class="btn btn-sm btn-primary">Edit Info</a>
-                    </td>
                 </tr>
+                {% endwith %}
                 {% empty %}
                 <tr>
-                    <td>No students have been added.</td>
+                    <td>No old students yet.</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -1,0 +1,38 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+{% block content %}
+        <!-- Appointment Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="rounded">
+                    <div class="row g-0">
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="h-100 d-flex flex-column justify-content-center p-3">
+                                <h6 class="mb-4">Terminate Teacher</h6>
+                                <form method="post" action=".">
+                                    {% csrf_token %}
+                                    <div class="row g-3">
+                                        <div class="form-group mb-3">
+                                            <label for="username">Reason:</label>
+                                            <textarea class="form-control" name="reason" id="reason" cols="30" rows="10"></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/teacher.webp' %}" style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Appointment End -->
+{% endblock %}

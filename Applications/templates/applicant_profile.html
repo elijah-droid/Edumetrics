@@ -11,13 +11,20 @@
                 <div class="d-flex flex-column h-100 text-center overflow-auto shadow p-3">
                     <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% url 'get-image' application.Student.id %}" alt="Image">
                     <small class="lead mt-2 text-dark">{{application.Student}}</small>
-                    <div class="mb-4" style="height: 22px;">
+                    <div style="height: 22px;">
                         <h4 class="typed-text-output d-inline-block text-light"></h4>
                     </div>
+                    {% if application.status == 'Pending' %}
                     <div class="d-flex align-items-end justify-content-between border-top btn-group">
-                        <a href="" class="btn btn-dark w-50 border-end">Approve</a>
+                        <a href="{% url 'approve-application' application.id %}" class="btn btn-dark w-50 border-end">Approve</a>
                         <a href="" class="btn btn-primary w-50 btn-scroll">Reject</a>
                     </div>
+                    {% else %}
+                    <div class="text-center">
+                        <h6>{{application.status}}</h6>
+                    </div>
+                    {% endif %}
+                    
                 </div>
             </div>
             <div class="col-lg-8 mt-0">
