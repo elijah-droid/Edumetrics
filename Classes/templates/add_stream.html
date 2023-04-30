@@ -10,20 +10,13 @@
                     <div class="row g-0">
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                             <div class="h-100 d-flex flex-column justify-content-center p-3">
-                                <h6 class="mb-4">Are you sure you want to terminate this admin?</h6>
+                                <h6 class="mb-4">Add a Stream to {{class}} Class</h6>
                                 <form method="post" action=".">
                                     {% csrf_token %}
                                     <div class="row g-3">
-                                        <div class="bg-light text-center rounded p-4">
-                                            <img style="border-radius: 50%; object-fit: cover;" width="100" class="img mb-2" src="{% static 'img/user_.png' %}"></img>
-
-                                            <div class="text-center mb-4">
-                                                <h6 class="mb-0">{{adminship.Admin.user.first_name}}{{adminship.Admin.user.last_name}}<br/>{{adminship.Admin.user.email}}</h6>
-                                            </div>
-                                        </div>
+                                        {{form}}
                                         <div class="col-12">
-                                            <button name="answer" value="yes" class="btn btn-dark btn-sm" type="submit">Yes</button>
-                                            <button name="answer" value="no" class="btn btn-danger btn-sm" type="submit">No</button>
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -31,7 +24,7 @@
                         </div>
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                             <div class="position-relative h-100">
-                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/support.jpg' %}" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/class.jpg' %}" style="object-fit: cover;">
                             </div>
                         </div>
                     </div>

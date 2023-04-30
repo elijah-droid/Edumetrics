@@ -2,7 +2,6 @@
 {% load static %}
 
 
-
 {% block content %}
         <!-- Appointment Start -->
         <div class="container-xxl py-5">
@@ -11,16 +10,21 @@
                     <div class="row g-0">
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                             <div class="h-100 d-flex flex-column justify-content-center p-3">
-                                <h6>Terminate Student</h6>
-                                <form enctype="multipart/form-data" method="post" action="." class="text-dark" >
+                                <h6 class="mb-4">Are you sure you want to terminate Student?</h6>
+                                <form method="post" action=".">
                                     {% csrf_token %}
                                     <div class="row g-3">
-                                        <div class="form-group mb-3">
-                                            <label for="username">Reason:</label>
-                                            <textarea class="form-control" name="reason" id="reason" cols="30" rows="10"></textarea>
+                                        <div class="bg-light text-center rounded p-4">
+                                            <a href="{% url 'get-image' student.id %}">
+                                                <img style="border-radius: 50%; object-fit: cover;" width="100" class="img mb-2" src="{% url 'get-image' student.id %}"></img>
+                                            </a>
+                                            <div class="text-center mb-4">
+                                                <h6 class="mb-0">{{student}} <br>{{student.Class}} Class</h6>
+                                            </div>
                                         </div>
                                         <div class="col-12">
-                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                            <button name="answer" value="yes" class="btn btn-dark btn-sm" type="submit">Yes</button>
+                                            <button name="answer" value="no" class="btn btn-danger btn-sm" type="submit">No</button>
                                         </div>
                                     </div>
                                 </form>

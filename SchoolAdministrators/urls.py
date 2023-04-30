@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import school_admin_dashboard, school_administrators, register_schooladmin, change_permissions, teacher_administrators
+from .views import school_admin_dashboard, school_administrators, register_schooladmin, change_permissions, teacher_administrators, terminate_admin
 
 
 urlpatterns = [
@@ -7,5 +7,6 @@ urlpatterns = [
     path('list/', school_administrators, name='school-administrators'),
     path('register/', register_schooladmin, name="register-schooladmin"),
     path('change-permissions/<int:admin>/', change_permissions, name='change-permissions'),
-    path('teacher-admins/', teacher_administrators, name='teacher-admins')
+    path('teacher-admins/', teacher_administrators, name='teacher-admins'),
+    path('terminate/<int:adminship>/', terminate_admin, name='terminate-admin')
 ]

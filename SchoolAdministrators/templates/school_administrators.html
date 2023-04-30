@@ -28,12 +28,12 @@
             <tbody>
                 {% for adminship in admins %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{adminship.Admin}}</td>
+                    <td class="text-nowrap text-dark"><h6 class="mb-0"><span class="text-primary">{{adminship.Admin.user.first_name}} {{adminship.Admin.user.last_name}}</span><br/>{{adminship.Admin.user.email}}</h6></td>
                     <td class="text-nowrap text-dark"><small>{{adminship.last_login}}</small></td>
                     <td class="text-nowrap text-dark"><small>{{adminship.unauthorized_attempts}}</small></td>
                     <td class="text-nowrap text-dark">{% for group in adminship.Groups.all %} <small>{{group}}</small> <br> {% endfor %}</td>
                     {% if not adminship.super_admin %}
-                    <td class="text-nowrap text-dark"><small><u>Group or Role based Permissions</u></small><br/>{% for group in adminship.Groups.all %}{%for perm in group.permissions.all%}<small>{{perm}}</small><br>{% endfor %}{% endfor %}<small><u>Additional Permissions</u></small><br/>{% for permission in adminship.permissions.all|slice:"10" %}<small>{{permission}}s</small><br>{% endfor %}{% if adminship.permissions.count > 10 %} And More.....{% endif %}</td>
+                    <td class="text-nowrap text-dark"><small><u>Group or Role based Permissions</u></small><br/>{% for group in adminship.Groups.all %}{%for perm in group.permissions.all%}<small>{{perm}}</small><br>{% endfor %}{% endfor %}</td>
                     {% else %}
                     <td class="text-nowrap text-dark"><small>Unlimited Access <br><i class="bi bi-key-fill fa-3x"></i></small></td>
                     {% endif %}
@@ -42,8 +42,8 @@
                         {% with current_adminship=request.user.schooladministrator|adminship:request.user.schooladministrator.current_school %}
                         {% if adminship.id > current_adminship.id %}
                         <a href="{% url 'change-permissions' adminship.Admin.pk %}" class="btn btn-sm btn-dark">Change Permissions</a>
+                        <a href="{% url 'terminate-admin' adminship.id %}" class="btn btn-sm btn-primary">Terminate</a>
                         {% endif %}
-                        <a href="" class="btn btn-sm btn-dark">More</a>
                         {% endwith %}
                     </td>
                 </tr>

@@ -3,6 +3,7 @@ from .forms import ClassForm
 import plotly.graph_objs as go
 import plotly
 from Classes.models import Class
+from Streams.forms import StreamForm
 
 def classes(request):
     return render(request, 'classes.html')
@@ -71,3 +72,15 @@ def class_profile(request, clas):
 
 def teacher_classes(request):
     return render(request, 'teacher_classes.html')
+
+def add_stream(request, clas):
+    clas = request.user.schooladministrator.current_school.classes.get(id=clas)
+    form = StreamForm()
+    context = {
+        'class': clas,
+        'form': form
+    }
+    if request.method == 'POST':
+        form = StreamForm(request.POST)
+        
+    return render(request, 'add_stream.html', context)

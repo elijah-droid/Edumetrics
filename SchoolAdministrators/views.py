@@ -136,3 +136,21 @@ def change_permissions(request, admin):
         return render(request, 'change_permissions.html', context)
 
 
+def terminate_admin(request, adminship):
+    adminship = Adminship.objects.get(id=adminship)
+    context = {
+        'adminship': adminship
+    }
+    if request.method == 'POST':
+        answer = request.POST['answer']
+        if answer == 'yes':
+            adminship.delete()
+            messages.success(request, 'Admin was terminated successfully.')
+            return redirect('school-administrators')
+        else:
+            messages.success(request, 'Termination Cancelled')
+            return redirect('school-administrators')
+    else:
+        return render(request, 'terminate_admin.html', context)
+
+

@@ -18,24 +18,35 @@
                     <th scope="col">Class</th>
                     <th scope="col">Class Teacher</th>
                     <th class="text-nowrap" scope="col">Students</th>
-                    <th class="text-nowrap" scope="col">Starts</th>
-                    <th class="text-nowrap" scope="col">Ends</th>
                 </tr>
             </thead>
             <tbody>
                 {% for class in request.user.schooladministrator.current_school.classes.all %}
+                {% for stream in class.Streams.all %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{class}}</td>
-                    <td class="text-nowrap text-dark">{{class.Class_Teacher}}</td>
+                    <td class="text-nowrap text-dark">{{class}} <b>{{stream}}</b></td>
+                    <td class="text-nowrap text-dark">{{stream.Class_Teacher}}</td>
                     <td class="text-nowrap text-dark">{{class.Students.count}} Students</td>
-                    <td class="text-nowrap"></td>
-                    <td class="text-nowrap"></td>
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-primary">View Students</a>
                         <a href="" class="btn btn-sm btn-dark">Class Info</a>
                         <a href="" class="btn btn-sm btn-primary">TimeTable</a>
+                        <a href="{% url 'add-stream' class.id %}" class="btn btn-sm btn-dark">Add Stream</a>
                     </td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td class="text-nowrap text-dark">{{class}}</td>
+                    <td class="text-nowrap text-dark">{{class.Class_Teacher}}</td>
+                    <td class="text-nowrap text-dark">{{class.Students.count}} Students</td>
+                    <td class="text-nowrap">
+                        <a href="" class="btn btn-sm btn-primary">View Students</a>
+                        <a href="" class="btn btn-sm btn-dark">Class Info</a>
+                        <a href="" class="btn btn-sm btn-primary">TimeTable</a>
+                        <a href="{% url 'add-stream' class.id %}" class="btn btn-sm btn-dark">Add Stream</a>
+                    </td>
+                </tr>
+                {% endfor %}
                 {% empty %}
                 <tr>
                     <td>No classes registered.</td>

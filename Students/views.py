@@ -192,6 +192,9 @@ def old_students(request):
 
 def terminate_student(request, student):
     student = request.user.schooladministrator.current_school.students.get(id=student)
+    context = {
+        'student': student
+    }
     if request.method == 'POST':
         reason = request.POST['reason']
         request.user.schooladministrator.current_school.students.remove(student)
@@ -208,4 +211,4 @@ def terminate_student(request, student):
         student.save()
         return redirect('students')
     else:
-        return render(request, 'terminate_student.html')
+        return render(request, 'terminate_student.html', context)

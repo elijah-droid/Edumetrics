@@ -7,6 +7,7 @@ from django.utils.timezone import now
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 @login_required
@@ -57,7 +58,10 @@ def class_teacher_dashboard(request):
 
 
 def teacher_list(request):
-    teachers = Teacher.objects.all()
+    teachers = Teacher.objects.all().order_by('id')
+    paginator = Paginator(teachers, 10)
+    page = request.GET.get('page')
+    teachers = paginator.get_page(page)
     return render(request, 'teacher_list.html', {'teachers': teachers})
 
 def teacher_detail(request, pk):
@@ -180,4 +184,7 @@ def change_teacher_profile(request, teacher):
 def terminate_teacher(request, teacher):
     teacher = request.user.schooladministrator.current_school.Teachers.get(id=teacher)
     profile = teacher.work_profile.get(School=request.user.schooladministrator.current_school)
-    return render(request, 'terminate_teacher.html')
+    context = {
+        'teacher': teacher
+    }
+    return render(request, 'terminate_teacher.html', context)
