@@ -691,3 +691,31 @@ Traceback (most recent call last):
     raise ValueError("Incorrect timezone setting: %s" % self.TIME_ZONE)
 ValueError: Incorrect timezone setting: Africa/kampala
 [UID:4478][11786] Child process with pid: 13475 was killed by signal: 15, core dumped: no
+[UID:4478][22618] Child process with pid: 9989 was killed by signal: 15, core dumped: no
+OSError: LSAPI: File error
+[UID:4478][22618] Child process with pid: 11517 was killed by signal: 15, core dumped: no
+Internal Server Error: /school-admin/dashboard/
+Traceback (most recent call last):
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/contrib/auth/decorators.py", line 21, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "/home5/edumetrics/Edumetrics/Edumetrics/SchoolAdministrators/views.py", line 56, in school_admin_dashboard
+    percentage = (percentage/expected_pay) * 100
+ZeroDivisionError: division by zero
+Not Found: /favicon.ico
+Not Found: /school-admin/list/img/favicon.ico
+Not Found: /school-admin/register/img/favicon.ico
+Not Found: /school-admin/terminate/2/img/favicon.ico
+Not Found: /favicon.ico
+Not Found: /img/favicon.ico
+Not Found: /auth/admin-login/img/favicon.ico
+Not Found: /school-admin/dashboard/img/favicon.ico
+Not Found: /school-admin/list/img/favicon.ico
+OSError: LSAPI: File error
+[UID:4478][11319] Child process with pid: 20348 was killed by signal: 15, core dumped: no
+Not Found: /auth/admin-login/img/favicon.ico
+Not Found: /img/favicon.ico
+Not Found: /school-admin/dashboard/img/favicon.ico

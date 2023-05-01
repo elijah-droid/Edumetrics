@@ -13,6 +13,7 @@ from django.db.models import Sum
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 
 @login_required
 def school_admin_dashboard(request):
@@ -53,7 +54,10 @@ def school_admin_dashboard(request):
     expected_pay = expected * request.user.schooladministrator.current_school.students.count()
     students = request.user.schooladministrator.current_school.students.count()
     percentage = int(students/2)*expected
-    percentage = (percentage/expected_pay) * 100
+    try:
+        percentage = (percentage/expected_pay) * 100
+    except:
+        percentage = 0
     values = [percentage, 100-percentage]
     colors = ['#FE5D37', '#103741']
     trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors))
@@ -108,6 +112,17 @@ def register_schooladmin(request):
                 adminship.save()
                 admin.adminship.add(adminship)
                 messages.success(request, 'School Administrator has been linked successfully.')
+                message = f'''
+                    {request.user.first_name} has added you to 
+                    {request.user.schooladministrator.current_school} administrators.
+                    Welcome.
+                '''
+                send_mail(
+                    'You are now an Admin',
+                    message,
+                    'edumetrics@edu-metrics.com',
+                    [adminship.Admin.user.email]
+                )
                 return redirect('school-administrators')
             except User.DoesNotExist:
                 messages.success(request, 'Unregistered Email')
