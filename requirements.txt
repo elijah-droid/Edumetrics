@@ -91,3 +91,4 @@ Brotli==1.0.9
 plotly==5.14.1
 python-docx==0.8.11
 docx2pdf==0.1.8
+mysqlclient==2.1.1

@@ -64,8 +64,8 @@ CELERY_BEAT_SCHEDULE = {
 SECRET_KEY = 'django-insecure-#4xjdr0@zw4nzy(697deby!li%wop2zkl%vf4hlt$9e$r^*z5('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = ['192.168.137.1', '127.0.0.1']
+    DEBUG = False
+ALLOWED_HOSTS = ['192.168.137.1', '127.0.0.1', 'edu-metrics.com']
 
 LOGIN_URL = '/'
 
@@ -76,12 +76,12 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.sparklehandscs.com'
+EMAIL_HOST = 'mail.edu-metrics.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'edumetrics@sparklehandscs.com'
-EMAIL_HOST_PASSWORD = 'intention12-@'
-DEFAULT_FROM_EMAIL = 'edumetrics@sparklehandscs.com'
+EMAIL_HOST_USER = 'edumetrics@edu-metrics.com'
+EMAIL_HOST_PASSWORD = 'intention12@'
+DEFAULT_FROM_EMAIL = 'edumetrics@edu-metrics.com'
 
 
 # Application definition
@@ -180,8 +180,12 @@ WSGI_APPLICATION = 'Edumetrics.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'edumetrics_database',
+        'USER': 'edumetrics_user',
+        'PASSWORD': 'intention12@',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
