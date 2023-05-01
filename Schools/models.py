@@ -41,7 +41,7 @@ class School(models.Model):
     Programmes = models.ManyToManyField('Programmes.Programme', blank=True)
     patient_admissions = models.ManyToManyField('SickBay.Admission', blank=True)
     mark_sheets = models .ManyToManyField('MarkSheets.MarkSheet', blank=True)
-    Applications = models.ManyToManyField('Applications.Application', related_name='parent_applications')
+    Applications = models.ManyToManyField('Applications.Application', related_name='parent_applications', blank=True)
 
     def __str__(self):
         return self.name
