@@ -614,3 +614,80 @@ Not Found: /about/us/index.html
 Not Found: /auth/forgot-password/img/favicon.ico
 Not Found: /auth/forgot-password/index.html
 Not Found: /robots.txt
+[UID:4478][11574] Child process with pid: 18321 was killed by signal: 15, core dumped: no
+[UID:4478][11574] Child process with pid: 20913 was killed by signal: 15, core dumped: no
+Not Found: /auth/login-parent/index.html
+Not Found: /auth/login-teacher/index.html
+Not Found: /auth/admin-login/index.html
+Not Found: /admin
+Not Found: /auth/signup/index.html
+Not Found: /features/index.html
+Not Found: /about/us/index.html
+Not Found: /auth/forgot-password/index.html
+Traceback (most recent call last):
+  File "/home5/edumetrics/Edumetrics/Edumetrics/passenger_wsgi.py", line 4, in <module>
+    from Edumetrics.wsgi import application
+  File "/home5/edumetrics/Edumetrics/Edumetrics/Edumetrics/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/__init__.py", line 19, in setup
+    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 82, in __getattr__
+    self._setup(name)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 69, in _setup
+    self._wrapped = Settings(settings_module)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 206, in __init__
+    raise ValueError("Incorrect timezone setting: %s" % self.TIME_ZONE)
+ValueError: Incorrect timezone setting: Africa/kampala
+Traceback (most recent call last):
+  File "/home5/edumetrics/Edumetrics/Edumetrics/passenger_wsgi.py", line 4, in <module>
+    from Edumetrics.wsgi import application
+  File "/home5/edumetrics/Edumetrics/Edumetrics/Edumetrics/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/__init__.py", line 19, in setup
+    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 82, in __getattr__
+    self._setup(name)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 69, in _setup
+    self._wrapped = Settings(settings_module)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 206, in __init__
+    raise ValueError("Incorrect timezone setting: %s" % self.TIME_ZONE)
+ValueError: Incorrect timezone setting: Africa/kampala
+[UID:4478][11786] Child process with pid: 11830 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home5/edumetrics/Edumetrics/Edumetrics/passenger_wsgi.py", line 4, in <module>
+    from Edumetrics.wsgi import application
+  File "/home5/edumetrics/Edumetrics/Edumetrics/Edumetrics/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/__init__.py", line 19, in setup
+    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 82, in __getattr__
+    self._setup(name)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 69, in _setup
+    self._wrapped = Settings(settings_module)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 206, in __init__
+    raise ValueError("Incorrect timezone setting: %s" % self.TIME_ZONE)
+ValueError: Incorrect timezone setting: Africa/kampala
+[UID:4478][11786] Child process with pid: 12050 was killed by signal: 15, core dumped: no
+Traceback (most recent call last):
+  File "/home5/edumetrics/Edumetrics/Edumetrics/passenger_wsgi.py", line 4, in <module>
+    from Edumetrics.wsgi import application
+  File "/home5/edumetrics/Edumetrics/Edumetrics/Edumetrics/wsgi.py", line 16, in <module>
+    application = get_wsgi_application()
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/core/wsgi.py", line 12, in get_wsgi_application
+    django.setup(set_prefix=False)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/__init__.py", line 19, in setup
+    configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 82, in __getattr__
+    self._setup(name)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 69, in _setup
+    self._wrapped = Settings(settings_module)
+  File "/home5/edumetrics/virtualenv/Edumetrics/Edumetrics/3.10/lib/python3.10/site-packages/django/conf/__init__.py", line 206, in __init__
+    raise ValueError("Incorrect timezone setting: %s" % self.TIME_ZONE)
+ValueError: Incorrect timezone setting: Africa/kampala
+[UID:4478][11786] Child process with pid: 13475 was killed by signal: 15, core dumped: no
