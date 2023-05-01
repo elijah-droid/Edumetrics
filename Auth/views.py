@@ -199,7 +199,7 @@ def signup(request):
                 confirmation.Code = code
                 confirmation.save()
             except ObjectDoesNotExist:
-                confirmation = EmailConfirmation.objects.create(Email=email, Code=email)
+                confirmation = EmailConfirmation.objects.create(Email=email, Code=code)
             return redirect('signup-details', confirmation=confirmation.id)
         return redirect('.')
     else:
