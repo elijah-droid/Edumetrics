@@ -14,23 +14,23 @@
               {% csrf_token %}
               <div class="form-group mb-3">
                 <label for="inputFirstName">First Name</label>
-                <input type="text" name="first_name" class="form-control" id="inputFirstName" >
+                <input requiredtype="text" name="first_name" class="form-control" id="inputFirstName" >
               </div>
               <div class="form-group mb-3">
                 <label for="inputLastName">Last Name</label>
-                <input type="text" name="second_name" class="form-control" id="inputLastName">
+                <input required type="text" name="second_name" class="form-control" id="inputLastName">
               </div>
               <div class="form-group mb-3">
                 <label for="code">Code</label>
-                <input type="text" name="code" class="form-control" id="code">
+                <input required type="text" name="code" class="form-control" id="code">
               </div>
               <div class="form-group mb-3">
                 <label for="inputPassword">Password</label>
-                <input type="password" name="password" class="form-control" id="inputPassword">
+                <input required type="password" name="password" class="form-control" id="inputPassword">
               </div>
               <div class="form-group mb-3">
                 <label for="inputConfirmPassword">Confirm Password</label>
-                <input type="password" name="confirm" class="form-control" id="inputConfirmPassword" >
+                <input required type="password" name="confirm" class="form-control" id="inputConfirmPassword" >
               </div>
               <button class="btn btn-sm btn-dark">Submit</button>
             </form>
