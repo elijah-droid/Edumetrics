@@ -60,6 +60,12 @@ def handler404(request, exception):
     return render(request, '404.html', status=404)
 
 def handler500(request):
+    send_mail(
+        'Application Error',
+        f'Hey Elijah. Something went wrong at {request.path}. Fix it as soon as possible.',
+        'debug@edu-metrics.com',
+        ['mukisaelijah293@gmail.com']
+    )
     return render(request, '500.html', status=500)
 
 def handler403(request, exception):

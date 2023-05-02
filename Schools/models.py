@@ -2,8 +2,14 @@ from django.db import models
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill, Crop
 
+states = (
+    ('Uganda', 'Uganda'),
+)
+
+
 class School(models.Model):
     name = models.CharField(max_length=100)
+    motto = models.CharField(max_length=100, null=True)
     badge = ProcessedImageField(
         upload_to='Schools/Badges',
         processors=[ResizeToFill(200, 200), Crop(200, 200)],
@@ -15,7 +21,7 @@ class School(models.Model):
     city = models.CharField(max_length=100)
     current_term = models.ForeignKey('Terms.Term', models.SET_NULL, null=True, blank=True)
     Dues = models.ManyToManyField('FeesManagement.PaymentDue', blank=True)
-    state = models.CharField(max_length=2)
+    state = models.CharField(max_length=100, choices=states)
     zip_code = models.CharField(max_length=10)
     mtn_account = models.PositiveIntegerField(null=True, blank=True)
     Enrollments = models.ManyToManyField('Enrollments.Enrollment', blank=True)
