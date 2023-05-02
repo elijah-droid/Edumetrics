@@ -102,7 +102,9 @@ def admin_login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         try:
-            SchoolAdministrator.objects.get(user=user)
+            admin = SchoolAdministrator.objects.get(user=user)
+            if admin.adminship.count() == 0:
+                user = None
         except SchoolAdministrator.DoesNotExist:
             user = None 
         if user is not None:
