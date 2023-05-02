@@ -9,9 +9,8 @@ def classes(request):
     return render(request, 'classes.html')
 
 def add_class(request):
-    form = ClassForm()
+    form = ClassForm(initial={'Index': request.user.schooladministrator.current_school.classes.count()+1})
     form.fields['Name'].choices = ((c[0], c[0])  for c in form.fields['Name'].choices if c[0] not in [c.Name for c in request.user.schooladministrator.current_school.classes.all()])
-
     content = {
         'form': form
     }
@@ -82,5 +81,10 @@ def add_stream(request, clas):
     }
     if request.method == 'POST':
         form = StreamForm(request.POST)
-        
-    return render(request, 'add_stream.html', context)
+        stream = form.save(commit=False)
+        stream.Class = clas
+        stream.save()
+        clas.Streams.add(stream)
+        return redirect('classes')
+    else:  
+        return render(request, 'add_stream.html', context)
