@@ -15,3 +15,6 @@ class Level(models.Model):
     Students = models.ManyToManyField('Students.Student')
     Subjects = models.ManyToManyField('Subjects.Subject')
     Classes = models.ManyToManyField('Classes.Class')
+
+    def __str__(self):
+        return self.Name

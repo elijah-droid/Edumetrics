@@ -8,11 +8,12 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['first_name', 'last_name', 'photo', 'student_id', 'Programme', 'date_of_birth', 'Class', 'Combination', 'Subjects']
+        fields = ['first_name', 'last_name', 'photo', 'student_id', 'Stream', 'Programme', 'date_of_birth', 'Combination', 'Subjects']
         widgets = {
             'Programme': forms.Select(attrs={'class': 'form-control'}),
             'photo': forms.FileInput(attrs={'class': 'form-control'}),
-            'Combination': forms.Select(attrs={'class': 'form-control'})
+            'Combination': forms.Select(attrs={'class': 'form-control'}),
+            'Stream': forms.Select(attrs={'class': 'form-control'}),
         }
 
 
@@ -54,16 +55,6 @@ class StudentForm(forms.ModelForm):
                 'type': 'date',
                 'class': 'form-control',
                 'placeholder': 'Enter Date Born',
-            }
-        )
-    )
-
-    Class = forms.ModelChoiceField(
-        label='Class',
-        queryset=Class.objects.all(),
-        widget=forms.Select(
-            attrs={
-                'class': 'form-control',
             }
         )
     )

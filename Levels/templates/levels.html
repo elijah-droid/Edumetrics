@@ -23,10 +23,9 @@
                 {% for level in user.schooladministrator.current_school.Levels.all %}
                 <tr>
                     <td class="text-nowrap text-dark">{{level.Name}}</td>
-                    <td class="text-nowrap text-dark"></td>
+                    <td class="text-nowrap text-dark">{{level.Students.count}}</td>
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-dark">View Students</a>
-                        <a href="{% url 'enroll-student' level.id %}" class="btn btn-sm btn-primary">Enroll Student</a>
                     </td>
                 </tr>
                 {% empty %}

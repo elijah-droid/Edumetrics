@@ -27,6 +27,7 @@ class Student(models.Model):
     phone_number = models.CharField(max_length=15)
     school = models.ForeignKey('Schools.School', models.SET_NULL, null=True)
     Class = models.ForeignKey('Classes.Class', models.SET_NULL, null=True)
+    Stream = models.ForeignKey('Streams.Stream', models.SET_NULL, null=True)
     Subjects = models.ManyToManyField('Subjects.Subject', blank=True)
     Combination = models.ForeignKey('Subjects.Combination', models.SET_NULL, null=True)
     Reports = models.ManyToManyField('Reports.Report', blank=True)

@@ -15,6 +15,8 @@ import io
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from FeesManagement.templatetags.fees_tags import fees_balance
 from django.core.paginator import Paginator
+from Classes.forms import ClassForm
+from django import forms
 
 
 def generate_student_id():
@@ -80,12 +82,36 @@ def student_dashboard(request):
 
 
 @login_required
-def enroll_student(request, level):
-    level = request.user.schooladministrator.current_school.Levels.get(id=level)
+def select_student_class(request):
+    form = StudentForm()
+    class_field = forms.ModelChoiceField(queryset=request.user.schooladministrator.current_school.classes.all(), widget=forms.Select(attrs={'class': 'form-control'}))
+    form.fields = {
+        'Class': class_field
+    }
+    context = {
+        'form': form
+    }
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        form.fields = {
+            'Class': class_field
+        }
+        if form.is_valid():
+            clas = form.cleaned_data['Class']
+            return redirect('enroll-student', clas=clas.id)
+    return render(request, 'select_student_class.html', context)
+
+
+@login_required
+def enroll_student(request, clas):
+    clas = request.user.schooladministrator.current_school.classes.get(id=clas)
     form = StudentForm(initial={'student_id': generate_student_id()})
-    form.fields['Subjects'].queryset = level.Subjects.all()
-    form.fields['Class'].queryset = level.Classes.all()
-    if level.Name != 'Advance Level':
+    form.fields['Subjects'].queryset = clas.Level.Subjects.all()
+    if clas.Streams.all():
+        form.fields['Stream'].queryset = clas.Streams.all()
+    else:
+        del form.fields['Stream']
+    if clas.Level.Name != 'Advance Level':
         del form.fields['Combination']
     if request.method == 'POST':
         form = StudentForm(request.POST, request.FILES)
@@ -93,14 +119,13 @@ def enroll_student(request, level):
             student = form.save(commit=False)
             student.school = request.user.schooladministrator.current_school
             student.user = User.objects.create(username=form.cleaned_data['student_id'])
-            student.Level = level
+            student.Level = clas.Level
             student.save()
             request.user.schooladministrator.current_school.students.add(student)
-            cls = form.cleaned_data['Class']
-            cls.Students.add(student)
+            clas.Students.add(student)
             subjects = form.cleaned_data['Subjects']
             student.Subjects.set(subjects)
-            student.Class = cls
+            student.Class = clas
             student.save()
             for subject in student.Subjects.all():
                 subject.Students.add(student)

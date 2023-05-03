@@ -11,15 +11,11 @@ def add_level(request):
         'form': form
     }
     school = request.user.schooladministrator.current_school
-    form.fields['Classes'].queryset = school.classes.all()
-    form.fields['Subjects'].queryset = school.Subjects.all()
     if request.method == 'POST':
         form = LevelForm(request.POST)
         level = form.save(commit=False)
         level.School = school
         level.save()
-        level.Classes.set(form.cleaned_data['Classes'])
-        level.Subjects.set(form.cleaned_data['Subjects'])
         school.Levels.add(level)
         return redirect('levels')
     else:
