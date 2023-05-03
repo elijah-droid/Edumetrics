@@ -115,6 +115,8 @@ def enroll_student(request, clas):
         del form.fields['Combination']
     if request.method == 'POST':
         form = StudentForm(request.POST, request.FILES)
+        if clas.Level.Name != 'Advance Level':
+            del form.fields['Combination']
         if form.is_valid():
             student = form.save(commit=False)
             student.school = request.user.schooladministrator.current_school
@@ -127,6 +129,7 @@ def enroll_student(request, clas):
             student.Subjects.set(subjects)
             student.Class = clas
             student.save()
+            student.Level.Students.add(student)
             for subject in student.Subjects.all():
                 subject.Students.add(student)
             enrollment = Enrollment.objects.create(School=request.user.schooladministrator.current_school, Student=student, Programme=student.Programme, By=request.user.schooladministrator)

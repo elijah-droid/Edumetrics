@@ -12,6 +12,9 @@ def add_subject(request):
             subject = form.save(commit=False)
             subject.School = request.user.schooladministrator.current_school
             subject.save()
+            subject.Levels.set(form.cleaned_data['Levels'])
+            for level in subject.Levels.all():
+                level.Subjects.add(subject)
             request.user.schooladministrator.current_school.Subjects.add(subject)
             messages.success(request, 'Subject created successfully.')
             return redirect('subjects')

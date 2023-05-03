@@ -6,8 +6,7 @@ class ProgrammeForm(forms.ModelForm):
 
     class Meta:
         model = Programme
-        fields = ['Name', 'Requirements']
+        fields = ['Name',]
         widgets = {
             'Name': forms.TextInput(attrs={'class': 'form-control'}),
-            'Requirements': forms.Textarea(attrs={'class': 'form-control'})
         }

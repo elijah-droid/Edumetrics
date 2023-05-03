@@ -27,6 +27,7 @@ class Subject(models.Model):
     Head_Of_Department = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True, related_name='HOD', blank=True)
     Teachers = models.ManyToManyField('Teachers.Teacher')
     Students = models.ManyToManyField('Students.Student')
+    Levels = models.ManyToManyField('Levels.Level', blank=True)
 
 
     def __str__(self):
