@@ -4,12 +4,18 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill, Crop
 from Enrollments.models import programmes
 
+genders = (
+    ('Female', 'Female'),
+    ('Male', 'Male')
+)
+
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=10, unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    Gender = models.CharField(max_length=100, choices=genders, null=True)
     photo = ProcessedImageField(
         upload_to='Students/Photos',
         processors=[ResizeToFill(200, 200), Crop(200, 200)],
