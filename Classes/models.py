@@ -29,6 +29,7 @@ class Class(models.Model):
     Students = models.ManyToManyField('Students.Student', blank=True)
     From = models.TimeField(null=True, blank=True)
     To = models.TimeField(null=True, blank=True)
+    Candidate_Class = models.BooleanField(default=False)
     Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)
 
     def __str__(self):
