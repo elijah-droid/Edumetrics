@@ -117,6 +117,8 @@ def enroll_student(request, clas):
         form = StudentForm(request.POST, request.FILES)
         if clas.Level.Name != 'Advance Level':
             del form.fields['Combination']
+        if not clas.Streams.all():
+            del form.fields['Stream']
         if form.is_valid():
             student = form.save(commit=False)
             student.school = request.user.schooladministrator.current_school
