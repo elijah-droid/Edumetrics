@@ -26,7 +26,7 @@
                     <small class="lead pb-3 mb-5">Student Profile | {{student.school}}</small>
                     <hr>
                     <p>
-                        {{student}} is a dedicated and hardworking student in {{student.Class}} who does {{student.Subjects.all|join:", "}}. 
+                        <h6>{{student}}</h6> is a dedicated and hardworking student in {{student.Class}} who does {{student.Subjects.all|join:", "}}. 
                     </p>
                     <div class="row mb-4">
                         <div class="col-sm-6 py-1">
@@ -89,15 +89,20 @@
 
                 <!-- Expericence Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="title pb-3 mb-5">Education History</h1>
+                    <h6 class="title pb-3 mb-5">Education History</h6>
+                    {% for history in student.education_history.all %}
                     <div class="border-start border-2 border-light pt-2 ps-5">
                         <div class="position-relative mb-4">
                             <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
-                            <h5 class="mb-1">Kampala Parents</h5>
-                            <p class="mb-2">Nursery | <small>2007 - 2010</small></p>
-                            <p>Learned How To Read and Write</p>
+                            <h5 class="mb-1">history.School</h5>
+                            <p class="mb-2"><small>2007 - 2010</small></p>
                         </div>
                     </div>
+                    {% empty %}
+                    <div class="text-center">
+                        <h6>No Education History for {{student}}</h6>
+                    </div>
+                    {% endfor %}
                 </section>
                 <!-- Expericence End -->
 
