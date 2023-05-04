@@ -253,3 +253,16 @@ def terminate_student(request, student):
         return redirect('students')
     else:
         return render(request, 'terminate_student.html', context)
+    
+
+def search_student(request):
+    form = StudentForm()
+    fields = {
+        'Names': form.fields['first_name'],
+        'Gender': form.fields['Gender']
+    }
+    form.fields = fields
+    context = {
+        'form': form
+    }
+    return render(request, 'search_student.html', context)

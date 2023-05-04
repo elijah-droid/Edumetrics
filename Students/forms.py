@@ -6,6 +6,7 @@ from Subjects.models import Subject
 
 class StudentForm(forms.ModelForm):
 
+
     class Meta:
         model = Student
         fields = ['first_name', 'last_name', 'Gender', 'photo', 'student_id', 'Stream', 'Programme', 'date_of_birth', 'Combination', 'Subjects']
