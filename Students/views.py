@@ -147,13 +147,24 @@ def enroll_student(request, clas):
 def change_student(request, student):
     student = request.user.schooladministrator.current_school.students.get(pk=student)
     form = StudentForm(instance=student)
-    form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
-    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
+    form.fields['Subjects'].queryset = student.Class.Level.Subjects.all()
+    if student.Class.Streams.all():
+        form.fields['Stream'].queryset = student.Class.Streams.all()
+    else:
+        del form.fields['Stream']
+    if student.Class.Level.Name != 'Advance Level':
+        del form.fields['Combination']
     context = {
         'form': form
     }
     if request.method == 'POST':
         form = StudentForm(request.POST, request.FILES, instance=student)
+        if student.Class.Streams.all():
+            form.fields['Stream'].queryset = student.Class.Streams.all()
+        else:
+            del form.fields['Stream']
+        if student.Class.Level.Name != 'Advance Level':
+            del form.fields['Combination']
         if form.is_valid():
             student = form.save()
             messages.success(request, f'Student {student.first_name} {student.last_name} info was changed successfully.')
