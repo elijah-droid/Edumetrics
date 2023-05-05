@@ -38,38 +38,19 @@ def school_admin_dashboard(request):
     plot_div = plotly.offline.plot({
         "data": [trace1, trace2],
         "layout": layout
-    }, output_type="div")
-    labels = ['Paid', 'Unpaid']
-    values = [20, 50]
-    colors = ['#FE5D37', '#103741']
-    trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors))
-    layout = go.Layout(title='Fees Payments')
-    chart = plotly.offline.plot({'data': [trace], 'layout': layout}, output_type='div')
-    labels = ['Paid', 'Unpaid']
-    expected = request.user.schooladministrator.current_school.Dues.filter(Compulsory=True).aggregate(total=Sum('Amount_Required'))['total']
-    if expected:
-        pass
-    else:
-        expected = 0
-    expected_pay = expected * request.user.schooladministrator.current_school.students.count()
-    students = request.user.schooladministrator.current_school.students.count()
-    percentage = int(students/2)*expected
-    try:
-        percentage = (percentage/expected_pay) * 100
-    except:
-        percentage = 0
-    values = [percentage, 100-percentage]
-    colors = ['#FE5D37', '#103741']
-    trace = go.Pie(labels=labels, values=values, marker=dict(colors=colors))
-    layout = go.Layout(title='Fees Payments')
-    chart = plotly.offline.plot({'data': [trace], 'layout': layout}, output_type='div')
-    admin_activity = LogEntry.objects.filter(
-        content_type__app_label='app',
-        action_time__gte=timezone.now() - timezone.timedelta(days=7)
-    ).order_by('-action_time')[:10]                                                                                                                                                                                                   
+    }, output_type="div")                                                                                                                                                                                                
 
+    x = [cl.Name for cl in user.schooladministrator.current_school.classes.all()]
+    y1 = [cl.Students.filter(Gender='Male').count() for cl in user.schooladministrator.current_school.classes.all()]
+    y2 = [cl.Students.filter(Gender='Female').count() for cl in user.schooladministrator.current_school.classes.all()]
+    trace1 = go.Bar(x=x, y=y1, name='Males', marker=dict(color='#103741'))
+    trace2 = go.Bar(x=x, y=y2, name='Females')
+    layout = go.Layout(title=f'Gender Statistics', xaxis=dict(title='Classes'), yaxis=dict(title='Students'))
+    chart = plotly.offline.plot({
+        "data": [trace1, trace2],
+        "layout": layout
+    }, output_type="div")  
     context = {
-        'admin_activity': admin_activity,
         "plot_div": plot_div,
         'plot2': chart,
     }
