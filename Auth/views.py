@@ -167,7 +167,10 @@ def set_school_session(request, school):
     user.save()
     messages.success(request, f'You are now operating at {school}')
     recent_url = request.META.get('HTTP_REFERER')
-    return redirect(recent_url)
+    if request.path.isdigit():
+        return redirect('admins_dashboard')
+    else:
+        return redirect(recent_url)
 
 def signup(request):
     form = UserCreationForm()
