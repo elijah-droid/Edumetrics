@@ -151,7 +151,6 @@ def set_school_session(request, school):
     school = user.schools.get(pk=school)
     try:
         adminship = Adminship.objects.get(Admin=request.user.schooladministrator, School=school)
-        request.user.user_permissions.set(adminship.permissions.all())
         request.user.groups.set(adminship.Groups.all())
         if adminship.super_admin:
             request.user.is_superuser = True
@@ -162,7 +161,6 @@ def set_school_session(request, school):
         adminship.last_login = now()
         adminship.save()
     except Adminship.DoesNotExist:
-        request.user.user_permissions.clear()
         request.user.groups.clear()
         request.user.is_superuser = False
     user.current_school = school
@@ -240,7 +238,6 @@ def confirm_email(request, user):
 def logout_view(request):
     logout(request)
     try:
-        request.user.user_permissions.clear()
         request.user.is_superuser = False
         request.user.groups.clear()
         request.user.save()

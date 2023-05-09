@@ -8,5 +8,5 @@ class ProgrammeForm(forms.ModelForm):
         model = Programme
         fields = ['Name',]
         widgets = {
-            'Name': forms.TextInput(attrs={'class': 'form-control'}),
+            'Name': forms.Select(attrs={'class': 'form-control'}),
         }

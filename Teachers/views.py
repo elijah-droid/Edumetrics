@@ -114,33 +114,7 @@ def recruit_teacher(request):
             profile.School = request.user.schooladministrator.current_school
             try:
                 user = User.objects.get(email=form.cleaned_data['email'])
-                try:
-                    teacher = Teacher.objects.get(user=user)
-                except Teacher.DoesNotExist:
-                    teacher = Teacher.objects.create(user=user)
-                profile.Teacher = teacher
-                profile.save()
-                request.user.schooladministrator.current_school.Teachers.add(teacher)
-                teacher.work_profile.add(profile)
-                profile.Classes.set(form.cleaned_data['Classes'])
-                profile.Subjects.set(form.cleaned_data['Subjects'])
-                data = form.cleaned_data
-                message = f'''
-                Dear {user.first_name} you have been recruited as a teacher at {request.user.schooladministrator.current_school},
-
-                You will be able to teach {', '.join(str(s) for s in data['Subjects'])} in {', '.join(str(c)+' class' for c in data['Classes'])}
-
-                You now have the access to interact with the school in your teachers Edumetrics Account.
-
-                Thank you
-                '''
-                send_mail(
-                    f'{request.user.schooladministrator.current_school} RECRUIT',
-                    message,
-                    'edumetrics@sparklehandscs.com',
-                    [user.email]
-                )
-                return redirect('teacher-profile', teacher=teacher.pk)
+                return redirect('confirm-recruit', user=user.id)
             except User.DoesNotExist:
                 messages.success(request, 'Invalid Email')
                 return render(request, 'recruit_teacher.html', {'form': form})
@@ -188,3 +162,11 @@ def terminate_teacher(request, teacher):
         'teacher': teacher
     }
     return render(request, 'terminate_teacher.html', context)
+
+
+def confirm_recruit(request, user):
+    user = User.objects.get(id=user)
+    context = {
+        'teacher': user
+    }
+    return render(request, 'confirm_recruit.html', context)

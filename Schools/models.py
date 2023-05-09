@@ -6,6 +6,10 @@ states = (
     ('Uganda', 'Uganda'),
 )
 
+setup_steps = (
+    ('levels', 'levels'),
+)
+
 
 class School(models.Model):
     name = models.CharField(max_length=100)
@@ -17,6 +21,7 @@ class School(models.Model):
         options={'quality': 90},
         null=True, blank=True
     )
+    setup_step = models.CharField(max_length=20, choices=setup_steps, null=True)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     current_term = models.ForeignKey('Terms.Term', models.SET_NULL, null=True, blank=True)

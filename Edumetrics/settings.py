@@ -144,7 +144,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'Edumetrics.session_middleware.SessionMiddleware'
+    'Edumetrics.session_middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'Edumetrics.urls'

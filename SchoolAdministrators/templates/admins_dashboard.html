@@ -48,26 +48,11 @@
         {% if perms.Reports.view_report %}
         <a href="{% url 'reports' %}" class="dropdown-item">Reports</a>
         {% endif %}
-        {% if perms.Grades.view_grade %}
-        <a href="{% url 'grades' %}" class="dropdown-item">Grades</a>
-        {% endif %}
-        {% if perms.Divisions.view_division %}
-        <a href="{% url 'divisions' %}" class="dropdown-item">Divisions</a>
-        {% endif %}
         {% if perms.Events.view_event %}
         <a href="{% url 'events' %}" class="dropdown-item">Events</a>
         {% endif %}
         {% if perms.Enrollments.view_enrollment %}
         <a href="{% url 'enrollments' %}" class="dropdown-item">Enrollments</a>
-        {% endif %}
-        {% if perms.Classes.view_classe %}
-        <a href="{% url 'classes' %}" class="dropdown-item">Classes</a>
-        {% endif %}
-        {% if perms.Levels.view_level %}
-        <a href="{% url 'levels' %}" class="dropdown-item">Levels</a>
-        {% endif %}
-        {% if perms.Subjects.view_subject %}
-        <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
         {% endif %}
         {% if perms.Lessons.view_lesson %}
         <a href="{% url 'lessons' %}" class="dropdown-item">Lessons</a>
@@ -84,7 +69,7 @@
 {% endif %}
 <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Sectors</a>
-    <div class="dropdown-menu bg-transparent border-0">
+    <div class="dropdown-menu border-0">
         {% if perms.Teachers.view_teacher %}
         <a href="{% url 'teachers-list' %}" class="dropdown-item">Teachers</a>
         {% endif %}
@@ -106,8 +91,28 @@
     </div>
 </div>
 <div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Set Up</a>
+    <div class="dropdown-menu border-0">
+        {% if perms.Levels.view_level %}
+        <a href="{% url 'levels' %}" class="dropdown-item">Levels</a>
+        {% endif %}
+        {% if perms.Subjects.view_subject %}
+        <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
+        {% endif %}
+        {% if perms.Classes.view_classe %}
+        <a href="{% url 'classes' %}" class="dropdown-item">Classes</a>
+        {% endif %}
+        {% if perms.Grades.view_grade %}
+        <a href="{% url 'grades' %}" class="dropdown-item">Grades</a>
+        {% endif %}
+        {% if perms.Divisions.view_division %}
+        <a href="{% url 'divisions' %}" class="dropdown-item">Divisions</a>
+        {% endif %}
+    </div>
+</div>
+<div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Security</a>
-    <div class="dropdown-menu bg-transparent border-0">
+    <div class="dropdown-menu border-0">
         <a href="{% url 'change-password' %}" class="dropdown-item ">Change Password</a>
         <a href="" class="dropdown-item">View Permissions</a>
         {% if perms.SchoolAdministrators.view_schooladministrator %}

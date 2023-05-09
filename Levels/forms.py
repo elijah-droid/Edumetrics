@@ -7,7 +7,7 @@ class LevelForm(forms.ModelForm):
 
     class Meta:
         model = Level
-        fields = ['Name', 'Subjects']
+        fields = ['Name',]
         widgets = {
             'Name': forms.Select(attrs={'class': 'form-control'}),
         }
