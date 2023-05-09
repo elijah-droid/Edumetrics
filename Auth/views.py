@@ -167,7 +167,11 @@ def set_school_session(request, school):
     user.save()
     messages.success(request, f'You are now operating at {school}')
     recent_url = request.META.get('HTTP_REFERER')
-    if recent_url.isdigit():
+    digit = False
+    for char in recent_url:
+        if char.isdigit():
+            digit=True
+    if digit:
         return redirect('admin_dashboard')
     else:
         return redirect(recent_url)
