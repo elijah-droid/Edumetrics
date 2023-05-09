@@ -4,6 +4,7 @@ from django.utils.timezone import now
 from django.utils import timezone
 from .models import Attendance
 from Lessons.models import Lesson
+from django.contrib import messages
 
 def attendance(request):
     return render(request, 'attendance.html')
@@ -19,11 +20,17 @@ def add_attenance(request):
     if request.method == 'POST':
         form = AttendanceForm(request.POST)
         if form.is_valid():
-            attendance = form.save(commit=False)
-            attendance.School = request.user.schooladministrator.current_school
-            attendance.save()
-            request.user.schooladministrator.current_school.attendance.add(attendance)
-            return redirect('attendance')
+            clas = form.cleaned_data['Class']
+            number = form.cleaned_data['Students']
+            if clas.Students.count() >= number:
+                attendance = form.save(commit=False)
+                attendance.School = request.user.schooladministrator.current_school
+                attendance.save()
+                request.user.schooladministrator.current_school.attendance.add(attendance)
+                return redirect('attendance')
+            else:
+                messages.success(request, 'The number cannot the number of students in the class')
+                return redirect('.')
     return render(request, 'add_attendance.html', context)
 
 
