@@ -127,9 +127,10 @@ def change_permissions(request, admin):
         del form.fields['email']
         if form.is_valid():
             adminship = form.save()
-            adminship.Admin.user.groups.set(adminship.Groups.all())
-            adminship.Admin.user.is_superuser = adminship.super_admin
-            adminship.Admin.user.save()
+            if adminship.Admin.currrent_school == request.user.schooladministrator.current_school:
+                adminship.Admin.user.groups.set(adminship.Groups.all())
+                adminship.Admin.user.is_superuser = adminship.super_admin
+                adminship.Admin.user.save()
             message = f'''
                 Your adminship rights at {request.user.schooladministrator.current_school}.
                 Have been changed.
