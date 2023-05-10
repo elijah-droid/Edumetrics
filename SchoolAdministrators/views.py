@@ -126,7 +126,20 @@ def change_permissions(request, admin):
         form = LinkAdminForm(request.POST, instance=adminship)
         del form.fields['email']
         if form.is_valid():
-            form.save()
+            adminship = form.save()
+            adminship.Admin.user.groups.set(adminship.Groups.all())
+            adminship.Admin.user.is_superuser = admin.super_admin
+            adminship.Admin.user.save()
+            message = f'''
+                Your adminship rights at {request.user.schooladministrator.current_school}.
+                Have been changed.
+            '''
+            send_mail(
+                'Access Review',
+                message,
+                'edumetrics@edu-metrics.com',
+                [adminship.Admin.user.email]
+            )
         return redirect('school-administrators')
     else:
         return render(request, 'change_permissions.html', context)
