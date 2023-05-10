@@ -16,11 +16,11 @@ class AdminMiddleware:
         try:
             if request.user.schooladministrator:
                 adminship = AdminShip.objects.get(School=request.user.schooladministrator.current_school, Admin=request.user.schooladministrator)
-                if adminship.Groups.all() != user.groups.all():
-                    adminship.Goups.set(user.groups.all())
+                if adminship.Groups.all() != request.user.groups.all():
+                    adminship.Goups.set(request.user.groups.all())
                     changed = True
-                if adminship.super_admin != user.is_superuser:
-                    adminship.super_admin = user.is_superuser
+                if adminship.super_admin != request.user.is_superuser:
+                    adminship.super_admin = request.user.is_superuser
                     adminship.save()
                     changed = True
         except:
