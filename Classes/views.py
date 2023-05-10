@@ -41,7 +41,8 @@ def class_performance(request, clas):
         "layout": layout
     }, output_type="div")
     context = {
-        'graph': plot_div
+        'graph': plot_div,
+        'class': clas
     }
     return render(request, 'class_performance.html', context)
 

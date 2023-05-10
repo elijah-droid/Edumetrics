@@ -9,7 +9,7 @@
     <hr>
     <div class="d-flex justify-content-between mb-3">
         <a href="{% url 'add-book' %}" class="btn btn-sm btn-dark">Search</a>
-        <a href="{% url 'add-book' %}" class="btn btn-sm btn-primary">Publish</a>
+        <a href="{% url 'publish-batch' %}" class="btn btn-sm btn-primary">Publish</a>
     </div>
     <hr>
     <div class="container-xxl py-5">
@@ -19,6 +19,8 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     {% include 'report.html' %}
                 </div>
+                {% empty %}
+                <img src="https://th.bing.com/th/id/R.8bbf1e645b00126c435d497b0f19ea04?rik=0JUfhHrJEXH7CQ&pid=ImgRaw&r=0https://th.bing.com/th/id/R.8bbf1e645b00126c435d497b0f19ea04?rik=0JUfhHrJEXH7CQ&pid=ImgRaw&r=0" width="100" alt="">
                 {% endfor %}
             </div>
         </div>

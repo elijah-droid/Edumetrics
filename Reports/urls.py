@@ -11,3 +11,4 @@ urlpatterns = [
     path('publish-batch/', publish_batch, name='publish-batch'),
     path('children/', child_reports, name="child-reports")
 ]
+
