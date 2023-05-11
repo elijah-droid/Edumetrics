@@ -228,7 +228,7 @@
                             <div class="h-100 bg-dark rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <small class="mb-0 text-white lead">Upcoming Examinations</small>
-                                    <a href="">Show All</a>
+                                    <a class="text-nowrap" href="">Show All</a>
                                 </div>
                                 {% for exam in user.schooladministrator.current_school.Examinations.all %}
                                 <div class="d-flex align-items-center border-bottom py-2">
@@ -247,7 +247,7 @@
                             <div class="h-100 bg-dark rounded p-4">
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <small class="mb-0 text-white lead">Upcoming Events</small>
-                                    <a href="">Show All</a>
+                                    <a class="text-nowrap" href="">Show All</a>
                                 </div>
                                 {% for event in user.schooladministrator.current_school.Events.all %}
                                 <div class="d-flex align-items-center border-bottom py-2">

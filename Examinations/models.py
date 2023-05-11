@@ -7,7 +7,17 @@ class Examination(models.Model):
     Date = models.DateField(null=True)
     Classes = models.ManyToManyField('Classes.Class', blank=True)
     mark_sheets = models.ManyToManyField('MarkSheets.MarkSheet')
+    Papers = models.ManyToManyField('Paper')
     Open_To_Tallying = models.BooleanField(default=True)
 
     def __str__(self):
         return self.Name
+
+
+class Paper(models.Model):
+    Examination = models.ForeignKey('Examination', models.CASCADE)
+    Subject = models.ForeignKey('Subjects.Subject', models.CASCADE)
+    Date = models.DateTimeField(null=True)
+    Duration = models.CharField(max_length=10)
+    Examiner = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)
+

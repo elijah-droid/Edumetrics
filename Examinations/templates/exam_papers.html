@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container text-dark">
     <div class="text-center">
-        <small class="lead">{{user.schooladministrator.current_school}} Upcoming Examinations</small>
+        <small class="lead">{{exam}} Papers</small>
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
@@ -14,13 +14,15 @@
         <table class="table table-bordered text-dark">
             <thead>
                 <tr class="text-dark">
-                    <th scope="col">Name</th>
-                    <th class="text-nowrap" scope="col">Date</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Date</th>
+                    <th class="text-nowrap" scope="col">Time</th>
                     <th class="text-nowrap" scope="col">More</th>
                 </tr>
             </thead>
             <tbody>
-                {% for exam in user.schooladministrator.current_school.Examinations.all %}
+                {% for paper in exam.Papers.all %}
                 <tr>
                     <td class="text-nowrap text-dark">{{exam}}</td>
                     <td class="text-nowrap text-dark">{{exam.Date}}</td>
@@ -32,7 +34,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td>No Examinations have been scheduled</td>
+                    <td>No papers for {{exam}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

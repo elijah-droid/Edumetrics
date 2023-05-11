@@ -185,7 +185,7 @@ DATABASES = {
         'NAME': 'edumetrics_database',
         'USER': 'edumetrics_user',
         'PASSWORD': 'intention12@',
-        'HOST': 'localhost',
+        'HOST': 'edu-metrics.com',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',

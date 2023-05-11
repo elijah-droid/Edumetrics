@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import examination_list, schedule_exam, view_exam_reports, assessments, delete_examination
+from .views import examination_list, schedule_exam, view_exam_reports, assessments, delete_examination, exam_papers
 
 
 urlpatterns = [
@@ -7,5 +7,6 @@ urlpatterns = [
     path('schedule/', schedule_exam, name='schedule-exam'),
     path('reports/<int:exam>/', view_exam_reports, name='exam-reports'),
     path('assessments/<int:exam>/', assessments, name='assessments'),
-    path('delete/<int:exam>/', delete_examination, name='delete-exam')
+    path('delete/<int:exam>/', delete_examination, name='delete-exam'),
+    path('papers/<int:exam>/', exam_papers, name='exam-papers')
 ]

@@ -8,7 +8,7 @@ from .forms import ExamScheduleForm
 import io
 import docx
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-
+from django.core.paginator import Paginator
 
 
 @login_required
@@ -51,7 +51,10 @@ def delete_examination(request, exam):
 
 
 def examination_list(request):
-    examinations = Examination.objects.all()
+    examinations = Examination.objects.all().order_by('Date')
+    paginator = Paginator(examinations, 12)
+    page = request.GET.get('page')
+    examinations = paginator.get_page(page)
     return render(request, 'examinations.html', {'examinations': examinations})
 
 
@@ -83,3 +86,11 @@ def assessments(request, exam):
     response = FileResponse(document_io, content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
     response['Content-Disposition'] = f'attachment; filename="{request.user.schooladministrator.current_school}_{exam}_assessment_sheets.docx"'
     return response
+
+
+def exam_papers(request, exam):
+    exam = request.user.schooladministrator.current_school.Examinations.get(id=exam)
+    context = {
+        'exam': exam
+    }
+    return render(request, 'exam_papers.html', context)
