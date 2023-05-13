@@ -194,7 +194,7 @@ def confirm_recruit(request, user):
                 profile.Subjects.set(form.cleaned_data['Subjects'])
                 message = f'''
                     You have been recruited as a teacher at {request.user.schooladministrator.current_school},
-                    Subjects are {str(s) for s in profile.Subjects.all()} and Classes are {str(c) for c in profile.Classes.all()}
+                    Subjects are {str(s.name) for s in profile.Subjects.all()} and Classes are {str(c.Name) for c in profile.Classes.all()}
                 '''
                 send_mail(
                     'You have been recruited',
@@ -202,7 +202,7 @@ def confirm_recruit(request, user):
                     'edumetrics@edu-metrics.com',
                     [teacher.user.email]
                 )
-                message.success(request, f'Teacher recruited successfully.')
+                messages.success(request, f'Teacher recruited successfully.')
                 return redirect('teachers-list')
             else:
                 messages.success(request, 'Operation Cancelled')
