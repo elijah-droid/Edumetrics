@@ -5,6 +5,7 @@ from .forms import SubjectForm
 
 def add_subject(request):
     form = SubjectForm()
+    form.fields['Levels'].queryset = request.user.schooladministrator.current_school.Levels.all()
     form.fields['name'].choices = ((s[0], s[0])  for s in form.fields['name'].choices if s[0] not in [subject.name for subject in request.user.schooladministrator.current_school.Subjects.all()])
     if request.method == 'POST':
         form = SubjectForm(request.POST)

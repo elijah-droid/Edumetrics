@@ -102,22 +102,22 @@ def teacher_delete(request, pk):
 
 def recruit_teacher(request):
     form = TeachersForm()
-    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.classes.all()
-    form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
+    del form.fields['Classes']
+    del form.fields['Subjects']
     content = {
         'form': form
     } 
     if request.method == 'POST':
         form = TeachersForm(request.POST)
+        del form.fields['Classes']
+        del form.fields['Subjects']
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.School = request.user.schooladministrator.current_school
             try:
                 user = User.objects.get(email=form.cleaned_data['email'])
                 return redirect('confirm-recruit', user=user.id)
             except User.DoesNotExist:
-                messages.success(request, 'Invalid Email')
-                return render(request, 'recruit_teacher.html', {'form': form})
+                messages.success(request, 'Unregistered Email')
+                return redirect('.')
 
     else:
         return render(request, 'recruit_teacher.html', content)
@@ -166,7 +166,46 @@ def terminate_teacher(request, teacher):
 
 def confirm_recruit(request, user):
     user = User.objects.get(id=user)
+    try:
+        teacher = Teacher.objects.get(user=user)
+    except Teacher.DoesNotExist:
+        teacher = Teacher.objects.create(
+            user=user
+        )
+    form = TeachersForm()
+    del form.fields['email']
+    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.classes.all()
+    form.fields['Subjects'].queryset = request.user.schooladministrator.current_school.Subjects.all()
     context = {
-        'teacher': user
+        'teacher': user,
+        'form': form
     }
-    return render(request, 'confirm_recruit.html', context)
+    if request.method == 'POST':
+        form = TeachersForm(request.POST)
+        del form.fields['email']
+        if form.is_valid():
+            if request.POST['answer'] == 'yes':
+                profile = form.save(commit=False)
+                profile.School = request.user.schooladministrator.current_school
+                profile.Teacher = teacher
+                profile.save()
+                teacher.work_profile.add(profile)
+                profile.Classes.set(form.cleaned_data['Classes'])
+                profile.Subjects.set(form.cleaned_data['Subjects'])
+                message = f'''
+                    You have been recruited as a teacher at {request.user.schooladministrator.current_school},
+                    Subjects are {str(s) for s in profile.Subjects.all()} and Classes are {str(c) for c in profile.Classes.all()}
+                '''
+                send_mail(
+                    'You have been recruited',
+                    message,
+                    'edumetrics@edumetrics.com',
+                    [teacher.user.email]
+                )
+                message.success(request, f'Teacher recruited successfully.')
+                return redirect('teachers-list')
+            else:
+                messages.success(request, 'Operation Cancelled')
+                return redirect('teachers-list')
+    else:
+        return render(request, 'confirm_recruit.html', context)

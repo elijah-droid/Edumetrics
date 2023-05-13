@@ -17,6 +17,8 @@ from FeesManagement.templatetags.fees_tags import fees_balance
 from django.core.paginator import Paginator
 from Classes.forms import ClassForm
 from django import forms
+import plotly.graph_objs as go
+import plotly
 
 
 def generate_student_id():
@@ -222,8 +224,17 @@ def student_list(request):
 
 def student_profile(request, student):
     student = request.user.schooladministrator.current_school.students.get(pk=student)
+    x = [subject.name for subject in student.Subjects.all()]
+    y1 = [70, 50, 45, 20, 34, 56]
+    trace1 = go.Bar(x=x, y=y1, name='Average Score', marker=dict(color='#103741'))
+    layout = go.Layout(title=f'Performance Statistics', xaxis=dict(title='Subjects'), yaxis=dict(title='Average Statistics'))
+    chart = plotly.offline.plot({
+        "data": [trace1,],
+        "layout": layout
+    }, output_type="div")
     context = {
-        'student': student
+        'student': student,
+        'stats': chart
     }
     return render(request, 'student_profile.html', context)
 

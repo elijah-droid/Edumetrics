@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from .models import Examination
-from .forms import ExamScheduleForm
+from .forms import ExamScheduleForm, PaperForm
 import io
 import docx
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -94,3 +94,13 @@ def exam_papers(request, exam):
         'exam': exam
     }
     return render(request, 'exam_papers.html', context)
+
+
+def schedule_paper(request):
+    form = PaperForm()
+    form.fields['Subject'].queryset = request.user.schooladministrator.current_school.Subjects.all()
+    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
+    context = {
+        'form': form
+    }
+    return render(request, 'schedule_paper.html', context)

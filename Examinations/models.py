@@ -17,6 +17,7 @@ class Examination(models.Model):
 class Paper(models.Model):
     Examination = models.ForeignKey('Examination', models.CASCADE)
     Subject = models.ForeignKey('Subjects.Subject', models.CASCADE)
+    Class = models.ForeignKey('Classes.Class', models.SET_NULL, null=True)
     Date = models.DateTimeField(null=True)
     Duration = models.CharField(max_length=10)
     Examiner = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)

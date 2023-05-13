@@ -36,7 +36,7 @@
                             <span class="fw-medium text-primary">Enrollment Date:</span> {{student.active_enrollment.Date}}
                         </div>
                         <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Birthday:</span> {{student.Date_of_birth}}
+                            <span class="fw-medium text-primary">Age:</span> 
                         </div>
                         <div class="col-sm-6 py-1">
                             <span class="fw-medium text-primary">Class:</span> {{student.Class}}
@@ -52,40 +52,31 @@
                         </div>
                     </div>
 
-                <!-- Skills Start -->
-                <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="row">
-                        <div class="col-sm-6 text-dark">
-                        <h1 class="">Performance</h1>
-                            {% for subject in student.Subjects.all %}
-                            <div class="skill mb-4">
-                                <div class="d-flex justify-content-between">
-                                    <p class="mb-2">{{subject}}</p>
-                                    <p class="mb-2">{% average_score student subject %}%</p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-dark" role="progressbar" style="width: {% average_score student subject %}%;" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-sm-6 text-dark">
-                        <h1 class="">Parents</h1>
-                        {% for parent in student.parents.all %}
-                        <div class="d-flex align-items-center border-bottom py-3">
-                            <img class="rounded-circle flex-shrink-0" src="{% static 'img/user_.png' %}" alt="" style="width: 40px; height: 40px;">
-                            <div class="w-100 ms-3 text-dark">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <small style="font-size: small;" class="mb-0 lead text-dark">{{parent}}</small>
-                                </div>
-                                <span>{{student|relationship:parent}}</span>
-                            </div>
-                        </div>
-                        {% endfor %}
+                <!-- Expericence Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    {{stats|safe}}
+                </section>
+                <!-- Expericence End -->
+                <!-- Skills End -->
+
+                <!-- Expericence Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="title pb-3 mb-5">Parent Data</h6>
+                    {% for history in student.education_history.all %}
+                    <div class="border-start border-2 border-light pt-2 ps-5">
+                        <div class="position-relative mb-4">
+                            <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
+                            <h5 class="mb-1">history.School</h5>
+                            <p class="mb-2"><small>2007 - 2010</small></p>
                         </div>
                     </div>
+                    {% empty %}
+                    <div class="text-center">
+                        <h6>No Parent linked to this student.</h6>
+                    </div>
+                    {% endfor %}
                 </section>
-                <!-- Skills End -->
+                <!-- Expericence End -->
 
                 <!-- Expericence Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -110,7 +101,7 @@
 
                 <!-- Contact Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
-                    <h1 class="">Email Parents</h1>
+                    <h5 class="">Email Parents</h5>
                     <form>
                         <div class="row g-3">
                             <div class="col-12">

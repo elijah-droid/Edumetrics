@@ -6,8 +6,6 @@ class Teacher(models.Model):
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     work_profile = models.ManyToManyField('WorkProfile')
     current_profile = models.ForeignKey('WorkProfile', models.SET_NULL, null=True, related_name="current_work_profile")
-    current_class = models.ForeignKey('Classes.Class', models.SET_NULL, null=True)
-    current_stream = models.ForeignKey('Streams.Stream', models.SET_NULL, null=True)
     Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)
     Past_Papers = models.ManyToManyField('PastPapers.PastPaper', blank=True)
     TeachingHistory = models.ManyToManyField('TeachingHistory.TeachingHistory', blank=True)

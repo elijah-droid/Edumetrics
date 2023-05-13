@@ -34,7 +34,7 @@ class School(models.Model):
     Levels = models.ManyToManyField('Levels.Level', blank=True)
     students = models.ManyToManyField('Students.Student', related_name='school_children', blank=True)
     old_students = models.ManyToManyField('Students.Student', through='EducationHistory.EducationHistory', related_name='school_old_students')
-    Teachers = models.ManyToManyField('Teachers.Teacher', blank=True)
+    Teachers = models.ManyToManyField('Teachers.Teacher', through='Teachers.WorkProfile')
     Administrators = models.ManyToManyField('SchoolAdministrators.SchoolAdministrator', through="SchoolAdministrators.Adminship")
     Parents = models.ManyToManyField('Parents.Parent', blank=True)
     Terms = models.ManyToManyField('Terms.Term', blank=True, related_name="school_terms")

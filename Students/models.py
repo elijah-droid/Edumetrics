@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill, Crop
 from Enrollments.models import programmes
+from django.utils.timezone import now
 
 genders = (
     ('Female', 'Female'),
@@ -40,3 +41,8 @@ class Student(models.Model):
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+    def age(self):
+        today = now().today()
+        age = today.year - self.date_of_birth.year - ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+        return age
