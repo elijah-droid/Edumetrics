@@ -114,7 +114,12 @@ def recruit_teacher(request):
         if form.is_valid():
             try:
                 user = User.objects.get(email=form.cleaned_data['email'])
-                return redirect('confirm-recruit', user=user.id)
+                try:
+                    request.user.schooladministrator.current_school.Teachers.get(user__email=form.cleaned_data['email'])
+                    messages.success(request, 'User is already a teacher in this school.')
+                    return redirect('.')
+                except ObjectDoesNotExist:
+                    return redirect('confirm-recruit', user=user.id)
             except User.DoesNotExist:
                 messages.success(request, 'Unregistered Email')
                 return redirect('.')
