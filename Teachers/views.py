@@ -199,7 +199,7 @@ def confirm_recruit(request, user):
                 send_mail(
                     'You have been recruited',
                     message,
-                    'edumetrics@edumetrics.com',
+                    'edumetrics@edu-metrics.com',
                     [teacher.user.email]
                 )
                 message.success(request, f'Teacher recruited successfully.')
