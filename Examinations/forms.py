@@ -15,11 +15,12 @@ class ExamScheduleForm(forms.ModelForm):
 class PaperForm(forms.ModelForm):
     class Meta:
         model = Paper
-        fields = ['Subject', 'Class', 'Date', 'Duration', 'Examiner']
+        fields = ['Subject', 'Class', 'Date', 'Time', 'Duration', 'Examiner']
         widgets = {
             'Subject': forms.Select(attrs={'class': 'form-control'}),
             'Class': forms.Select(attrs={'class': 'form-control'}),
             'Date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'Time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-control'}),
             'Duration': forms.TextInput(attrs={'class': 'form-control'}),
             'Examiner': forms.Select(attrs={'class': 'form-control'}),
         }

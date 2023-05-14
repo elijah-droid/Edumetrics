@@ -167,7 +167,27 @@ def terminate_teacher(request, teacher):
     context = {
         'teacher': teacher
     }
-    return render(request, 'terminate_teacher.html', context)
+    if request.method == "POST":
+        data = request.POST
+        answer = data['answer']
+        if answer == 'yes':
+            profile.delete()
+            message = f'''
+            Dear {teacher}, you have been terminated from {request.user.schooladministrator.current_school}
+            '''
+            send_mail(
+                'TERMINATION NOTICE',
+                message,
+                "edumetrics@edu-metrics.com",
+                [teacher.user.email]
+            )
+            messages.success(request, "Teacher has been terminated successfully.")
+            return redirect("teachers-list")
+        else:
+            messages.success(request, "operation cancelled")
+            return redirect("teachers-list")
+    else: 
+        return render(request, 'terminate_teacher.html', context)
 
 
 def confirm_recruit(request, user):

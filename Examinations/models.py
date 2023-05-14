@@ -19,6 +19,8 @@ class Paper(models.Model):
     Subject = models.ForeignKey('Subjects.Subject', models.CASCADE)
     Class = models.ForeignKey('Classes.Class', models.SET_NULL, null=True)
     Date = models.DateTimeField(null=True)
+    Time = models.TimeField(null=True)
     Duration = models.CharField(max_length=10)
     Examiner = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)
+    Denominator = models.PositiveIntegerField(default=100)
 

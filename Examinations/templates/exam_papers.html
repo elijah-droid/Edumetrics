@@ -8,7 +8,7 @@
     <hr>
     <div class="d-flex justify-content-between mb-3">
         <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-primary">Search</a>
-        <a href="{% url 'schedule-paper' %}" class="btn btn-sm btn-dark">Schedule</a>
+        <a href="{% url 'schedule-paper' exam.id %}" class="btn btn-sm btn-dark">Schedule</a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered text-dark">

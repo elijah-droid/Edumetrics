@@ -9,5 +9,5 @@ urlpatterns = [
     path('assessments/<int:exam>/', assessments, name='assessments'),
     path('delete/<int:exam>/', delete_examination, name='delete-exam'),
     path('papers/<int:exam>/', exam_papers, name='exam-papers'),
-    path('schedule-paper/', schedule_paper, name='schedule-paper')
+    path('schedule-paper/<int:exam>/', schedule_paper, name='schedule-paper')
 ]

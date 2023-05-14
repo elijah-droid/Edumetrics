@@ -7,8 +7,10 @@ def programmes(request):
     return render(request, 'programmes.html')
 
 def add_programme(request):
+    form = ProgrammeForm()
+    form.fields['Name'].choices = ((s[0], s[0])  for s in form.fields['Name'].choices if s[0] not in [p.Name for p in request.user.schooladministrator.current_school.Programmes.all()])
     context = {
-        'form': ProgrammeForm()
+        'form': form
     }
     if request.method == 'POST':
         form = ProgrammeForm(request.POST)

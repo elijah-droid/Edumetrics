@@ -57,9 +57,6 @@
         {% if perms.Lessons.view_lesson %}
         <a href="{% url 'lessons' %}" class="dropdown-item">Lessons</a>
         {% endif %}
-        {% if perms.Programmes.view_programme %}
-        <a href="{% url 'programmes' %}" class="dropdown-item">Programmes</a>
-        {% endif %}
         {% if perms.Subscriptions.view_subscription %}
         <a href="{% url 'subscriptions' %}" class="dropdown-item">Service Subscription</a>
         {% endif %}
@@ -107,6 +104,9 @@
         {% endif %}
         {% if perms.Divisions.view_division %}
         <a href="{% url 'divisions' %}" class="dropdown-item">Divisions</a>
+        {% endif %}
+        {% if perms.Programmes.view_programme %}
+        <a href="{% url 'programmes' %}" class="dropdown-item">Programmes</a>
         {% endif %}
     </div>
 </div>

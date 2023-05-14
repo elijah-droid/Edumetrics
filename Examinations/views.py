@@ -96,11 +96,23 @@ def exam_papers(request, exam):
     return render(request, 'exam_papers.html', context)
 
 
-def schedule_paper(request):
+def schedule_paper(request, exam):
     form = PaperForm()
+    exam = request.user.schooladministrator.current_school.Examinations.get(id=exam)
     form.fields['Subject'].queryset = request.user.schooladministrator.current_school.Subjects.all()
     form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
+    form.fields['Examiner'].queryset = request.user.schooladministrator.current_school.Teachers.all()
     context = {
         'form': form
     }
-    return render(request, 'schedule_paper.html', context)
+    if request.method == 'POST':
+        form = PaperForm(request.POST)
+        if form.is_valid():
+            form = PaperForm(request.POST)
+            paper = form.save(commit=False)
+            paper.Examination = exam
+            paper.save()
+            exam.Papers.add(paper)
+            return redirect('exam-papers', exam=exam.id)
+    else:
+        return render(request, 'schedule_paper.html', context)
