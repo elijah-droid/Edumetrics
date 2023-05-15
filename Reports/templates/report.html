@@ -19,10 +19,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for score in report.Scores.all %}
+                    {% for result in report.Results.all %}
                     <tr class="text-dark">
-                        <td class="text-nowrap">{{score.Subject}}</td>
-                        <td class="text-nowrap">{{score.Score}}%</td>
+                        <td class="text-nowrap">{{result.Paper.Subject}}</td>
+                        <td class="text-nowrap">{{result.Score}}%</td>
                         <td>{{score.Grade.Name}}</td>
                     </tr>
                     {% endfor %}

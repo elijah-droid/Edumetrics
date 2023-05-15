@@ -129,5 +129,6 @@ def paper_results(request, paper):
             result = paper.Results.get(Student=student)
             result.Score = data[str(student.id)]
             result.save()
+            messages.success(request, 'Marks were updated successfully.')
             return redirect('.')
     return render(request, 'paper_results.html', context)

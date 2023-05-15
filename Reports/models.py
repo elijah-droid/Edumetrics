@@ -3,7 +3,7 @@ from django.db import models
 class Report(models.Model):
     Student = models.ForeignKey('Students.Student', models.CASCADE)
     Examination = models.ForeignKey('Examinations.Examination', models.CASCADE)
-    Scores = models.ManyToManyField('Score', blank=True)
+    Results = models.ManyToManyField('Examinations.Result', blank=True)
     Total_Score = models.PositiveIntegerField(null=True)
     Aggregate = models.PositiveIntegerField(null=True)
     Published = models.BooleanField(default=False)
