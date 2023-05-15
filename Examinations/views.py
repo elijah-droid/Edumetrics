@@ -3,7 +3,7 @@ from django.http import FileResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
-from .models import Examination
+from .models import Examination, Paper
 from .forms import ExamScheduleForm, PaperForm
 import io
 import docx
@@ -116,3 +116,18 @@ def schedule_paper(request, exam):
             return redirect('exam-papers', exam=exam.id)
     else:
         return render(request, 'schedule_paper.html', context)
+
+
+def paper_results(request, paper):
+    paper = Paper.objects.get(id=paper)
+    context = {
+        'paper': paper
+    }
+    if request.method == 'POST':
+        data = request.POST
+        for student in paper.Class.Students.all():
+            result = paper.Results.get(Student=student)
+            result.Score = data[str(student.id)]
+            result.save()
+            return redirect('.')
+    return render(request, 'paper_results.html', context)

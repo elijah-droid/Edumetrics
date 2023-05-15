@@ -1,45 +1,36 @@
 {% extends request.session.base %}
+{% load exam_tags %}
 
 {% block content %}
-<div class="container text-dark">
+<form method="post" class="container text-dark">
+    {% csrf_token %}
     <div class="text-center">
-        <small class="lead">{{exam}} Papers</small>
+        <h5>{{paper.Examination}} {{paper.Subject}} {{paper.Class}} Class Results</h5>
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
-        <a href="{% url 'schedule-exam' %}" class="btn btn-sm btn-primary">Search</a>
-        <a href="{% url 'schedule-paper' exam.id %}" class="btn btn-sm btn-dark">Schedule</a>
+        <a href="" class="btn btn-sm btn-primary">Search</a>
+        <button type="submit" class="btn btn-sm btn-dark">Save</button>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered text-dark">
             <thead>
                 <tr class="text-dark">
-                    <th scope="col">Subject</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Date</th>
-                    <th class="text-nowrap" scope="col">Time</th>
-                    <th class="text-nowrap" scope="col">Examiner</th>
-                    <th class="text-nowrap" scope="col">More</th>
+                    <th scope="col">Student</th>
+                    <th scope="col">Score</th>
+                    <th scope="col">Performance Change</th>
                 </tr>
             </thead>
             <tbody>
-                {% for paper in exam.Papers.all %}
+                {% for student in paper.Class.Students.all %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{paper.Subject}}</td>
-                    <td class="text-nowrap text-dark">{{paper.Class}}</td>
-                    <td class="text-nowrap text-dark">{{paper.Date}}</td>
-                    <td class="text-nowrap text-dark">{{paper.Time}}</td>
-                    <th class="text-nowrap" scope="col">{{paper.Examiner}}</th>
-                    <td class="text-nowrap">
-                        <a href="{% url 'paper-results' paper.id %}" class="btn btn-sm btn-dark">Results</a>
-                        <a href="{% url 'exam-papers' exam.id %}" class="btn btn-sm btn-primary">Reschedule</a>
-                        <a href="" class="btn btn-sm btn-dark">Delete</a>
-                        <a href="{% url 'exam-papers' exam.id %}" class="btn btn-sm btn-primary">Change Examiner</a>
-                    </td>
+                    <td class="text-nowrap text-dark">{{student}}</td>
+                    <td class="text-nowrap text-dark"><input name="{{student.id}}" value="{{paper|paper_result:student}}" min="0" max="100" type="number"></td>
+                    <td class="text-nowrap text-dark">N/A</td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td>No papers for {{exam}}</td>
+                    <td>No results available</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -88,5 +79,5 @@
           {% endif %}
         </ul>
       </div>
-</div>
+</form>
 {% endblock %}

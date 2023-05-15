@@ -30,9 +30,6 @@
 <div class="nav-item dropdown  ">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Modules</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0 overflow-auto dropdown-menu-right">
-        {% if perms.Terms.view_term %}
-        <a href="{% url 'terms' %}" class="dropdown-item">Terms</a>
-        {% endif %}
         {% if perms.Applications.view_application %}
         <a href="{% url 'school-applications' %}" class="dropdown-item">Applications</a>
         {% endif %}
@@ -90,11 +87,17 @@
 <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle text-nowrap" data-bs-toggle="dropdown">Set Up</a>
     <div class="dropdown-menu border-0">
+        {% if perms.Terms.view_term %}
+        <a href="{% url 'terms' %}" class="dropdown-item">Terms</a>
+        {% endif %}
         {% if perms.Levels.view_level %}
         <a href="{% url 'levels' %}" class="dropdown-item">Levels</a>
         {% endif %}
         {% if perms.Subjects.view_subject %}
         <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
+        {% endif %}
+        {% if perms.Subjects.view_subject %}
+        <a href="{% url 'subjects' %}" class="dropdown-item">Combinations</a>
         {% endif %}
         {% if perms.Classes.view_classe %}
         <a href="{% url 'classes' %}" class="dropdown-item">Classes</a>
