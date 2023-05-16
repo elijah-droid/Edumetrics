@@ -19,6 +19,8 @@ from Classes.forms import ClassForm
 from django import forms
 import plotly.graph_objs as go
 import plotly
+import qrcode
+import os
 
 
 def generate_student_id():
@@ -33,6 +35,24 @@ def generate_student_id():
     student_id = random_letters + random_number
     
     return student_id
+
+
+def get_qr(request, student):
+    student = Student.objects.get(id=student)
+    qr = qrcode.QRCode(
+        version=1,
+        box_size=10,
+        border=5
+    )
+    qr.add_data(student.student_id)
+    qr.make(fit=True)
+    qr_img = qr.make_image(fill_color='#103741', back_color='#FE5D37')
+    img = qr_img.get_image()
+    img = img.convert('RGB')
+
+    response = HttpResponse(content_type='image/png')
+    img.save(response, 'PNG')
+    return response
 
 
 def download_students_info(request):

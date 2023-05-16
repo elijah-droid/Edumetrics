@@ -25,6 +25,7 @@ class Student(models.Model):
         null=True,
         blank=True
     )
+    qr_code = models.ImageField(upload_to='Students/Qr_Codes', null=True)
     education_history = models.ManyToManyField('EducationHistory.EducationHistory', blank=True)
     active_enrollment = models.ForeignKey('Enrollments.Enrollment', models.SET_NULL, null=True)
     Programme = models.ForeignKey('Programmes.Programme', models.SET_NULL, null=True)

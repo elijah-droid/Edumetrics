@@ -52,6 +52,11 @@
                         </div>
                     </div>
 
+                    <section class="py-5 wow fadeInUp text-center" data-wow-delay="0.1s">
+                        <h6 class="title pb-3">Qr Code</h6>
+                        <img src="{% url 'get-qr' student.id %}" alt="">
+                    </section>
+
                 <!-- Expericence Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
                     {{stats|safe}}

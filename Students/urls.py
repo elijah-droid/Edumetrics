@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import student_list, enroll_student, student_profile, child_info, download_students_info, change_student, old_students, terminate_student, old_students, select_student_class, search_student
+from .views import student_list, enroll_student, student_profile, child_info, download_students_info, change_student, old_students, terminate_student, old_students, select_student_class, search_student, get_qr
 
 
 urlpatterns = [
@@ -12,5 +12,6 @@ urlpatterns = [
     path('old/', old_students, name="old-students"),
     path('terminate/<int:student>/', terminate_student, name='terminate-student'),
     path('select-class/', select_student_class, name='select-student-class'),
-    path('search/', search_student, name='search-student')
+    path('search/', search_student, name='search-student'),
+    path('get-qr-code/<int:student>/', get_qr, name='get-qr')
 ]

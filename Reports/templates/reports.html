@@ -12,8 +12,8 @@
         <a href="{% url 'publish-batch' %}" class="btn btn-sm btn-primary">Publish</a>
     </div>
     <hr>
-    <div class="container-xxl py-5">
-        <div class="container">
+    <div class="">
+        <div class="">
             <div class="row g-5 align-items-center">
                 {% for report in user.schooladministrator.current_school.Reports.all %}
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
