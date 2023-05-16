@@ -18,6 +18,10 @@
                         <a href="{% url 'terminate-student' student.id %}" class="btn btn-dark w-50 border-end">Terminate</a>
                         <a href="{% url 'change-student' student.pk %}" class="btn btn-primary w-50 btn-scroll">Edit Info</a>
                     </div>
+                    <div class="text-center mt-3">
+                        <h6 class="title pb-3">Qr Code</h6>
+                        <img width="100%" src="{% url 'get-qr' student.id %}" alt="">
+                    </div>
                 </div>
             </div>
             <div class="col-lg-8 mt-0">
@@ -51,11 +55,6 @@
                             <span class="fw-medium text-primary">Address:</span> {{student.Address}}
                         </div>
                     </div>
-
-                    <section class="py-5 wow fadeInUp text-center" data-wow-delay="0.1s">
-                        <h6 class="title pb-3">Qr Code</h6>
-                        <img src="{% url 'get-qr' student.id %}" alt="">
-                    </section>
 
                 <!-- Expericence Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">

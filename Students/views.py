@@ -44,9 +44,16 @@ def get_qr(request, student):
         box_size=10,
         border=5
     )
-    qr.add_data(student.student_id)
+    data = f'''
+    First Name: {student.first_name},
+    Last Name: {student.last_name},
+    Student Id: {student.student_id},
+    School: {student.school},
+    Class: {student.Class}
+    '''
+    qr.add_data(data)
     qr.make(fit=True)
-    qr_img = qr.make_image(fill_color='#103741', back_color='#FE5D37')
+    qr_img = qr.make_image(fill_color='White', back_color='#103741')
     img = qr_img.get_image()
     img = img.convert('RGB')
 
