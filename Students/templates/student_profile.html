@@ -19,7 +19,7 @@
                         <a href="{% url 'change-student' student.pk %}" class="btn btn-primary w-50 btn-scroll">Edit Info</a>
                     </div>
                     <div class="text-center mt-3">
-                        <h6 class="title pb-3">Qr Code</h6>
+                        <h6 class="title">Qr Code</h6>
                         <img width="100%" src="{% url 'get-qr' student.id %}" alt="">
                     </div>
                 </div>
@@ -55,23 +55,18 @@
                             <span class="fw-medium text-primary">Address:</span> {{student.Address}}
                         </div>
                     </div>
-
-                <!-- Expericence Start -->
-                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
-                    {{stats|safe}}
-                </section>
                 <!-- Expericence End -->
                 <!-- Skills End -->
 
                 <!-- Expericence Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
                     <h6 class="title pb-3 mb-5">Parent Data</h6>
-                    {% for history in student.education_history.all %}
+                    {% for parent in student.parents.all %}
                     <div class="border-start border-2 border-light pt-2 ps-5">
                         <div class="position-relative mb-4">
                             <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
-                            <h5 class="mb-1">history.School</h5>
-                            <p class="mb-2"><small>2007 - 2010</small></p>
+                            <h5 class="mb-1"><a href="{% url 'parent-profile' parent.id %}">{{parent}}</a></h5>
+                            <p class="mb-2"><small>{{student|relationship:parent}}</small></p>
                         </div>
                     </div>
                     {% empty %}

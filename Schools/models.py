@@ -45,6 +45,7 @@ class School(models.Model):
     Grades = models.ManyToManyField('Grading.Grade', blank=True)
     Divisions = models.ManyToManyField('Grading.Division', blank=True)
     Subjects = models.ManyToManyField('Subjects.Subject', blank=True)
+    Combinations = models.ManyToManyField('Subjects.Combination', blank=True)
     Lessons = models.ManyToManyField('Lessons.Lesson', blank=True)
     attendance = models.ManyToManyField('Attendance.Attendance', blank=True)
     Circulars = models.ManyToManyField('Circulars.Circular', blank=True)

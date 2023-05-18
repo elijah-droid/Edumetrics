@@ -10,6 +10,7 @@ def add_new(request):
     form = LessonForm()
     form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
     form.fields['Subject'].queryset = request.user.schooladministrator.current_school.Subjects.all()
+    form.fields['Teacher'].queryset = request.user.schooladministrator.current_school.Teachers.all()
     context = {
         'form': form
     }

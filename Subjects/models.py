@@ -20,7 +20,14 @@ subjects = (
     ('Turkish', 'Turkish')
 )
 
+subject_types = (
+    ('Compulsory', 'Compulsory'),
+    ('Optional', 'Optional')
+)
+
+
 class Subject(models.Model):
+    School = models.ForeignKey('Schools.School', models.SET_NULL, null=True)
     name = models.CharField(max_length=100, choices=subjects)
     code = models.CharField(max_length=10)
     description = models.TextField()
@@ -28,6 +35,7 @@ class Subject(models.Model):
     Teachers = models.ManyToManyField('Teachers.Teacher')
     Students = models.ManyToManyField('Students.Student')
     Levels = models.ManyToManyField('Levels.Level', blank=True)
+    Type = models.CharField(max_length=100, choices=subject_types, null=True)
 
 
     def __str__(self):
@@ -35,5 +43,8 @@ class Subject(models.Model):
 
 
 class Combination(models.Model):
+    School = models.ForeignKey('Schools.School', models.SET_NULL, null=True)
+    Name = models.CharField(max_length=100, null=True)
     Principals = models.ManyToManyField('Subjects.Subject', blank=True)
     Subsidiary = models.ForeignKey('Subjects.Subject', models.CASCADE, related_name='subsidiary')
+    Students = models.ManyToManyField('Students.Student', blank=True)
