@@ -13,8 +13,8 @@ relationships = (
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     relationships = models.ManyToManyField('Relationship', blank=True)
-    phone_number = models.CharField(max_length=15)
-    Fees_Payments = models.ManyToManyField('FeesManagement.Payment', related_name='feespayments')
+    Tel = models.IntegerField(null=True)
+    Fees_Payments = models.ManyToManyField('FeesManagement.Payment', related_name='feespayments', blank=True)
     address = models.CharField(max_length=255)
     subscribed = models.BooleanField(default=False)
     applications = models.ManyToManyField('Applications.Application', blank=True)
