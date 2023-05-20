@@ -5,10 +5,9 @@ class PastPaperForm(forms.ModelForm):
     
     class Meta:
         model = PastPaper
-        fields = ['Class', 'Subject', 'Questions_Pdf', 'Answers_Pdf', 'Description', 'Price']
+        fields = ['Paper', 'Questions_Pdf', 'Answers_Pdf']
         widgets = {
-            'Class': forms.Select(attrs={'class': 'form-control'}),
-            'Subject': forms.Select(attrs={'class': 'form-control'}),
+            'Paper': forms.Select(attrs={'class': 'form-control'}),
             'Questions_Pdf': forms.FileInput(attrs={'class': 'form-control'}),
             'Answers_Pdf': forms.FileInput(attrs={'class': 'form-control'}),
             'Description': forms.Textarea(attrs={'class': 'form-control'}),

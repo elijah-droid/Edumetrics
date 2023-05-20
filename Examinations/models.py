@@ -25,6 +25,9 @@ class Paper(models.Model):
     Examiner = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)
     Denominator = models.PositiveIntegerField(default=100)
 
+    def __str__(self):
+        return f'{self.Examination} {self.Subject} {self.Class} Class'
+
 
 class Result(models.Model):
     Paper = models.ForeignKey('Paper', models.CASCADE)

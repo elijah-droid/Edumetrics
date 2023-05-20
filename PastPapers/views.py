@@ -52,9 +52,7 @@ def upload_pastpaper(request):
     if request.method == 'POST':
         form = PastPaperForm(request.POST, request.FILES)
         if form.is_valid():
-            pastpaper = form.save(commit=False)
-            pastpaper.Teacher = request.user.teacher
-            pastpaper.save()
+            pastpaper = form.save()
             request.user.teacher.Past_Papers.add(pastpaper)
             return redirect('pastpapers')
     else:

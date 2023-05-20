@@ -20,10 +20,11 @@
             <div class="card mb-3">
               <img src="{% static 'img/pdf.png' %}" class="card-img-top" alt="{{ teacher.name }}">
               <div class="card-body">
-                <p class="card-title text-nowrap">{{paper.Subject}}</p>
-                <small class="card-text text-nowrap mb-3">{{ paper.Class }} Class</small>
+                <div class="text-center">
+                  <h6 class="card-title">{{paper.Paper}}</h6>
+                </div>
                 <br>
-                <div class="btn-group mt-3">
+                <div class="btn-group">
                     <a href="{% url 'download-paper' paper.id %}" class="btn btn-sm btn-dark">Download</a>
                     <a href="" class="btn btn-sm btn-primary">Details</a>
                 </div>
