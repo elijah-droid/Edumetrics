@@ -67,3 +67,9 @@ def download_pastpaper(request, paper):
     paper = PastPaper.objects.get(id=paper)
     file = open(paper.Questions_Pdf.path, 'rb')
     return FileResponse(file, as_attachment=True)
+
+
+def delete_paper(request, paper):
+    paper = Paper.objects.get(id=paper)
+    paper.delete()
+    return redirect('pastpapers')
