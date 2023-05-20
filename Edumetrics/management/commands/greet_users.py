@@ -8,10 +8,11 @@ class Command(BaseCommand):
     help = 'Send Greetings To Users'
 
     def handle(self, *args, **options):
-        send_mail(
-            'Good Morning Elijah',
-            'Start your day with ',
-            'edumetrics@edu-metrics.com',
-            ['mukisaelijah293@gmail.com']
-        )
+        for user in User.objects.all():
+            send_mail(
+                f'Good Morning {user.first_name}',
+                'Remember to start your day with a prayer.',
+                'edumetrics@edu-metrics.com',
+                [user.email]
+            )
         self.stdout.write('greeted users successfully')
