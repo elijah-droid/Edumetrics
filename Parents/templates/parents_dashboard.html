@@ -6,9 +6,10 @@
 {% block nav %}
 <a href="{% url 'parent_dashboard' %}" class="nav-item nav-link">Dashboard</a>
 <div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Menu</a>
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Children</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
         <a href="{% url 'kids' %}" class="dropdown-item">My Children</a>
+        <a href="{% url 'kids' %}" class="dropdown-item">Class Teachers</a>
         <a href="{% url 'parent-requirements' %}" class="dropdown-item">Requirements</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Merge Student Data</a>
         <a href="{% url 'schools-listing' %}" class="dropdown-item">Schools</a>
@@ -20,6 +21,13 @@
         <a href="{% url 'circulars' %}" class="dropdown-item">Circulars</a>
         <a href="{% url 'circulars' %}" class="dropdown-item">Assessments</a>
         <a href="{% url 'parent-fees-payments' %}" class="dropdown-item text-nowrap">Fees Payments</a>
+    </div>
+</div>
+<div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Coaching</a>
+    <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
+        <a href="{% url 'kids' %}" class="dropdown-item">Hire</a>
+        <a href="{% url 'kids' %}" class="dropdown-item">Pay</a>
     </div>
 </div>
 <div class="nav-item dropdown">

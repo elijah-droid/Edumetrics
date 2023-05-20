@@ -24,6 +24,7 @@ class Paper(models.Model):
     Duration = models.CharField(max_length=10)
     Examiner = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)
     Denominator = models.PositiveIntegerField(default=100)
+    Paper = models.ForeignKey('PastPapers.PastPaper', models.SET_NULL, null=True)
 
     def __str__(self):
         return f'{self.Examination} {self.Subject} {self.Class} Class'

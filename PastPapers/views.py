@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import PastPaper
 from .forms import PastPaperForm
+from Examinations.models import Paper
 from django.core.paginator import Paginator
 import os
 from django.http import FileResponse
@@ -46,6 +47,7 @@ def teachers_pastpapers(request):
 
 def upload_pastpaper(request):
     form = PastPaperForm()
+    form.fields['Paper'].queryset = Paper.objects.filter(Examiner=request.user.teacher, Paper=None)
     context = {
         'form': form
     }
@@ -53,6 +55,8 @@ def upload_pastpaper(request):
         form = PastPaperForm(request.POST, request.FILES)
         if form.is_valid():
             pastpaper = form.save()
+            pastpaper.Paper.Paper = pastpaper
+            pastpaper.Paper.save()
             request.user.teacher.Past_Papers.add(pastpaper)
             return redirect('pastpapers')
     else:
