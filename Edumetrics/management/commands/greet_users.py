@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Send Greetings To Users'
 
     def handle(self, *args, **options):
-        for user in User.objects.all():
+        for user in User.objects.exclude(email=None):
             send_mail(
                 f'Good Morning {user.first_name}',
                 'Remember to start your day with a prayer.',
