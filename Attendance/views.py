@@ -60,6 +60,6 @@ def roll_call(request, lesson):
                     'Lesson Missed',
                     message,
                     'edumetrics@edu-metrics.com',
-                    [emails]
+                    emails
                 )
     return render(request, 'roll_call.html', context)
