@@ -5,6 +5,7 @@ from django.utils import timezone
 from .models import Attendance
 from Lessons.models import Lesson
 from django.contrib import messages
+from django.core.mail import send_mail
 
 def attendance(request):
     return render(request, 'attendance.html')
@@ -41,4 +42,24 @@ def roll_call(request, lesson):
     context = {
         'form': form
     }
+    if request.method == 'POST':
+        form = RollCallForm(request.POST)
+        if form.is_valid():
+            attendees = form.cleaned_data['Attendees']
+            students = request.user.schooladministrator.current_school.students.filter(Class=lesson.Class, Subjects=lesson.Subject)
+            missed = [st for st in students if st not in attendees]
+            for s in missed:
+                emails = [p.user.email for p in s.parents.all()]
+                print(emails)
+                message = f'''
+                {s} missed a {lesson.Subject} lesson today,
+
+                Please find out why.
+                '''
+                send_mail(
+                    'Lesson Missed',
+                    message,
+                    'edumetrics@edu-metrics.com',
+                    [emails]
+                )
     return render(request, 'roll_call.html', context)
