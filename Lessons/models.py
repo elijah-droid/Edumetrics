@@ -19,6 +19,7 @@ class Lesson(models.Model):
     To = models.TimeField(null=True)
     Subject = models.ForeignKey('Subjects.Subject', models.CASCADE)
     Teacher = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)
+    Roll_Calls = models.ManyToManyField('Attendance.RollCall')
 
     class Meta:
         unique_together = ('School', 'Class', 'Teacher', 'Subject', 'Day')

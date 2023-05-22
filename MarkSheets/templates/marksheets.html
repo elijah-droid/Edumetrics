@@ -4,12 +4,11 @@
 {% block content %}
 <div class="container text-dark">
     <div class="text-center">
-        <small class="lead">Exam Scores</small>
+        <small class="lead">Examination Results</small>
     </div>
     <hr>
     <div class="d-flex justify-content-between mb-3">
         <a href="{% url 'create-marksheet' %}" class="btn btn-sm btn-primary">Search</a>
-        <a href="{% url 'create-marksheet' %}" class="btn btn-sm btn-dark">Create</a>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered">
@@ -17,21 +16,18 @@
                 <tr class="text-dark">
                     <th scope="col">Exam</th>
                     <th scope="col">Class</th>
-                    <th scope="col">Stream</th>
                     <th scope="col">Subject</th>
                     <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for sheet in user.teacher.current_profile.School.mark_sheets.all|dictsortreversed:'Exam.Date' %}
+                {% for paper in papers %}
                 <tr>
-                    <td class="text-nowrap text-dark">{{sheet.Exam}}</td>
-                    <td class="text-nowrap text-dark">{{sheet.Class}}</td>
-                    <td class="text-nowrap text-dark"></td>
-                    <td class="text-nowrap text-dark">{{sheet.Subject}}</td>
+                    <td class="text-nowrap text-dark">{{paper.Examination}}</td>
+                    <td class="text-nowrap text-dark">{{paper.Class}}</td>
+                    <td class="text-nowrap text-dark">{{paper.Subject}}</td>
                     <td class="text-nowrap">
-                        <a href="{% url 'marksheet-tallies' sheet.id %}" class="btn btn-sm btn-dark">View Marks</a>
-                        <a href="" class="btn btn-sm btn-primary">Commit Changes</a>
+                        <a href="{% url 'paper-results' paper.id %}" class="btn btn-sm btn-dark">Edit Marks</a>
                     </td>
                 </tr>
                 {% empty %}

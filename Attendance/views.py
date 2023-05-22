@@ -50,7 +50,6 @@ def roll_call(request, lesson):
             missed = [st for st in students if st not in attendees]
             for s in missed:
                 emails = [p.user.email for p in s.parents.all()]
-                print(emails)
                 message = f'''
                 {s} missed a {lesson.Subject} lesson today,
 
@@ -62,4 +61,10 @@ def roll_call(request, lesson):
                     'edumetrics@edu-metrics.com',
                     emails
                 )
+            roll_call = form.save(commit=False)
+            roll_call.Lesson = lesson
+            roll_call.save()
+            lesson.Roll_Calls.add(roll_call)
+            messages.success(request, 'Roll Call saved successully.')
+            return redirect('/')
     return render(request, 'roll_call.html', context)

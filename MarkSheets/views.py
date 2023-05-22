@@ -5,10 +5,15 @@ from Tallies.forms import TallyForm
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum
+from Examinations.models import Paper
 
 
 def marksheets(request):
-    return render(request, 'marksheets.html')
+    papers = Paper.objects.filter(Examiner=request.user.teacher)
+    context = {
+        'papers': papers
+    }
+    return render(request, 'marksheets.html', context)
 
 
 def marksheet_tallies(request, marksheet):

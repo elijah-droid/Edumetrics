@@ -16,4 +16,4 @@ class Attendance(models.Model):
 class RollCall(models.Model):
     Date = models.DateTimeField(default=now)
     Lesson = models.ForeignKey('Lessons.Lesson', models.CASCADE)
-    Attendees = models.ManyToManyField('Students.Student', blank=True)
+    Attendees = models.ManyToManyField('Students.Student', blank=True) 
