@@ -235,3 +235,6 @@ def confirm_recruit(request, user):
                 return redirect('teachers-list')
     else:
         return render(request, 'confirm_recruit.html', context)
+
+
+    

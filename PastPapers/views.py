@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import PastPaper
+from Examinations.forms import PaperForm
 from .forms import PastPaperForm
 from Examinations.models import Paper
 from django.core.paginator import Paginator
@@ -8,11 +9,11 @@ from django.http import FileResponse
 
 
 def browse_pastpapers(request):
-    form = PastPaperForm()
-    del form.fields['Questions_Pdf']
-    del form.fields['Answers_Pdf']
-    del form.fields['Description']
-    del form.fields['Price']
+    form = PaperForm()
+    del form.fields['Date']
+    del form.fields['Time']
+    del form.fields['Examiner']
+    del form.fields['Duration']
     context = {
         'form': form
     }

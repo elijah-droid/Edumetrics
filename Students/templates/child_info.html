@@ -1,6 +1,7 @@
 {% extends request.session.base %}
 {% load static %}
 {% load performance_tags %}
+{% load children_tags %}
 
 {% block content %}
 
@@ -8,32 +9,38 @@
         <div class="row g-5">
             <div class="col-lg-4 ">
                 <div class="d-flex flex-column h-100 text-center overflow-auto shadow p-3">
-                    <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% static 'img/user_.png' %}" alt="Image">
+                    <img class="w-100 img-fluid mb-4" style="border-radius: 50%;" src="{% url 'get-image' child.id %}" alt="Image">
                     <small class="lead mt-2 text-dark">{{child}}</small>
                     <div class="mb-4" style="height: 22px;">
                         <h4 class="typed-text-output d-inline-block text-light"></h4>
                     </div>
                     <div class="d-flex align-items-end justify-content-between border-top btn-group">
-                        <a href="" class="btn btn-dark w-50 border-end">Pay Fees</a>
-                        <a href="#contact" class="btn btn-primary w-50 btn-scroll">School Profile</a>
+                        <a href="" class="btn btn-dark w-50 border-end">Reports</a>
+                        <a href="" class="btn btn-primary w-50 btn-scroll">School Profile</a>
                     </div>
-                    
+                    <div class="text-center mt-3">
+                        <h6 class="title">Qr Code</h6>
+                        <img width="100%" src="{% url 'get-qr' child.id %}" alt="">
+                    </div>
                 </div>
             </div>
             <div class="col-lg-8 mt-0">
                 <!-- About Start -->
                 <section class="py-5 border-bottom wow fadeInUp text-dark" data-wow-delay="0.1s">
-                    <small class="lead pb-3 mb-5">CHILD INFO | {{child.school|upper}}</small>
+                    <small class="lead pb-3 mb-5">Student Profile | {{child.school}}</small>
                     <hr>
                     <p>
-                        {{child}} is a dedicated and hardworking student in {{child.Class}} who does {{child.Subjects.all|join:", "}}. 
+                        <h6>{{child}}</h6> is a dedicated and hardworking student in {{child.Class}} who does {{child.Subjects.all|join:", "}}. 
                     </p>
                     <div class="row mb-4">
                         <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Names:</span> {{child}}
+                            <span class="fw-medium text-primary">Name:</span> {{child}}
                         </div>
                         <div class="col-sm-6 py-1">
-                            <span class="fw-medium text-primary">Birthday:</span> {{child.Date_of_birth}}
+                            <span class="fw-medium text-primary">Enrollment Date:</span> {{child.active_enrollment.Date}}
+                        </div>
+                        <div class="col-sm-6 py-1">
+                            <span class="fw-medium text-primary">Age:</span> 
                         </div>
                         <div class="col-sm-6 py-1">
                             <span class="fw-medium text-primary">Class:</span> {{child.Class}}
@@ -48,89 +55,44 @@
                             <span class="fw-medium text-primary">Address:</span> {{child.Address}}
                         </div>
                     </div>
-
-                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="text-center mb-2">
-                            <small>Teachers</small>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-dark">
-                                <thead>
-                                    <tr class="text-dark">
-                                        <th scope="col">Teacher</th>
-                                        <th class="text-nowrap" scope="col">Subject</th>
-                                        <th class="text-nowrap" scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for student in class.Students.all %}
-                                    <tr>
-                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
-                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
-                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
-                                        <td class="text-nowrap"> UGX</td>
-                                        <td class="text-nowrap">
-                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
-                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
-                                        </td>
-                                    </tr>
-                                    {% empty %}
-                                    <tr>
-                                        <td>No Students Found in this  {{class}} class</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-                    <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="text-center mb-2">
-                            <small>Today's Lessons</small>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-dark">
-                                <thead>
-                                    <tr class="text-dark">
-                                        <th scope="col">Subject</th>
-                                        <th class="text-nowrap" scope="col">Time</th>
-                                        <th class="text-nowrap" scope="col">Attended</th>
-                                        <th class="text-nowrap" scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for student in class.Students.all %}
-                                    <tr>
-                                        <td class="text-nowrap text-dark">{{student.first_name}}</td>
-                                        <td class="text-nowrap text-dark">{{student.last_name}}</td>
-                                        <td class="text-nowrap">{{student.active_enrollment.Date}}</td>
-                                        <td class="text-nowrap"> UGX</td>
-                                        <td class="text-nowrap">
-                                            <a href="" class="btn btn-sm btn-primary">Profile</a>
-                                            <a href="" class="btn btn-sm btn-dark">Performance</a>
-                                        </td>
-                                    </tr>
-                                    {% empty %}
-                                    <tr>
-                                        <td>No Students Found in this  {{class}} class</td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
+                <!-- Expericence End -->
+                <!-- Skills End -->
 
                 <!-- Expericence Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="title pb-3 mb-5">Education History</h1>
+                    <h6 class="title pb-3 mb-5">Parent Data</h6>
+                    {% for parent in child.parents.all %}
                     <div class="border-start border-2 border-light pt-2 ps-5">
                         <div class="position-relative mb-4">
                             <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
-                            <h5 class="mb-1">Kampala Parents</h5>
-                            <p class="mb-2">Nursery | <small>2007 - 2010</small></p>
-                            <p>Learned How To Read and Write</p>
+                            <h5 class="mb-1"><a href="">{{parent}}</a></h5>
+                            <p class="mb-2"><small>{{child|relationship:parent}}</small></p>
                         </div>
                     </div>
+                    {% empty %}
+                    <div class="text-center">
+                        <h6>No Parent linked to this student.</h6>
+                    </div>
+                    {% endfor %}
+                </section>
+                <!-- Expericence End -->
+
+                <!-- Expericence Start -->
+                <section class="py-5 wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="title pb-3 mb-5">Education History</h6>
+                    {% for history in student.education_history.all %}
+                    <div class="border-start border-2 border-light pt-2 ps-5">
+                        <div class="position-relative mb-4">
+                            <span class="bi bi-arrow-right fs-4 text-light position-absolute" style="top: -5px; left: -50px;"></span>
+                            <h5 class="mb-1">history.School</h5>
+                            <p class="mb-2"><small>2007 - 2010</small></p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center">
+                        <h6>No Education History for {{student}}</h6>
+                    </div>
+                    {% endfor %}
                 </section>
                 <!-- Expericence End -->
 
@@ -138,7 +100,7 @@
 
                 <!-- Contact Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
-                    <h1 class="">Contact School</h1>
+                    <h5 class="">Email School</h5>
                     <form>
                         <div class="row g-3">
                             <div class="col-12">

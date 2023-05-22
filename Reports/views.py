@@ -97,8 +97,11 @@ def download_report(request, report):
     return response
 
 def publish_batch(request):
+    form = PublishBatchReportsForm()
+    form.fields['Exam'].queryset = request.user.schooladministrator.current_school.Examinations.all()
+    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
     context = {
-        'form': PublishBatchReportsForm()
+        'form': form
     }
     if request.method == 'POST':
         form = PublishBatchReportsForm(request.POST)

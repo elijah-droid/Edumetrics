@@ -33,9 +33,6 @@
         {% if perms.Applications.view_application %}
         <a href="{% url 'school-applications' %}" class="dropdown-item">Applications</a>
         {% endif %}
-        {% if perms.Circulars.view_circular %}
-        <a href="{% url 'circulars' %}" class="dropdown-item">Circulars</a>
-        {% endif %}
         {% if perms.Attendance.view_attendance %}
         <a href="{% url 'attendance' %}" class="dropdown-item">Attendance</a>
         {% endif %}

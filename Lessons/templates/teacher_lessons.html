@@ -1,0 +1,44 @@
+{% extends request.session.base %}
+{% load teachers_tags %}
+
+
+
+{% block content %}
+<!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Today's Lessons</h6>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start text-dark align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-dark">
+                        <th scope="col">Subject</th>
+                        <th scope="col">Class</th>
+                        <th class="text-nowrap" scope="col">Time</th>
+                        <th class="text-nowrap" scope="col">End Time</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lesson in user.teacher|lessons:user.teacher.current_profile.School %}
+                    <tr>
+                        <td class="text-nowrap">{{lesson.Subject}}</td>
+                        <td class="text-nowrap">{{lesson.Class}}</td>
+                        <td class="text-nowrap">{{lesson.From}}</td>
+                        <td class="text-nowrap">{{lesson.To}}</td>
+                        <td class="text-nowrap">
+                            <a href="{% url 'roll-call' lesson.pk %}" class="btn btn-sm btn-dark">Roll Call</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td class="text-nowrap">No lessons found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Recent Sales End -->
+{% endblock %}

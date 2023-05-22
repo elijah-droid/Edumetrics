@@ -7,20 +7,9 @@
 <div class="nav-item dropdown">
     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Menu</a>
     <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-        <a href="{% url 'fellow-staff' %}" class="dropdown-item">Fellow Staff</a>
-        <a href="{% url 'mark-sheets' %}" class="dropdown-item">Reports</a>
         <a href="{% url 'mark-sheets' %}" class="dropdown-item">Scores</a> 
         <a href="{% url 'pastpapers' %}" class="dropdown-item">Past Papers</a>
-        <a href="{% url 'teacher-admins' %}" class="dropdown-item">Administrators</a>
-        <a href="{% url 'teacher-classes' %}" class="dropdown-item">My Classes</a>
-        <a href="{% url 'admin_dashboard' %}" class="dropdown-item">Lessons</a>
-    </div>
-</div>
-<div class="nav-item dropdown">
-    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Coaching</a>
-    <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-        <a href="{% url 'fellow-staff' %}" class="dropdown-item">Register</a>
-        <a href="{% url 'mark-sheets' %}" class="dropdown-item">Jobs</a>
+        <a href="{% url 'teacher-lessons' %}" class="dropdown-item">Lessons</a>
     </div>
 </div>
 {% if teacher.work_profile.count > 1 %}
