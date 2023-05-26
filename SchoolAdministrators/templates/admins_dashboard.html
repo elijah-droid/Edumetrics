@@ -93,9 +93,6 @@
         {% if perms.Subjects.view_subject %}
         <a href="{% url 'subjects' %}" class="dropdown-item">Subjects</a>
         {% endif %}
-        {% if perms.Subjects.view_subject %}
-        <a href="{% url 'combinations' %}" class="dropdown-item">Combinations</a>
-        {% endif %}
         {% if perms.Classes.view_classe %}
         <a href="{% url 'classes' %}" class="dropdown-item">Classes</a>
         {% endif %}

@@ -129,6 +129,8 @@ def teacher_login(request):
         user = authenticate(request, username=email, password=password)
         try:
             teacher = Teacher.objects.get(user=user)
+            if teacher.work_profile.count() < 1:
+                user = None
         except Teacher.DoesNotExist:
             user = None
         if user is not None:
