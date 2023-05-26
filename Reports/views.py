@@ -8,6 +8,7 @@ from django.urls import reverse
 from Students.models import Student
 from Examinations.models import Examination
 import docx
+from django.core.mail import send_mail
 
 
 def reports(request):
@@ -99,7 +100,7 @@ def download_report(request, report):
 def publish_batch(request):
     form = PublishBatchReportsForm()
     form.fields['Exam'].queryset = request.user.schooladministrator.current_school.Examinations.all()
-    form.fields['Class'].queryset = request.user.schooladministrator.current_school.classes.all()
+    form.fields['Classes'].queryset = request.user.schooladministrator.current_school.classes.all()
     context = {
         'form': form
     }
@@ -107,7 +108,19 @@ def publish_batch(request):
         form = PublishBatchReportsForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            reports = request.user.schooladministrator.current_school.Reports.filter(Student__Class=data['Class'], Examination=data['Exam'])
+            reports = request.user.schooladministrator.current_school.Reports.filter(Student__Class__in=data['Classes'], Examination=data['Exam'])
+            parents = request.user.schooladministrator.current_school.Parents.filter(relationships__Child__Class__in=data['Classes']).distinct()
+            emails = [p.user.email for p in parents]
+            message = f'''
+            {request.user.schooladministrator.current_school} {data["Exam"]} Reports have been published please login as a parent and checkout the reports section.
+            '''
+            send_mail(
+                f'{data["Exam"]} Reports Published',
+                message,
+                'edumetrics@edu-metrics.com',
+                emails
+            )
+            messages.success(request, 'Reports have been published successfully.')
             reports.update(Published=True)
             return redirect('reports')
     else:
