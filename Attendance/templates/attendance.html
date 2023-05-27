@@ -16,7 +16,7 @@
                 <tr class="text-dark">
                     <th scope="col">Date</th>
                     <th class="text-nowrap" scope="col">Class</th>
-                    <th class="text-nowrap" scope="col">Students Attended</th>
+                    <th class="text-nowrap" scope="col">attendance Attended</th>
                     <th class="text-nowrap" scope="col">Actions</th>
                 </tr>
             </thead>
@@ -25,7 +25,7 @@
                 <tr>
                     <td class="text-nowrap text-dark">{{attendance.Date}}</td>
                     <td class="text-nowrap text-dark">{{attendance.Class}}</td>
-                    <td class="text-nowrap text-dark">{{attendance.Students}}</td>
+                    <td class="text-nowrap text-dark">{{attendance.attendance}}</td>
                     <td class="text-nowrap">
                         <a href="" class="btn btn-sm btn-dark">Details</a>
                     </td>
@@ -38,5 +38,52 @@
             </tbody>
         </table>
     </div>
+    
+    <div class="text-center">
+        <ul class="pagination">
+          {% if attendance.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ attendance.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+          {% endif %}
+      
+          {% for i in attendance.paginator.page_range %}
+            {% if attendance.number == i %}
+              <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+      
+          {% if attendance.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ attendance.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+    </div>
+
 </div>
+
+
 {% endblock %}
