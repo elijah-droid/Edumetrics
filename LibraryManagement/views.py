@@ -8,8 +8,10 @@ def books(request):
 
 
 def add_book(request):
+    form = BookForm()
+    form.fields['For_Classes'].queryset = request.user.schooladministrator.current_school.classes.all()
     context = {
-        'form': BookForm()
+        'form': form
     }
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -41,8 +43,11 @@ def returned(request, lendout):
 
 def lend_book(request, book):
     book = Book.objects.get(id=book)
+    form = LendOutForm()
+    form.fields['Student'].queryset = request.user.schooladministrator.current_school.students.all()
     context = {
-        'form': LendOutForm()
+        'form': form,
+        'book': book
     }
     if request.method  == 'POST':
         form = LendOutForm(request.POST)

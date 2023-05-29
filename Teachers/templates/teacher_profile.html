@@ -29,7 +29,7 @@
                     <small class="lead pb-3 mb-5">Teacher's Profile</small>
                     <hr>
                     <p>
-                        {{student}} is a dedicated and hardworking teacher who teaches students in {{student.Class}} {{student.Subjects.all|join:", "}}. 
+                        {{teacher}} is a dedicated and hardworking teacher who teaches students in {{student.Class}} {{student.Subjects.all|join:", "}}. 
                     </p>
                     <section class="py-5 border-bottom wow fadeInUp" data-wow-delay="0.1s">
                         <div class="text-center mb-2">
@@ -243,7 +243,7 @@
 
                 <!-- Contact Start -->
                 <section class="py-5 wow fadeInUp" data-wow-delay="0.1s" id="contact">
-                    <h1 class="">Send Message</h1>
+                    <h5 class="">Send Message</h5>
                     <form method="post" action="{% url 'email-user' teacher.user.id %}">
                         {% csrf_token%}
                         <div class="row g-3">

@@ -217,52 +217,6 @@
                 </div>
             </div>
             <!-- Recent Sales End -->
-
-            <div class="container-xxl py-5">
-                <div class="container">
-                    <div class="row g-5 align-items-center">
-                        <div class="col-lg-6 wow fadeInUp">
-                            <div class="h-100 bg-dark rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <small class="mb-0 text-white lead">Upcoming Examinations</small>
-                                    <a class="text-nowrap" href="">Show All</a>
-                                </div>
-                                {% for exam in user.schooladministrator.current_school.Examinations.all %}
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span class="text-white">{{exam}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% empty %}
-                                <small style="font-size: medium;" class="lead text-white">No upcoming examinations</small>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="col-lg-6 wow fadeInUp">
-                            <div class="h-100 bg-dark rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <small class="mb-0 text-white lead">Upcoming Events</small>
-                                    <a class="text-nowrap" href="">Show All</a>
-                                </div>
-                                {% for event in user.schooladministrator.current_school.Events.all %}
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span class="text-white">{{event}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% empty %}
-                                <small style="font-size: medium;" class="lead text-white">No upcoming events</small>
-                                {% endfor %}
-                            </div>
-                        </div>              
-                    </div>
-                </div>
-            </div> 
-                    
                     
             
             <!-- Widgets End -->

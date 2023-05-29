@@ -229,6 +229,12 @@ def signup_details(request, confirmation):
                 email=confirmation.Email,
                 password=make_password(request.POST['password'])
             )
+            send_email(
+                'Welcome To Edumetrics',
+                'Your Edumetrics user account was created successfully.',
+                'edumetrics@edu-metrics.com',
+                [user.email]
+            )
             messages.success(request, 'Account created successfully.')
             return redirect('/')
         else:
