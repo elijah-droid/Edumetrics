@@ -8,3 +8,4 @@ python-docx==0.8.11
 qrcode==7.4.2
 whitenoise==6.4.0
 mysqlclient==2.1.1
+requests==2.30.0
