@@ -8,13 +8,13 @@ amount = (
 methods = (
     ('MTN MOMO', 'MTN MOMO'),
     ('Airtel Money', 'Airtel Money'),
-    ('Master Card', 'Master Card')
 )
 
 class Subscription(models.Model):
     School = models.ForeignKey('Schools.School', models.CASCADE)
     Parent = models.ForeignKey('Parents.Parent', models.CASCADE)
     Date = models.DateTimeField(default=now)
-    Amount = models.PositiveIntegerField(choices=amount)
-    Method = models.CharField(max_length=100, choices=methods, null=True)
+    Payment = models.ForeignKey('Payments.Payment', models.SET_NULL, null=True)
+
+
 

@@ -18,6 +18,7 @@ class Parent(models.Model):
     address = models.CharField(max_length=255)
     subscribed = models.BooleanField(default=False)
     applications = models.ManyToManyField('Applications.Application', blank=True)
+    current_subscription = models.ForeignKey('Subscriptions.Subscription', models.SET_NULL, null=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'

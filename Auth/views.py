@@ -18,6 +18,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from .models import PasswordReset, EmailConfirmation
 from django.core.exceptions import ObjectDoesNotExist
+from Students.models import Student
 
 def class_teacher_login(request):
     if request.method == 'POST':
@@ -76,10 +77,12 @@ def student_login(request):
         # Get the email and password from the login form
         email = request.POST.get('email')
         password = request.POST.get('password')
-
         # Authenticate the student's credentials
         user = authenticate(request, email=email, password=password)
-
+        try:
+            Student.objects.get(user=user)
+        except Student.DoesNotExist:
+            user = None
         # If the student's credentials are valid, log them in and redirect to dashboard
         if user is not None and user.is_active and user.user_type == 'student':
             login(request, user)
@@ -87,7 +90,7 @@ def student_login(request):
         # If the student's credentials are not valid, show an error message
         else:
             error_message = 'Invalid email or password'
-            return render(request, 'student_login.html', {'error_message': error_message})
+            return render(request, 'student_login.html', {'error': error_message})
     # If the request method is GET, show the login form
     else:
         return render(request, 'student_login.html')
