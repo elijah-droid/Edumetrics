@@ -7,6 +7,7 @@ def admissions(request):
 
 def admit(request):
     form = AdmissionForm()
+    form.fields['Student'].queryset = request.user.schooladministrator.current_school.students.all()
     context = {
         'form': form
     }

@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import view_report, reports, edit_report, student_reports, create_report, publish_batch, child_reports
+from .views import view_report, reports, edit_report, student_reports, create_report, publish_batch, child_reports, export_reports
 
 
 urlpatterns = [
@@ -9,6 +9,7 @@ urlpatterns = [
     path('<int:student>/', student_reports, name="student-reports"),
     path('create/<int:student>/<int:examination>/', create_report, name='create-report'),
     path('publish-batch/', publish_batch, name='publish-batch'),
-    path('children/', child_reports, name="child-reports")
+    path('children/', child_reports, name="child-reports"),
+    path('export/', export_reports, name="export-reports")
 ]
 

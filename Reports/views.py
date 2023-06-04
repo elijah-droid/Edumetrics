@@ -9,6 +9,12 @@ from Students.models import Student
 from Examinations.models import Examination
 import docx
 from django.core.mail import send_mail
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+import zipfile
+from django.http import FileResponse, HttpResponse
 
 
 def reports(request):
@@ -129,3 +135,64 @@ def publish_batch(request):
 
 def child_reports(request):
     return render(request, 'child_reports.html')
+
+def export_reports(request):
+    file_paths = []
+    for report in request.user.schooladministrator.current_school.Reports.all():
+        doc = SimpleDocTemplate(f"{report.id}.pdf", pagesize=A4)
+        file_paths.append(f"{report.id}.pdf")
+
+        # Create a list to hold the flowables (elements) of the document
+        elements = []
+
+        # Define the styles for the document
+        styles = getSampleStyleSheet()
+        title_style = styles["Title"]
+        table_style = TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), "red"),
+                ("TEXTCOLOR", (0, 0), (-1, 0), "white"),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, 0), 14),
+                ("BOTTOMPADDING", (0, 0), (-1, 0), 12),
+                ("TEXTCOLOR", (0, 1), (-1, -1), "black"),
+                ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
+                ("FONTSIZE", (0, 1), (-1, -1), 12),
+                ("ALIGN", (0, 0), (-1, -1), "LEFT"),
+                ("GRID", (0, 0), (-1, -1), 1, "black"),  # Add border to all cells
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),  # Center text vertically in cells
+            ]
+        )
+        try:
+            image_path = report.Student.photo.path
+
+            image = Image(image_path, width=1*inch, height=1*inch)  # Adjust the width and height as needed
+            image.hAlign = "CENTER"  # Center the image horizontally
+            elements.append(image)
+        except:
+            pass
+
+        # Create a title for the document
+        title = Paragraph(str(request.user.schooladministrator.current_school), title_style)
+        elements.append(title)
+
+        # Create a table to display the results
+        data = [["Subject", "Score", "Grade", "Comment"]]
+        for result in report.Results.all():
+            data.append([result.Paper.Subject.name, result.Score, '', ''])
+
+        table = Table(data)
+        table.setStyle(table_style)
+        elements.append(table)
+
+        # Build the PDF document
+        doc.build(elements)
+    zip_name = 'reports.zip'
+    with zipfile.ZipFile(zip_name, 'w') as zipf:
+        for file_path in file_paths:
+            zipf.write(file_path)
+    with open(zip_name, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{zip_name}"'
+        return response

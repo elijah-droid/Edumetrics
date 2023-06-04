@@ -9,7 +9,10 @@
     <hr>
     <div class="d-flex justify-content-between mb-3">
         <a href="{% url 'add-book' %}" class="btn btn-sm btn-dark">Search</a>
-        <a href="{% url 'publish-batch' %}" class="btn btn-sm btn-primary">Publish</a>
+        <div class="btn-group">
+          <a href="{% url 'export-reports' %}" class="btn btn-sm btn-dark">Export</a>
+          <a href="{% url 'publish-batch' %}" class="btn btn-sm btn-primary">Publish</a>
+        </div>
     </div>
     <hr>
     <div class="">

@@ -10,13 +10,13 @@
                     <div class="row g-0">
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                             <div class="h-100 d-flex flex-column justify-content-center p-3">
-                                <h1 class="mb-4">Admit Patient</h1>
+                                <h5 class="mb-4">Admit Patient</h5>
                                 <form method="post" action=".">
                                     {% csrf_token %}
                                     <div class="row g-3">
                                         {{form}}
                                         <div class="col-12">
-                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                            <button class="btn btn-dark w-100 py-3" type="submit">Admit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
                             <div class="position-relative h-100">
-                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/nurse.webp' %}" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100 rounded" src="https://th.bing.com/th/id/R.fce9f841793cc893d6b401bdf048eabc?rik=%2f0y5oKKugtlgSg&pid=ImgRaw&r=0" style="object-fit: cover;">
                             </div>
                         </div>
                     </div>
