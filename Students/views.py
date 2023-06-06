@@ -21,6 +21,15 @@ import plotly.graph_objs as go
 import plotly
 import qrcode
 import os
+import requests
+import json
+
+
+# cPanel API credentials
+api_username = "edumetrics"
+api_token = "B4Z1XQX2I50FLRB57QE6XZA8WEN0K44I"
+domain = "edu-metrics.com"
+api_url = f"https://edu-metrics.com:2083/execute/Email/add_pop"
 
 
 def generate_student_id():
@@ -304,3 +313,34 @@ def search_student(request):
         'form': form
     }
     return render(request, 'search_student.html', context)
+
+
+def setup_account(request, student):
+    student = request.user.schooladministrator.current_school.students.get(id=student)
+    context = {
+        'student': student
+    }
+    if request.method == 'POST':
+        email = request.POST['email']
+        email_password = request.POST['password']
+        payload = {
+            "email": email,
+            "password": email_password,
+            "quota": 250 # Mailbox quota in megabytes
+        }
+
+        # Request headers
+        headers = {
+            "Authorization": f"cpanel {api_username}:{api_token}",
+            "Content-Type": "application/json"
+        }
+
+        # Send API request
+        response = requests.post(api_url, data=json.dumps(payload), headers=headers)
+
+        # Check the response
+        if response.status_code == 200:
+            return HttpResponse(response.text)
+        else:
+            return HttpResponse(f"An error occurred: {response.text}")
+    return render(request, 'set_up_student_account.html', context)

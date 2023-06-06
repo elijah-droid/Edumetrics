@@ -35,8 +35,8 @@
                         <td class="text-nowrap">{{relationship.Child.school.current_term.To}}</td>
                         <td class="text-nowrap">
                             <a href="{% url 'student-reports' relationship.Child.id %}" class="btn btn-sm btn-dark">Reports</a>
-                            <a href="{% url 'child-info' relationship.Child.id %}" class="btn btn-sm btn-primary">More Info</a>
-                            <a href="{% url 'pay-child-fees' relationship.Child.id %}" class="btn btn-sm btn-dark">Pay Fees</a>
+                            <a href="{% url 'child-info' relationship.Child.id %}" class="btn btn-sm btn-dark">More Info</a>
+                            <a href="{% url 'pay-child-fees' relationship.Child.id %}" class="btn btn-sm btn-primary">Pay Fees</a>
                         </td>
                     </tr>
                     {% empty %}
