@@ -10,7 +10,7 @@ from Examinations.models import Examination
 import docx
 from django.core.mail import send_mail
 from reportlab.lib.pagesizes import letter, A4
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 import zipfile
@@ -165,11 +165,11 @@ def export_reports(request):
             ]
         )
         try:
-            image_path = report.Student.photo.path
-
-            image = Image(image_path, width=1*inch, height=1*inch)  # Adjust the width and height as needed
-            image.hAlign = "CENTER"  # Center the image horizontally
-            elements.append(image)
+            image_path1 = report.Student.photo.path
+            image_path2 = report.Student.photo.path
+            image1 = Image(image_path1, width=200, height=200)
+            image2 = Image(image_path1, width=200, height=200)
+            elements.append(image1)
         except:
             pass
 
