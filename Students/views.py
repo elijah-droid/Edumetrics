@@ -9,6 +9,7 @@ import random
 from Classes.models import Class
 import string
 from Enrollments.models import Enrollment
+from django.contrib.auth.hashers import make_password
 import docx
 from django.http import FileResponse
 import io
@@ -340,7 +341,13 @@ def setup_account(request, student):
 
         # Check the response
         if response.status_code == 200:
-            return HttpResponse(response.text)
+            response = json.dumps(response.text)
+            student.user.email = email
+            student.user.username = email
+            student.user.password = make_password(email_password)
+            student.user.save()
+            messages.success(request, 'Student Account set up successfully.')
+            return redirect('student-profile', student=student.id)
         else:
             return HttpResponse(f"An error occurred: {response.text}")
     return render(request, 'set_up_student_account.html', context)
