@@ -102,22 +102,7 @@ def download_students_info(request):
 
 
 def student_dashboard(request):
-    # Get the logged-in student user
-    student = request.user.student
-
-    # Get the student's upcoming exams
-    upcoming_exams = student.exam_set.filter(status='scheduled')
-
-    # Get the student's recent exam results
-    recent_results = student.examresult_set.order_by('-date').all()[:10]
-
-    context = {
-        'student': student,
-        'upcoming_exams': upcoming_exams,
-        'recent_results': recent_results,
-    }
-
-    return render(request, 'student_dashboard.html', context)
+    return render(request, 'students_dashboard.html')
 
 
 @login_required

@@ -78,15 +78,16 @@ def student_login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         # Authenticate the student's credentials
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=email, password=password)
         try:
             Student.objects.get(user=user)
         except Student.DoesNotExist:
             user = None
         # If the student's credentials are valid, log them in and redirect to dashboard
-        if user is not None and user.is_active and user.user_type == 'student':
+        if user is not None:
             login(request, user)
-            return redirect('student_dashboard')
+            request.session['base'] = 'students_dashboard.html'
+            return redirect('students-dashboard')
         # If the student's credentials are not valid, show an error message
         else:
             error_message = 'Invalid email or password'
