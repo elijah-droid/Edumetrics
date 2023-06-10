@@ -350,10 +350,10 @@ def generate_idcard(request, student):
     draw = ImageDraw.Draw(id_card)
 
     # Load fonts
-    font_header = ImageFont.truetype("arial.ttf", 40)
-    font_motto = ImageFont.truetype("arial.ttf", 30)
-    font_text = ImageFont.truetype("arial.ttf", 30)
-    font_generated_by = ImageFont.truetype("arial.ttf", 20)
+    font_header = ImageFont.truetype("./ARIAL.TTF", 40)
+    font_motto = ImageFont.truetype("./ARIAL.TTF", 30)
+    font_text = ImageFont.truetype("./ARIAL.TTF", 30)
+    font_generated_by = ImageFont.truetype("./ARIAL.TTF", 20)
 
     # Add badge to the upper left corner with white background
     badge = Image.open("../badge.png")
