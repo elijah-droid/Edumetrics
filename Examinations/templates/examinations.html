@@ -26,7 +26,7 @@
                     <td class="text-nowrap text-dark">{{exam.Date}}</td>
                     <td class="text-nowrap">
                         <a href="{% url 'exam-papers' exam.id %}" class="btn btn-sm btn-primary">Papers</a>
-                        <a href="" class="btn btn-sm btn-dark">Reports</a>
+                        <a href="{% url 'exam-reports' exam.id %}" class="btn btn-sm btn-dark">Reports</a>
                     </td>
                 </tr>
                 {% empty %}

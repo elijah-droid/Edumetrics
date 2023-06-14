@@ -173,6 +173,7 @@ def change_student(request, student):
     student = request.user.schooladministrator.current_school.students.get(pk=student)
     form = StudentForm(instance=student)
     form.fields['Subjects'].queryset = student.Class.Level.Subjects.all()
+    form.fields['Programme'].queryset =request.user.schooladministrator.current_school.Programmes.all()
     if student.Class.Streams.all():
         form.fields['Stream'].queryset = student.Class.Streams.all()
     else:
@@ -224,6 +225,7 @@ def edit_student(request, student_id):
             return redirect('student_list')
     else:
         form = StudentForm(instance=student)
+        
     return render(request, 'edit_student.html', {'form': form, 'student': student})
 
 def delete_student(request, student_id):
