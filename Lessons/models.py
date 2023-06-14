@@ -21,5 +21,8 @@ class Lesson(models.Model):
     Teacher = models.ForeignKey('Teachers.Teacher', models.SET_NULL, null=True)
     Roll_Calls = models.ManyToManyField('Attendance.RollCall')
 
+    def __str__(self):
+        return f'{self.Subject} {self.From}'
+
     class Meta:
         unique_together = ('School', 'Class', 'Teacher', 'Subject', 'Day')

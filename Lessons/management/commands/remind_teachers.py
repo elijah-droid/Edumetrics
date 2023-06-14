@@ -1,6 +1,8 @@
 from django.core.management.base import BaseCommand
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from Teachers.models import Teacher
+from django.utils.timezone import now
 
 
 
@@ -8,17 +10,25 @@ class Command(BaseCommand):
     help = 'Send Reminders For Teachers Lessons'
 
     def handle(self, *args, **options):
-        for user in User.objects.exclude(email=None):
-            ls = ', '(f'{lessons.filter(School=p.School).count()} in {p.School} that is {", ".join(f'{l} @ {l.time} in {l.Class}' for l in lessons.filter(School=p.School))}' for p in teacher.work_profile if lessons.filter(School=p.School).count() >= 1)
-            lessons_to_teach = ", ".join(f'{l} @ {l.time} in {l.Class}' for l in lessons)
+        day = now().strftime("%A")
+        teachers = Teacher.objects.filter(Lessons__Day=day).distinct()
+        print(teachers)
+        for teacher in teachers:
+            lessons = teacher.Lessons.filter(Day=day)
             message = f'''
-            You have {ls} Today,
-            {lessons_to_teach}
+            Good Morning Teacher {teacher.user.first_name},
+
+            You have {lessons.count()} Lesson(s) to teach today.
+
+            {', '.join(f'{lesson.Subject} at {lesson.From}' for lesson in lessons)}.
+
+            Have a nice day
+
             '''
             send_mail(
-                f'Good Morning Teacher {teacher.user.first_name}',
+                "Teacher's Lessons reminder",
                 message,
                 'edumetrics@edu-metrics.com',
                 [teacher.user.email]
             )
-        self.stdout.write('sent successfully')
+        self.stdout.write('Lesson reminders sent successfully')
