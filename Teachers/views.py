@@ -178,7 +178,7 @@ def terminate_teacher(request, teacher):
             send_mail(
                 'TERMINATION NOTICE',
                 message,
-                "edumetrics@edu-metrics.com",
+                "Edumetrics <info@edu-metrics.com>",
                 [teacher.user.email]
             )
             messages.success(request, "Teacher has been terminated successfully.")
@@ -225,7 +225,7 @@ def confirm_recruit(request, user):
                 send_mail(
                     'You have been recruited',
                     message,
-                    'edumetrics@edu-metrics.com',
+                    'Edumetrics <info@edu-metrics.com>',
                     [teacher.user.email]
                 )
                 messages.success(request, f'Teacher recruited successfully.')

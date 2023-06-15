@@ -80,9 +80,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.edu-metrics.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'edumetrics@edu-metrics.com'
+EMAIL_HOST_USER = 'Edumetrics <info@edu-metrics.com>'
 EMAIL_HOST_PASSWORD = 'intention12@'
-DEFAULT_FROM_EMAIL = 'edumetrics@edu-metrics.com'
+DEFAULT_FROM_EMAIL = 'Edumetrics <info@edu-metrics.com>'
 
 
 # Application definition

@@ -12,7 +12,7 @@ class Command(BaseCommand):
             send_mail(
                 f'Good Morning {user.first_name}',
                 'Remember to start your day with a prayer.',
-                'edumetrics@edu-metrics.com',
+                'Edumetrics <info@edu-metrics.com>',
                 [user.email]
             )
         self.stdout.write('greeted users successfully')

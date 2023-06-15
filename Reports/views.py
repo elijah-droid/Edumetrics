@@ -123,7 +123,7 @@ def publish_batch(request):
             send_mail(
                 f'{data["Exam"]} Reports Published',
                 message,
-                'edumetrics@edu-metrics.com',
+                'Edumetrics <info@edu-metrics.com>',
                 emails
             )
             messages.success(request, 'Reports have been published successfully.')

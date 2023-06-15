@@ -58,7 +58,7 @@ def roll_call(request, lesson):
                 send_mail(
                     'Lesson Missed',
                     message,
-                    'edumetrics@edu-metrics.com',
+                    'Edumetrics <info@edu-metrics.com>',
                     emails
                 )
             roll_call = form.save(commit=False)

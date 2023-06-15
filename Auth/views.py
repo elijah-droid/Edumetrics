@@ -236,7 +236,7 @@ def signup_details(request, confirmation):
             send_email(
                 'Welcome To Edumetrics',
                 'Your Edumetrics user account was created successfully.',
-                'edumetrics@edu-metrics.com',
+                'Edumetrics <info@edu-metrics.com>',
                 [user.email]
             )
             messages.success(request, 'Account created successfully.')

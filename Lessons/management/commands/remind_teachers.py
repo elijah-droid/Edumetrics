@@ -28,7 +28,7 @@ class Command(BaseCommand):
             send_mail(
                 "Teacher's Lessons reminder",
                 message,
-                'edumetrics@edu-metrics.com',
+                'Edumetrics <info@edu-metrics.com>',
                 [teacher.user.email]
             )
         self.stdout.write('Lesson reminders sent successfully')
