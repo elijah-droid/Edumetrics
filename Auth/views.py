@@ -206,7 +206,7 @@ def signup(request):
             send_mail(
                 'Email Confirmation Code',
                 message,
-                'edumetrics@edu-metrics.com',
+                'Edumetrics <info@edu-metrics.com>',
                 [email]
             )
             try:
