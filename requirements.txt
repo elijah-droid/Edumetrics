@@ -10,3 +10,4 @@ whitenoise==6.4.0
 mysqlclient==2.1.1
 requests
 reportlab==4.0.4
+pytz
