@@ -12,3 +12,8 @@ class PasswordReset(models.Model):
 class EmailConfirmation(models.Model):
     Email = models.EmailField(max_length=100)
     Code = models.CharField(max_length=100)
+
+
+class TelConfirmation(models.Model):
+    Tel = models.PositiveIntegerField()
+    Code = models.CharField(max_length=100)

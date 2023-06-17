@@ -16,6 +16,14 @@ from pathlib import Path
 import os
 from django.urls import reverse
 
+culipa_headers = {
+  'api-key': '9B5930203A974B3B48574E3AFA597BD7DA2E4E0A1C2578B40FA0B1F6526401D2',
+  'merchant': 'Edumetrics',
+  'Content-Type': 'application/json'
+}
+
+
+
 my_apps = [
     'Auth',
     'Examinations',
@@ -132,8 +140,10 @@ INSTALLED_APPS = [
     'EducationHistory',
     'TeachingHistory',
     'BroadCasts',
-    'Payments'
+    'Payments',
 ]
+
+ASGI_APPLICATION = "Edumetrics.asgi.application"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

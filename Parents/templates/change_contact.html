@@ -1,0 +1,39 @@
+{% extends request.session.base %}
+{% load static %}
+
+
+
+{% block content %}
+        <!-- Appointment Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="rounded">
+                    <div class="row g-0">
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="h-100 d-flex flex-column justify-content-center p-3">
+                                <h5 class="mb-4">Add Telephone Number</h5>
+                                <form enctype="multipart/form-data" method="post" action="." class="text-dark" >
+                                    {% csrf_token %}
+                                    <div class="row g-3">
+                                        <div class="form-outline">
+                                            <label for="">Telephone</label>
+                                            <input name="tel" type="number" class="form-control">
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100 rounded" src="https://th.bing.com/th/id/R.28a5a7a83f4a1b78b10c94706346f6d8?rik=G%2fvjZ8POzgJz3g&pid=ImgRaw&r=0" style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Appointment End -->
+{% endblock %}

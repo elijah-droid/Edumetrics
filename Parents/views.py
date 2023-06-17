@@ -7,6 +7,13 @@ from .models import Parent, Relationship
 from .forms import ParentForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from twilio.rest import Client
+from Students.views import generate_student_id
+from Auth.models import TelConfirmation
+
+account_sid = 'ACbb262c951b8d4c9682aabfc430dbc918'
+auth_token = '06e6afd0b198fc0eb0d8a8ba6c125d5b'
+client = Client(account_sid, auth_token)
 
 
 
@@ -81,3 +88,37 @@ def parent_profile(request, parent):
 
 def parent_kids(request):
     return render(request, 'parent_kids.html')
+
+def change_contact(request):
+    code = generate_student_id()
+    if request.method == 'POST':
+        tel = request.POST['tel']
+        message = client.messages.create(
+            from_='+14067957780',
+            body='Edumetrics Confirmation Code',
+            to='+256'+tel
+        )
+        try:
+            confirmation = TelConfirmation.objects.get(
+                Tel=tel
+            )
+            confirmation.Code = code
+        except TelConfirmation.DoesNotExist:
+            TelConfirmation.objects.create(
+                Tel=tel,
+                Code=code
+            )
+        print(message.sid)
+        return redirect('.')
+    else:
+        return render(request, 'change_contact.html')
+
+
+def confirm_contact(request, confirmation):
+    cf = TelConfirmation.objects.get(id=confirmation)
+    if request.method == 'POST':
+       pass 
+    else:
+        return render(request, 'change_contact.html')
+
+

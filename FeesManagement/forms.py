@@ -14,11 +14,14 @@ class PaymentDueForm(forms.ModelForm):
 
 
 class PaymentForm(forms.ModelForm):
+    
+    parent_email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
+    payment_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Payment
-        fields = ['parent', 'Student', 'Method', 'Amount']
+        fields = ['Student', 'Method', 'Amount']
         widgets = {
-            'parent': forms.Select(attrs={'class': 'form-control'}),
             'Student': forms.Select(attrs={'class': 'form-control'}),
             'Method': forms.Select(attrs={'class': 'form-control'}),
             'Amount': forms.NumberInput(attrs={'class': 'form-control'}),

@@ -4,6 +4,11 @@ from .models import PaymentDue
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.core.mail import send_mail
+from Edumetrics.settings import culipa_headers as headers
+import requests
+import json
+
+url = "https://culipay.ug/initiate"
 
 def dues(request):
     dues = PaymentDue.objects.all()
@@ -41,7 +46,6 @@ def add_due(request):
 def add_due_payment(request, due):
     form = PaymentForm()
     due = request.user.schooladministrator.current_school.Dues.get(id=due)
-    form.fields['parent'].queryset = request.user.schooladministrator.current_school.Parents.all()
     form.fields['Student'].queryset = request.user.schooladministrator.current_school.students.all()
     context = {
         'form': form
@@ -49,6 +53,18 @@ def add_due_payment(request, due):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
+            memo = f"{request.user.schooladministrator.current_school} {due.Reason}"
+            payload = json.dumps({
+                "account": str(form.cleaned_data['payment_number']),
+                "amount": form.cleaned_data['Amount'],
+                "currency": "UGX",
+                "wallet": "MTNUG",
+                "transactionID": "28531g2GHd1826etad",
+                "merchant": "Edumetrics",
+                "memo": memo
+            })
+            response = requests.request("POST", url, headers=headers, data=payload)
+            print(json.dumps(response.text))
             payment = form.save(commit=False)
             payment.Due = due
             payment.paid_via = 'School'

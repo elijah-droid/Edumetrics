@@ -1,6 +1,6 @@
-from django.urls import path
-from . import views
+from django.urls import re_path
+from . import consumers
 
 urlpatterns = [
-    path('room/<str:room_name>/', views.chat_room, name='chat_room'),
+    re_path(r'ws/chat/(?P<room_name>\w+)/$', consumers.ChatConsumer.as_asgi()),
 ]

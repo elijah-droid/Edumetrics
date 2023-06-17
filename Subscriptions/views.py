@@ -5,15 +5,12 @@ from .models import Subscription
 import requests
 import json
 from Payments.models import Payment
+from django.contrib import messages
+from Edumetrics.settings import culipa_headers as headers
 
-url = "https://test.culipay.ug/initiate"
+url = "https://culipay.ug/initiate"
 
-
-headers = {
-  'api-key': '77161E10B9125FC634B752608F14623079253B629E1E673DB1EF8139EB962910',
-  'merchant': 'Edumetrics',
-  'Content-Type': 'application/json'
-}
+test_url = "https://test.culipay.ug/initiate"
 
 def subscriptions(request):
     subscriptions = Subscription.objects.all()
@@ -31,12 +28,17 @@ def subscribe_parent(request):
         form = SubscriptionForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            try:
+                parent = Parent.objects.get(user__email=data['Parent'])
+            except Parent.DoesNotExist:
+                messages.success(request, 'The email entered is unregistered')
+                return redirect('.')
             payload = json.dumps({
                 "account": str(data['account']),
-                "amount": data['amount'],
+                "amount": '500',
                 "currency": "UGX",
                 "wallet": "MTNUG",
-                "transactionID": "28531g2GHd1826eta5",
+                "transactionID": "28531g2GHd1826etad",
                 "merchant": "Edumetrics",
                 "memo": "Edumetrics Subscription"
             })
@@ -59,10 +61,10 @@ def subscribe_parent(request):
                 Status=response_data['status'],
                 account=response_data['payment']['account']
             )
-            parent = Parent.objects.get(user__email=data['Parent'])
             subscription = Subscription.objects.create(
                 Parent=parent,
                 Payment=payment,
+                School=request.user.schooladministrator.current_school
             )
             parent.current_subscription = subscription
             parent.save()

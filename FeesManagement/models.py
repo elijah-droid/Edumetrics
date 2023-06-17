@@ -4,8 +4,8 @@ from django.utils.timezone import now
 
 methods = (
     ('Cash', 'Cash'),
-    ('Bank', 'Bank'),
-    ('Mobile Money', 'Mobile Money'),
+    ('MTNUG', 'MTNUG'),
+    ('AIRTELUG', 'AIRTELUG'),
     ('Other', 'Other')
 )
 
