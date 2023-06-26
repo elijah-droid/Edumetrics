@@ -4,12 +4,14 @@ from .views import index, user_dashboard, contact_us, about_us, email_user, emai
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import chat_room
 
 
 admin.site.site_header = "Edumetrics Inc"
 
 urlpatterns = [
     path('', index, name='index'),
+    path('chat/<str:room_name>/', chat_room, name='chat_room'),
     path('user/dashboard/', user_dashboard, name="user-dashboard"),
     path('auth/', include('Auth.urls')),
     path('school-admin/', include('SchoolAdministrators.urls')),
