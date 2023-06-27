@@ -233,7 +233,7 @@ def signup_details(request, confirmation):
                 email=confirmation.Email,
                 password=make_password(request.POST['password'])
             )
-            send_email(
+            send_mail(
                 'Welcome To Edumetrics',
                 'Your Edumetrics user account was created successfully.',
                 'Edumetrics <info@edu-metrics.com>',
