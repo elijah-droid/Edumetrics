@@ -12,6 +12,7 @@ def add_class(request):
     form = ClassForm(initial={'Index': request.user.schooladministrator.current_school.classes.count()+1})
     form.fields['Name'].choices = ((c[0], c[0])  for c in form.fields['Name'].choices if c[0] not in [c.Name for c in request.user.schooladministrator.current_school.classes.all()])
     form.fields['Class_Teacher'].queryset = request.user.schooladministrator.current_school.Teachers.all()
+    form.fields['Level'].queryset = request.user.schooladministrator.current_school.Levels.all()
     content = {
         'form': form
     }

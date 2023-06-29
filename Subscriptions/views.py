@@ -47,8 +47,6 @@ def subscribe_parent(request):
                 try:
                     # Parse the response as JSON
                     response_data = json.loads(response.text)
-
-                    # Print the parsed response
                     print(response_data)
                 except json.JSONDecodeError as e:
                     print("Failed to decode response JSON:", str(e))
