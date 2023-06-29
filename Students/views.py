@@ -128,6 +128,12 @@ def select_student_class(request):
 
 
 @login_required
+def change_studentclass(request, student):
+    student = request.user.schooladministrator.current_school.Students.get(id=student)
+    return render(request, 'change_studentclass.html')
+
+
+@login_required
 def enroll_student(request, clas):
     clas = request.user.schooladministrator.current_school.classes.get(id=clas)
     form = StudentForm(initial={'student_id': generate_student_id()})
@@ -172,25 +178,36 @@ def enroll_student(request, clas):
 def change_student(request, student):
     student = request.user.schooladministrator.current_school.students.get(pk=student)
     form = StudentForm(instance=student)
-    form.fields['Subjects'].queryset = student.Class.Level.Subjects.all()
     form.fields['Programme'].queryset =request.user.schooladministrator.current_school.Programmes.all()
-    if student.Class.Streams.all():
-        form.fields['Stream'].queryset = student.Class.Streams.all()
-    else:
-        del form.fields['Stream']
-    if student.Class.Level.Name != 'Advance Level':
-        del form.fields['Combination']
-    context = {
-        'form': form
-    }
-    if request.method == 'POST':
-        form = StudentForm(request.POST, request.FILES, instance=student)
+    if student.Class:
+        form.fields['Subjects'].queryset = student.Class.Level.Subjects.all()
         if student.Class.Streams.all():
             form.fields['Stream'].queryset = student.Class.Streams.all()
         else:
             del form.fields['Stream']
         if student.Class.Level.Name != 'Advance Level':
             del form.fields['Combination']
+    else:
+        del form.fields['Stream']
+        del form.fields['Combination']
+        del form.fields['Subjects']
+    context = {
+        'form': form
+    }
+    if request.method == 'POST':
+        form = StudentForm(request.POST, request.FILES, instance=student)
+        if student.Class:
+            form.fields['Subjects'].queryset = student.Class.Level.Subjects.all()
+            if student.Class.Streams.all():
+                form.fields['Stream'].queryset = student.Class.Streams.all()
+            else:
+                del form.fields['Stream']
+            if student.Class.Level.Name != 'Advance Level':
+                del form.fields['Combination']
+        else:
+            del form.fields['Stream']
+            del form.fields['Combination']
+            del form.fields['Subjects']
         if form.is_valid():
             student = form.save()
             messages.success(request, f'Student {student.first_name} {student.last_name} info was changed successfully.')
