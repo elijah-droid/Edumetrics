@@ -135,10 +135,11 @@ def change_permissions(request, admin):
                 Your adminship rights at {request.user.schooladministrator.current_school}.
                 Have been changed.
             '''
+
             send_mail(
                 'Access Review',
                 message,
-                f'{request.user.schooladministrator.current_school} <info@edu-metrics.com>',,
+                f'{request.user.schooladministrator.current_school} <info@edu-metrics.com>',
                 [adminship.Admin.user.email]
             )
         return redirect('school-administrators')
