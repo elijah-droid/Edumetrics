@@ -101,7 +101,7 @@ def register_schooladmin(request):
                 send_mail(
                     'You are now an Admin',
                     message,
-                    'Edumetrics <info@edu-metrics.com>',
+                    f'{request.user.schooladministrator.current_school} <info@edu-metrics.com>',
                     [adminship.Admin.user.email]
                 )
                 return redirect('school-administrators')
@@ -138,7 +138,7 @@ def change_permissions(request, admin):
             send_mail(
                 'Access Review',
                 message,
-                'Edumetrics <info@edu-metrics.com>',
+                f'{request.user.schooladministrator.current_school} <info@edu-metrics.com>',,
                 [adminship.Admin.user.email]
             )
         return redirect('school-administrators')
