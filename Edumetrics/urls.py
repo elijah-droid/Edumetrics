@@ -50,6 +50,7 @@ urlpatterns = [
     path('requirements/', include('Requirements.urls')),
     path('Levels/', include('Levels.urls')),
     path('broadcasts/', include('BroadCasts.urls')),
+    path('chats/', include('Chats.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

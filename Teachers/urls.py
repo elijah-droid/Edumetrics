@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import teachers_dashboard, my_students, teacher_list, recruit_teacher, teacher_profile, fellow_staff, change_teacher_profile, terminate_teacher, confirm_recruit
+from .views import teachers_dashboard, my_students, teacher_list, recruit_teacher, teacher_profile, fellow_staff, change_teacher_profile, terminate_teacher, confirm_recruit, communicate
 
 
 urlpatterns = [
@@ -11,5 +11,6 @@ urlpatterns = [
     path('fellows/', fellow_staff, name='fellow-staff'),
     path('change-profile/<int:teacher>/', change_teacher_profile, name='change-teacher-profile'),
     path('terminate/<int:teacher>/', terminate_teacher, name='terminate-teacher'),
-    path('confirm-recruit/<int:user>/', confirm_recruit, name='confirm-recruit')
+    path('confirm-recruit/<int:user>/', confirm_recruit, name='confirm-recruit'),
+    path('communicate/', communicate, name='teachers-communicate')
 ]

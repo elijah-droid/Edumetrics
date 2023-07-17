@@ -237,4 +237,5 @@ def confirm_recruit(request, user):
         return render(request, 'confirm_recruit.html', context)
 
 
-    
+def communicate(request):
+    return render(request, 'teachers_communicate.html')

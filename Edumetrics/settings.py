@@ -71,7 +71,7 @@ CELERY_BEAT_SCHEDULE = {
 SECRET_KEY = 'django-insecure-#4xjdr0@zw4nzy(697deby!li%wop2zkl%vf4hlt$9e$r^*z5('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['192.168.137.1', '127.0.0.1', 'edu-metrics.com', 'mail.edu-metrics.com', 'www.edu-metrics.com']
 
 LOGIN_URL = '/'
@@ -139,7 +139,9 @@ INSTALLED_APPS = [
     'TeachingHistory',
     'BroadCasts',
     'Payments',
-    'channels'
+    'channels',
+    'Chats',
+    'corsheaders',
 ]
 
 ASGI_APPLICATION = "Edumetrics.asgi.application"
@@ -151,14 +153,17 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'Edumetrics.session_middleware.SessionMiddleware',
     'Edumetrics.nocache_middleware.NoCacheMiddleware' 
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 ROOT_URLCONF = 'Edumetrics.urls'
 
