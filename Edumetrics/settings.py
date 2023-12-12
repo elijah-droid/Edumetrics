@@ -1,8 +1,13 @@
-
-
 from pathlib import Path
 import os
 from django.urls import reverse
+import pymysql
+import sys
+
+
+
+
+pymysql.install_as_MySQLdb()
 
 culipa_headers = {
   'api-key': '9B5930203A974B3B48574E3AFA597BD7DA2E4E0A1C2578B40FA0B1F6526401D2',
@@ -190,10 +195,19 @@ DATABASES = {
         'HOST': 'edu-metrics.com',
         'PORT': '3306',
         'OPTIONS': {
-            'sql_mode': 'STRICT_TRANS_TABLES',
+            'charset': 'utf8mb4',
+            'use_unicode': True,
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     }
 }
+
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'testdb'
+    }
 
 
 # Password validation
@@ -220,7 +234,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Africa/Kampala'
+TIME_ZONE = 'Africa/kampala'
     
 
 USE_I18N = True

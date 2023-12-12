@@ -7,13 +7,8 @@ from .models import Parent, Relationship
 from .forms import ParentForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from twilio.rest import Client
 from Students.views import generate_student_id
 from Auth.models import TelConfirmation
-
-account_sid = 'ACbb262c951b8d4c9682aabfc430dbc918'
-auth_token = '06e6afd0b198fc0eb0d8a8ba6c125d5b'
-client = Client(account_sid, auth_token)
 
 
 

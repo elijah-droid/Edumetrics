@@ -3,7 +3,7 @@ from django.urls import reverse
 from Parents.models import Parent
 from django.contrib.auth.models import User
 
-class LoginParentViewTestCase(TestCase):
+class AuthTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
