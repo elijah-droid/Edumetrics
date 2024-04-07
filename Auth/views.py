@@ -19,6 +19,10 @@ from django.utils.html import strip_tags
 from .models import PasswordReset, EmailConfirmation
 from django.core.exceptions import ObjectDoesNotExist
 from Students.models import Student
+from ApiKeys.models import ApiKey
+from django.http import JsonResponse
+import uuid
+import json
 
 def class_teacher_login(request):
     if request.method == 'POST':
@@ -99,11 +103,10 @@ def student_login(request):
 
 
 def admin_login(request):
-    if request.user.is_authenticated:
-        return redirect('admin_dashboard')
     if request.method == 'POST':
-        username = request.POST['email']
-        password = request.POST['password']
+        body = json.loads(request.body)
+        username = body['email']
+        password = body['password']
         user = authenticate(request, username=username, password=password)
         try:
             admin = SchoolAdministrator.objects.get(user=user)
@@ -112,16 +115,25 @@ def admin_login(request):
         except SchoolAdministrator.DoesNotExist:
             user = None 
         if user is not None:
-            login(request, user)
-            request.session['base'] = 'admins_dashboard.html'
-            if request.user.schooladministrator.current_school is None:
+            try:
+                key = ApiKey.objects.get(user=user)
+                key.key = uuid.uuid4()
+                key.save()
+            except ObjectDoesNotExist:
+                key = ApiKey.objects.create(user=user)
+            if user.schooladministrator.current_school is None:
                 school = random.choice(request.user.schooladministrator.schools.all())
             else: 
-                school = request.user.schooladministrator.current_school
-            return redirect('set-school-session', school=school.id)
+                school = user.schooladministrator.current_school
+            data = {
+                'apikey': key.key,
+                'userid': user.id,
+            }
+            return JsonResponse(data)
         else:
             error_message = "Invalid login credentials. Please try again."
-            return render(request, 'admin_login.html', {'error': error_message})
+            data = {'error': error_message}
+            return JsonResponse(data, status=404)
 
     return render(request, 'admin_login.html')
 

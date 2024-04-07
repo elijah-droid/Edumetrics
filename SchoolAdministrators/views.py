@@ -14,6 +14,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
+import json
+from ApiKeys.models import ApiKey
+from django.core.serializers import serialize
+from django.http import JsonResponse
 
 @login_required
 def school_admin_dashboard(request):
@@ -59,11 +63,14 @@ def school_admin_dashboard(request):
 
 
 def school_administrators(request):
-    admins = Adminship.objects.filter(School=request.user.schooladministrator.current_school)
-    context = {
-        'admins': admins
-    }
-    return render(request, 'school_administrators.html', context)
+    body = json.loads(request.body)
+    key = body['token']
+    user = ApiKey.objects.get(key=key).user
+    admins = Adminship.objects.filter(School=user.schooladministrator.current_school)
+    serialized_data = serialize('json', admins)
+    data = json.loads(serialized_data)
+    return JsonResponse(data, safe=False)
+    
 
 
 def teacher_administrators(request):

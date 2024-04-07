@@ -41,6 +41,7 @@ my_apps = [
     'Terms',
     'Enrollments',
     'Messages',
+    'ApiKeys'
 ]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -91,6 +92,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'Auth',
     'Examinations',
     'Parents',
@@ -132,6 +134,7 @@ INSTALLED_APPS = [
     'Payments',
     'channels',
     'Chats',
+    'ApiKeys'
 ]
 
 ASGI_APPLICATION = "Edumetrics.asgi.application"
@@ -140,6 +143,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -151,7 +155,8 @@ MIDDLEWARE = [
     'Edumetrics.nocache_middleware.NoCacheMiddleware' 
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 
 ROOT_URLCONF = 'Edumetrics.urls'
